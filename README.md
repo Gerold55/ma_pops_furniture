@@ -14,6 +14,9 @@ DanJohansen(Newgrounds)     |All music used
 
 Nathan.S		     Helped with a ton of the coding and models making this mod possible
 
+Toaster Code: 
+Special thanks to GreenDimond for the code. 
+
 Freezer Mod:   
 https://forum.minetest.net/viewtopic.php?f=9&t=14925
 
@@ -42,13 +45,9 @@ For helping out with the microwave.
 
 Each item used as tool and what it does:
 
-Hammer: Rotates and/or changes the type of sofa and bookshelf.
-
-Hammer1: Rotates and/or changes the type of counter and table.
+Hammer: Rotates and/or changes the type of sofa.
 
 Shears: "Trims" the hedges making it possible for different rotation and direction of hedge.
-
-Saw: Used to turn a bookshelf into a wall bookshelf.
 
 ==================================================================
 License of source code and textures: WTFPL
