@@ -517,7 +517,7 @@ minetest.register_node("ma_pops_furniture:mirror_closed", {
    paramtype = "light",
    paramtype2 = "facedir",
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-   on_rightclick = function(pos, node, puncher)
+   on_punch = function(pos, node, puncher)
 		minetest.env:add_node(pos, {name = "ma_pops_furniture:mirror", param2 = node.param2})
 		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:mirror_closed", "ma_pops_furniture:mirror" );
 		end,
@@ -546,7 +546,7 @@ minetest.register_node("ma_pops_furniture:mirror", {
    paramtype2 = "facedir",
    drop = "ma_pops_furniture:mirror_closed",
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
-   on_rightclick = function(pos, node, puncher)
+   on_punch = function(pos, node, puncher)
 		minetest.env:add_node(pos, {name = "ma_pops_furniture:mirror_closed", param2 = node.param2})
 		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:mirror", "ma_pops_furniture:mirror_closed" );
 		end,
