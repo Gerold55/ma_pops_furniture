@@ -270,7 +270,7 @@ minetest.register_node("ma_pops_furniture:light", {
 	node.name = "ma_pops_furniture:light_on"
 	minetest.set_node(pos, node)
 	end,
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -300,7 +300,7 @@ minetest.register_node("ma_pops_furniture:light_on", {
 	node.name = "ma_pops_furniture:light"
 	minetest.set_node(pos, node)
 	end,
-	groups = {choppy = 2, oddly_breakable_by_hand = 2},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -701,8 +701,7 @@ for i in ipairs (chair_table) do
 
 minetest.register_node('ma_pops_furniture:chair_'..material, {
 	description = name,
-	drawtype = 'mesh',
-	mesh = 'FM_chair.obj',
+	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
@@ -711,20 +710,17 @@ minetest.register_node('ma_pops_furniture:chair_'..material, {
 	on_rightclick = function(pos, node, clicker)
 		ma_pops_furniture.sit(pos, node, clicker)
 		end,
-	selection_box = {
-		type = 'fixed',
+	node_box = {
+		type = "fixed",
 		fixed = {
-			{-.4, -.4, -.3, .4, 0, .5},
-			{-.4, 0, .3, .4, .62, .4},
-			}
-		},
-	collision_box = {
-		type = 'fixed',
-		fixed = {
-			{-.4, -.4, -.3, .4, 0, .5},
-			{-.4, 0, .3, .4, .62, .4},
-			}
-		},
+			{-0.375, -0.5, -0.4375, -0.1875, 0, -0.25}, -- NodeBox1
+			{-0.375, -0.5, 0.25, -0.1875, 0, 0.4375}, -- NodeBox2
+			{0.1875, -0.5, 0.25, 0.375, 0, 0.4375}, -- NodeBox3
+			{0.1875, -0.5, -0.4375, 0.375, 0, -0.25}, -- NodeBox4
+			{-0.375, 0, -0.4375, 0.375, 0.1875, 0.4375}, -- NodeBox5
+			{-0.375, 0.1875, 0.3125, 0.375, 0.875, 0.4375}, -- NodeBox6
+		}
+	}
 })
 end
 
@@ -1325,11 +1321,11 @@ minetest.register_node("ma_pops_furniture:chair2_"..color, {
 })
 end
 
-local rbt = {name="mp_wool_coloured_rainbow.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=7.0}}
+local rbt = {name="mp_wool_coloured_rainbow.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=10}}
 
-local rbt_cb = {name="mp_wool_coloured_rainbow.png^mp_r_cb.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=7.0}}
+local rbt_cb = {name="mp_wool_coloured_rainbow.png^mp_r_cb.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=10}}
 
-local rbt_cf = {name="mp_wool_coloured_rainbow.png^mp_r_cf.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=7.0}}
+local rbt_cf = {name="mp_wool_coloured_rainbow.png^mp_r_cf.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=10}}
 
 minetest.register_node("ma_pops_furniture:chair2_rainbow", {
     description = "Rainbow Chair",
@@ -1357,6 +1353,7 @@ minetest.register_node("ma_pops_furniture:chair2_rainbow", {
         },
     }
 })
+
 
 local fs_table = { --name, color, colorize(hex or color name:intensity(1-255))
 {'Black', 'black', 'black:225'},
@@ -1401,11 +1398,11 @@ minetest.register_node("ma_pops_furniture:fs_"..color, {
 })
 end
 
-local rbt = {name="mp_wool_coloured_rainbow.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=7.0}}
+local rbt = {name="mp_wool_coloured_rainbow.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=10}}
 
-local rbt_cb = {name="mp_wool_coloured_rainbow.png^mp_r_cb.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=7.0}}
+local rbt_cb = {name="mp_wool_coloured_rainbow.png^mp_r_cb.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=10}}
 
-local rbt_cf = {name="mp_wool_coloured_rainbow.png^mp_r_cf.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=7.0}}
+local rbt_cf = {name="mp_wool_coloured_rainbow.png^mp_r_cf.png", animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=10}}
 
 minetest.register_node('ma_pops_furniture:fs_rainbow', {
     description = "Rainbow Footstool",
@@ -1574,15 +1571,38 @@ minetest.register_node('ma_pops_furniture:fireplace_on', {
 	end,
 })
 
-minetest.register_node("ma_pops_furniture:lamp", {
-	description= "Lamp",
-	tiles= {"mp_lt.png","mp_lb.png","mp_ls.png","mp_ls.png","mp_ls.png","mp_ls.png",},
+local lamp_table = { --name, color, colorize(hex or color name:intensity(1-255))
+{'Black', 'black', 'black:225'},
+{'Blue', 'blue', 'blue:225'},
+{'Brown', 'brown', 'brown:225'},
+{'Cyan', 'cyan', 'cyan:200'},
+{'Dark Green', 'dark_green', 'green:225'},
+{'Dark Grey', 'dark_grey', 'black:200'},
+{'Green', 'green', '#32cd32:150'},
+{'Grey', 'grey', 'black:100'},
+{'Magenta', 'magenta', 'magenta:200'},
+{'Orange', 'orange', 'orange:225'},
+{'Pink', 'pink', 'pink:225'},
+{'Red', 'red', 'red:225'},
+{'Violet', 'violet', 'violet:225'},
+{'White', 'white', 'white:1'},
+{'Yellow', 'yellow', 'yellow:225'},
+}
+
+for i in ipairs (lamp_table) do
+	local name = lamp_table[i][1]
+	local color = lamp_table[i][2]
+	local hex = lamp_table[i][3]
+
+minetest.register_node("ma_pops_furniture:lamp_"..color, {
+	description= name.. " Lamp",
+	tiles= {"mp_lt.png","mp_lb_middle.png^[colorize:"..hex.."^mp_lb.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png",},
 	drawtype= "nodebox",
 	light_source =  14,
 	paramtype = "facedir",
-	drop= 'ma_pops_furniture:lamp_off',
+	drop= 'ma_pops_furniture:lamp_off_'..color,
 	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-		node.name = "ma_pops_furniture:lamp_off"
+		node.name = "ma_pops_furniture:lamp_off_"..color
 		minetest.set_node(pos, node)
 	end,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, furniture = 1},
@@ -1596,13 +1616,13 @@ minetest.register_node("ma_pops_furniture:lamp", {
 	}
 })
 
-minetest.register_node("ma_pops_furniture:lamp_off", {
-	description= "Lamp",
-	tiles= {"mp_lt.png","mp_lb.png","mp_ls.png","mp_ls.png","mp_ls.png","mp_ls.png",},
+minetest.register_node("ma_pops_furniture:lamp_off_"..color, {
+	description= name.. " Lamp",
+	tiles= {"mp_lt.png","mp_lb_middle.png^[colorize:"..hex.."^mp_lb.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png","mp_ls.png^[colorize:"..hex.."^mp_ls_top.png",},
 	drawtype= "nodebox",
 	paramtype = "facedir",
 	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-		node.name = "ma_pops_furniture:lamp"
+		node.name = "ma_pops_furniture:lamp_"..color
 		minetest.set_node(pos, node)
 	end,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
@@ -1615,18 +1635,42 @@ minetest.register_node("ma_pops_furniture:lamp_off", {
 		},
 	}
 })
+end
 
-minetest.register_node("ma_pops_furniture:curtains", {
-	description= "Curtains",
-	tiles= {"default_acacia_tree.png","mp_curtainb.png","wool_red.png^mp_curtains.png","wool_red.png^mp_curtains.png","wool_red.png^mp_curtains.png","wool_red.png^mp_curtains.png",},
+local curtain_table = { --name, color, colorize(hex or color name:intensity(1-255))
+{'Black', 'black', 'black:225'},
+{'Blue', 'blue', 'blue:225'},
+{'Brown', 'brown', 'brown:225'},
+{'Cyan', 'cyan', 'cyan:200'},
+{'Dark Green', 'dark_green', 'green:225'},
+{'Dark Grey', 'dark_grey', 'black:200'},
+{'Green', 'green', '#32cd32:150'},
+{'Grey', 'grey', 'black:100'},
+{'Magenta', 'magenta', 'magenta:200'},
+{'Orange', 'orange', 'orange:225'},
+{'Pink', 'pink', 'pink:225'},
+{'Red', 'red', 'red:225'},
+{'Violet', 'violet', 'violet:225'},
+{'White', 'white', 'white:1'},
+{'Yellow', 'yellow', 'yellow:225'},
+}
+
+for i in ipairs (curtain_table) do
+	local name = curtain_table[i][1]
+	local color = curtain_table[i][2]
+	local hex = curtain_table[i][3]
+
+minetest.register_node("ma_pops_furniture:curtains_"..color, {
+	description= name.. " Curtains",
+	tiles= {"default_acacia_tree.png","wool_"..color..".png^mp_curtainb.png","wool_"..color..".png^mp_curtains.png","wool_"..color..".png^mp_curtains.png","wool_"..color..".png^mp_curtains.png","wool_"..color..".png^mp_curtains.png",},
 	drawtype= "nodebox",
 	paramtype= "light",
 	paramtype2 = "facedir",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
 	on_rightclick = function(pos, node, puncher)
-		minetest.env:add_node(pos, {name = "ma_pops_furniture:curtains_closed", param2 = node.param2})
-		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:curtains", "ma_pops_furniture:curtains_closed" );
-		end,
+		minetest.add_node(pos, {name = "ma_pops_furniture:curtains_closed_"..color, param2 = node.param2})
+		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:curtains_"..color, "ma_pops_furniture:curtains_closed_"..color );
+	end,
 	node_box= {
 		type= "fixed",
 		fixed= {
@@ -1640,17 +1684,18 @@ minetest.register_node("ma_pops_furniture:curtains", {
 	}
 })
 
-minetest.register_node("ma_pops_furniture:curtains_closed", {
-   description = "curtains closed",
-   tiles= {"default_acacia_tree.png","mp_curtainb.png","wool_red.png^mp_curtains.png","wool_red.png^mp_curtains.png","wool_red.png^mp_curtains.png","wool_red.png^mp_curtains.png",},
+minetest.register_node("ma_pops_furniture:curtains_closed_"..color, {
+   description = name.." Closed Curtains",
+   tiles= {"default_acacia_tree.png","wool_"..color..".png^mp_curtainb.png","wool_"..color..".png^mp_curtains.png","wool_"..color..".png^mp_curtains.png","wool_"..color..".png^mp_curtains.png","wool_"..color..".png^mp_curtains.png",},
    drawtype = "nodebox",
    paramtype = "light",
    paramtype2 = "facedir",
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, furniture = 1},
+   drop = "ma_pops_furniture:curtains_"..color,
    on_rightclick = function(pos, node, puncher)
-		minetest.env:add_node(pos, {name = "ma_pops_furniture:curtains", param2 = node.param2})
-		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:curtains_closed", "ma_pops_furniture:curtains" );
-		end,
+		minetest.add_node(pos, {name = "ma_pops_furniture:curtains_"..color, param2 = node.param2})
+		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:curtains_closed_"..color, "ma_pops_furniture:curtains_"..color );
+	end,
    node_box = {
        type = "fixed",
        fixed = {
@@ -1661,49 +1706,53 @@ minetest.register_node("ma_pops_furniture:curtains_closed", {
    }
 })
 
-minetest.register_node("ma_pops_furniture:curtains_2_tall", {
-description= "Curtains 2 tall",
-tiles = {"wool_red.png"},
-drawtype= "nodebox",
-paramtype= "light",
-paramtype2 = "facedir",
-groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
-on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:curtains_2_tall_closed" minetest.set_node(pos, node)
-end,
-node_box= {
-type= "fixed",
-fixed= {
-{-0.5, -0.3, 0.5, -0.2, 0.5, 0.4},
-{-0.5, -0.5, 0.5, -0.3, -0.3, 0.4},
-{-0.5, 0.5, 0.5, 0.5, 0.2, 0.4},
-{0.5, -0.3, 0.5, 0.2, 0.5, 0.4},
-{0.5, -0.5, 0.5, 0.3, -0.3, 0.4},
-       {-0.5, -0.5, 0.5, -0.3, -1.2, 0.4},
-       {0.5, -0.5, 0.5, 0.3, -1.2, 0.4},
-       {-0.5, -1.2, 0.5, -0.4, -1.5, 0.4},
-       {0.5, -1.2, 0.5, 0.4, -1.5, 0.4},
-},
-}
+minetest.register_node("ma_pops_furniture:curtains_2_tall_"..color, {
+	description= name.. " Tall Curtains",
+	tiles = {"wool_"..color..".png"},
+	drawtype= "nodebox",
+	paramtype= "light",
+	paramtype2 = "facedir",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		node.name = "ma_pops_furniture:curtains_2_tall_closed_"..color 
+		minetest.set_node(pos, node)
+	end,
+	node_box= {
+		type= "fixed",
+		fixed= {
+			{-0.5, -0.3, 0.5, -0.2, 0.5, 0.4},
+			{-0.5, -0.5, 0.5, -0.3, -0.3, 0.4},
+			{-0.5, 0.5, 0.5, 0.5, 0.2, 0.4},
+			{0.5, -0.3, 0.5, 0.2, 0.5, 0.4},
+			{0.5, -0.5, 0.5, 0.3, -0.3, 0.4},
+			{-0.5, -0.5, 0.5, -0.3, -1.2, 0.4},
+			{0.5, -0.5, 0.5, 0.3, -1.2, 0.4},
+			{-0.5, -1.2, 0.5, -0.4, -1.5, 0.4},
+			{0.5, -1.2, 0.5, 0.4, -1.5, 0.4},
+		},
+	}
 })
 
-minetest.register_node("ma_pops_furniture:curtains_2_tall_closed", {
-description= "Curtains 2 tall closed",
-tiles = {"wool_red.png"},
-drawtype= "nodebox",
-paramtype= "light",
-paramtype2 = "facedir",
-groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
-on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:curtains_2_tall" minetest.set_node(pos, node)
-end,
-node_box= {
-type= "fixed",
-fixed= {
-       {0.5, 0.5, 0.5, -0.5, -1.5, 0.4},
-},
-}
+minetest.register_node("ma_pops_furniture:curtains_2_tall_closed_"..color, {
+	description= name.. " Closed Tall Curtains",
+	tiles = {"wool_"..color..".png"},
+	drawtype= "nodebox",
+	paramtype= "light",
+	paramtype2 = "facedir",
+	drop = "ma_pops_furniture:curtains_2_tall_"..color,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		node.name = "ma_pops_furniture:curtains_2_tall_"..color 
+		minetest.set_node(pos, node)
+	end,
+	node_box= {
+		type= "fixed",
+		fixed= {
+			   {0.5, 0.5, 0.5, -0.5, -1.5, 0.4},
+		},
+	}
 })
+end
 
 minetest.register_node("ma_pops_furniture:blinds", {
    description = "Blinds",
@@ -1940,6 +1989,76 @@ minetest.register_node('ma_pops_furniture:tv_off', {
     end,
 })
 
+minetest.register_node('ma_pops_furniture:modern_tv_cube', {
+	description = 'TV',
+	drawtype = 'mesh',
+	mesh = 'FM_flat_TV.obj',
+	drop = 'ma_pops_furniture:modern_tv_off',
+	tiles = {{name='mp_channel_cube.png', animation={type='vertical_frames', aspect_w=40, aspect_h=40, length=2}},{name='default_coral_skeleton.png'}},
+	groups = {cracky=2, oddly_breakable_by_hand=3, not_in_creative_inventory=1, furniture=1},
+	paramtype = 'light',
+	paramtype2 = 'facedir',
+	light_source = 14,
+	sounds = default.node_sound_wood_defaults(),
+	selection_box = {
+		type = 'fixed',
+		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
+		},
+	collision_box = {
+		type = 'fixed',
+		fixed = {-.45, -.5, -.5, .45, .4, .45},
+		},
+	  on_rightclick = function(pos, node, clicker, itemstack)
+    local meta = minetest.env:get_meta(pos)
+	node.name = "ma_pops_furniture:modern_tv_off"
+		minetest.set_node(pos, node)
+    if string.len(meta:get_string("hwnd")) > 0 then
+        minetest.sound_stop(meta:get_string("hwnd"))
+        meta:set_string("hwnd",nil)
+    end
+    end,
+    on_destruct = function(pos)
+    local meta = minetest.env:get_meta(pos)
+    if string.len(meta:get_string("hwnd")) > 0 then minetest.sound_stop(meta:get_string("hwnd")) end
+    end,
+})
+
+minetest.register_node('ma_pops_furniture:modern_tv_off', {
+	description = 'Modern TV',
+	drawtype = 'mesh',
+	mesh = 'FM_flat_TV.obj',
+	tiles = {{name='wool_black.png^default_glass_detail.png^[colorize:black:225',},{name='default_coral_skeleton.png'}},
+	groups = {cracky=2, oddly_breakable_by_hand=3, furniture=1},
+	paramtype = 'light',
+	paramtype2 = 'facedir',
+	light_source = 1,
+	sounds = default.node_sound_wood_defaults(),
+	selection_box = {
+		type = 'fixed',
+		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
+		},
+	collision_box = {
+		type = 'fixed',
+		fixed = {-.45, -.5, -.5, .45, .4, .45},
+		},
+	on_rightclick = function(pos, node, clicker, itemstack)
+    local meta = minetest.env:get_meta(pos)
+	node.name = "ma_pops_furniture:modern_tv_cube"
+		minetest.set_node(pos, node)
+    if string.len(meta:get_string("hwnd")) > 0 then
+        minetest.sound_stop(meta:get_string("hwnd"))
+        meta:set_string("hwnd",nil)
+    else
+        meta:set_string("hwnd",minetest.sound_play("mp_glass", {gain = 0.5, max_hear_distance = 25}))
+    end
+    end,
+    on_destruct = function(pos)
+    local meta = minetest.env:get_meta(pos)
+    if string.len(meta:get_string("hwnd")) > 0 then minetest.sound_stop(meta:get_string("hwnd")) end
+    end,
+})
+
+
 local c_table = { --name, material, invimg
 {'Stone Coffee Table', 'cobble'},
 {'Wood Coffee Table', 'wood'},
@@ -1998,22 +2117,6 @@ minetest.register_node('ma_pops_furniture:end_table_'..material, {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
-	on_construct = function(pos)
-		local meta = minetest.env:get_meta(pos)
-		local inv = meta:get_inventory()
-		inv:set_size('main', 8*4)
-		inv:set_size('storage', 3*3)
-		meta:set_string('formspec',
-			'size [9,10]'..
-			'bgcolor[#080808BB;true]'..
-			'list[current_name;storage;3,1.5;3,3;]'..
-			'list[current_player;main;0.5,6.5;8,4;]')
-	end,
-	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
-		local inv = meta:get_inventory()
-		return inv:is_empty('storage') and inv:is_empty('storage1')
-	end,
 	node_box = {
        type = "fixed",
        fixed = {
@@ -2058,71 +2161,149 @@ minetest.register_node("ma_pops_furniture:computer", {
 })
 
 --Outside--
-local hedge_table = { --name, material, invimg
-{'Hedge', 'leaves'},
-{'Pine Hedge', 'pine_needles'},
-{'Jungle Hedge', 'jungleleaves'},
-{'Acacia Hedge', 'acacia_leaves'},
-{'Aspen Hedge', 'aspen_leaves'}
-}
+function ma_pops_furniture.register_hedge(name, def)
 
-for i in ipairs (hedge_table) do
-	local name = hedge_table[i][1]
-	local material = hedge_table[i][2]
-	local invimg = hedge_table[i][3]
+	-- register nodes
+	if minetest.get_modpath("default") then
+		def.sounds = def.sounds or default.node_sound_leaves_defaults()
+	end
 
-minetest.register_node('ma_pops_furniture:hedge_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {snappy=2, oddly_breakable_by_hand=2, furniture=1, flammable=1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_leaves_defaults(),
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.1875, 0.5, 0.1875, 0.1875},
+	minetest.register_node(name, {
+		description = def.description or "Hedge",
+		drawtype = "nodebox",
+		paramtype = "light",
+		tiles = {def.texture},
+		groups = def.groups or
+			{snappy = 3, flammable = 2, leaves = 1, hedge = 1},
+		waving = 1,
+		node_box = {
+			type = "connected",
+			fixed = {{-5/16, -0.5, -5/16, 5/16, 5/16, 5/16}},
+			connect_left = {{-0.5, -0.5, -5/16, -5/16, 5/16, 5/16}},
+			connect_right = {{5/16, -0.5, -5/16, 0.5, 5/16, 5/16}},
+			connect_front = {{-5/16, -0.5, -0.5, 5/16, 5/16, -5/16}},
+			connect_back = {{-5/16, -0.5, 5/16, 5/16, 5/16, 0.5}},
+		},
+		connects_to = {"group:fence", "group:wood", "group:tree", "group:hedge"},
+		light_source = def.light_source or 0,
+		sounds = def.sounds,
+		after_place_node = function(pos, placer, itemstack, pointed_thing)
+			local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
+			local pos_above = {x = pos.x, y = pos.y + 1, z = pos.z}
+			local node_under = string.gsub(minetest.get_node(pos_under).name, "_full$", "")
+			local node_above = string.gsub(minetest.get_node(pos_above).name, "_full$", "")
+
+			if minetest.get_item_group(node_under, "hedge") == 1 then
+				minetest.set_node(pos_under, {name = node_under .. "_full"})
+			end
+			if minetest.get_item_group(node_above, "hedge") == 1 then
+				minetest.set_node(pos, {name = name .. "_full"})
+			end
+		end,
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
+			local node_under = string.gsub(minetest.get_node(pos_under).name, "_full$", "")
+			if minetest.get_item_group(node_under, "hedge") == 1 and
+					digger and digger:is_player() then
+				minetest.set_node(pos_under, {name = node_under})
+			end
+		end,
+	})
+
+	minetest.register_node(name .. "_full", {
+		description = def.description or "Hedge",
+		drawtype = "nodebox",
+		paramtype = "light",
+		tiles = {def.texture},
+		groups = def.groups or
+			{snappy = 3, flammable = 2, leaves = 1, hedge = 1,
+			not_in_creative_inventory = 1},
+		waving = 1,
+		node_box = {
+			type = "connected",
+			fixed = {{-5/16, -0.5, -5/16, 5/16, 0.5, 5/16}},
+			connect_left = {{-0.5, -0.5, -5/16, -5/16, 0.5, 5/16}},
+			connect_right = {{5/16, -0.5, -5/16, 0.5, 0.5, 5/16}},
+			connect_front = {{-5/16, -0.5, -0.5, 5/16, 0.5, -5/16}},
+			connect_back = {{-5/16, -0.5, 5/16, 5/16, 0.5, 0.5}},
+		},
+		connects_to = {"group:fence", "group:wood", "group:tree", "group:hedge"},
+		light_source = def.light_source or 0,
+		sounds = def.sounds,
+		drop = name,
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			local pos_under = {x = pos.x, y = pos.y - 1, z = pos.z}
+			local node_under = string.gsub(minetest.get_node(pos_under).name, "_full$", "")
+			if minetest.get_item_group(node_under, "hedge") == 1 and
+					digger and digger:is_player() then
+				minetest.set_node(pos_under, {name = node_under})
+			end
+		end,
+	})
+
+	-- register crafting recipe
+	minetest.register_craft({
+		output = name .. " 4",
+		recipe = {
+			{def.material, def.material, def.material},
+			{def.material, def.material, def.material},
 		}
-	}
-})
-
-minetest.register_node('ma_pops_furniture:hedge_c_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {snappy=2, oddly_breakable_by_hand=2, not_in_creative_inventory=1, flammable=1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_leaves_defaults(),
-	drop = 'ma_pops_furniture:hedge_'..material,
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.1875, -0.5, -0.1875, 0.5, 0.1875, 0.1875}, 
-			{-0.1875, -0.5, 0.1875, 0.1875, 0.1875, 0.5}, 
-		}
-	}
-})
-
-minetest.register_node('ma_pops_furniture:hedge_t_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {snappy=2, oddly_breakable_by_hand=2, not_in_creative_inventory=1, flammable=1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_leaves_defaults(),
-	drop = 'ma_pops_furniture:hedge_'..material,
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.1875, 0.5, 0.1875, 0.1875}, 
-			{-0.1875, -0.5, 0.1875, 0.1875, 0.1875, 0.5}, 
-		}
-	}
-})
+	})
 end
+
+
+-- register hedges if default mod found
+if minetest.get_modpath("default") then
+
+	ma_pops_furniture.register_hedge("ma_pops_furniture:apple_hedge", {
+		description = "Apple Hedge",
+		texture = "default_leaves.png",
+		material = "default:leaves",
+	})
+
+	ma_pops_furniture.register_hedge("ma_pops_furniture:jungle_hedge", {
+		description = "Jungle Hedge",
+		texture = "default_jungleleaves.png",
+		material = "default:jungleleaves",
+	})
+
+	ma_pops_furniture.register_hedge("ma_pops_furniture:pine_hedge", {
+		description = "Pine Hedge",
+		texture = "default_pine_needles.png",
+		material = "default:pine_needles",
+	})
+
+	ma_pops_furniture.register_hedge("ma_pops_furniture:acacia_hedge", {
+		description = "Acacia Hedge",
+		texture = "default_acacia_leaves.png",
+		material = "default:acacia_leaves",
+	})
+
+	ma_pops_furniture.register_hedge("ma_pops_furniture:aspen_hedge", {
+		description = "Aspen Hedge",
+		texture = "default_aspen_leaves.png",
+		material = "default:aspen_leaves",
+	})
+
+end
+
+
+-- alternative recipes using bush leaves
+	minetest.register_craft({
+		output = "hedges:apple_hedge 4",
+		recipe = {
+			{"default:bush_leaves", "default:bush_leaves", "default:bush_leaves"},
+			{"default:bush_leaves", "default:bush_leaves", "default:bush_leaves"},
+		}
+	})
+
+		minetest.register_craft({
+		output = "hedges:acacia_hedge 4",
+		recipe = {
+			{"default:acacia_bush_leaves", "default:acacia_bush_leaves", "default:acacia_bush_leaves"},
+			{"default:acacia_bush_leaves", "default:acacia_bush_leaves", "default:acacia_bush_leaves"},
+		}
+	})
 
 minetest.register_node('ma_pops_furniture:birdbath', {
 	description = 'Birdbath',
@@ -2322,5 +2503,44 @@ minetest.register_node('ma_pops_furniture:stone_path_'..i, {
 		type = 'fixed',
 		fixed = {-.5, -.5, -.5, .5, -.4, .5},
 		},
+})
+end
+
+local bench_table = { --name, material, invimg
+{'Cobble Bench', 'cobble', 'mp_chair_stone.png'},
+{'Stone Bench', 'stone', 'mp_chair_stone.png'},
+{'Wood Bench', 'wood', 'mp_chair_wood.png'},
+{'Acacia Wood Bench', 'acacia_wood', 'mp_chair_acacia_wood.png'},
+{'Aspen Wood Bench', 'aspen_wood', 'mp_chair_aspen_wood.png'},
+{'Pine Wood Bench', 'pine_wood', 'mp_chair_pine_wood.png'},
+{'Jungle Wood Bench', 'junglewood', 'mp_chair_junglewood.png'}
+}
+
+for i in ipairs (bench_table) do
+	local name = bench_table[i][1]
+	local material = bench_table[i][2]
+	local invimg = bench_table[i][3]
+	
+minetest.register_node("ma_pops_furniture:outside_bench_"..material, {
+	description = name,
+	tiles = 'default_'..material..'.png',
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky=2, oddly_breakable_by_hand=3, furniture=1},
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.4375, -0.5625, -0.4375, -0.25, 0.0625, -0.25}, -- NodeBox1
+			{1.25, -0.5, 0.25, 1.4375, 0.0625, 0.4375}, -- NodeBox2
+			{-0.4375, -0.5, 0.25, -0.25, 0.0625, 0.4375}, -- NodeBox3
+			{1.25, -0.5, -0.4375, 1.4375, 0.0625, -0.25}, -- NodeBox4
+			{-0.4375, 0.0625, -0.4375, 1.4375, 0.1875, 0.4375}, -- NodeBox5
+			{-0.4375, 0.1875, 0.3125, 1.4375, 0.875, 0.4375}, -- NodeBox6
+		}
+	}
 })
 end
