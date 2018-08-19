@@ -365,6 +365,23 @@ end,
    }
 })
 
+minetest.register_node('ma_pops_furniture:wall_tile', {
+	description = 'Wall Tile',
+	drawtype = 'nodebox',
+	tiles = {
+		"mp_wall_tile.png"
+	},
+	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
+	paramtype = 'light',
+	sounds = default.node_sound_stone_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		},
+	}
+})
+
 --Bathroom--
 minetest.register_node("ma_pops_furniture:bath_faucet", {
    description = "Bathroom Faucet",
@@ -421,7 +438,7 @@ minetest.register_node('ma_pops_furniture:toilet_open', {
 	description = 'Toilet',
 	drawtype = 'mesh',
 	mesh = 'FM_toilet_open.obj',
-	tiles = {{name='default_clay.png'},{name='default_wood.png'}},
+	tiles = {{name='default_coral_skeleton.png'},{name='default_wood.png'}},
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, not_in_creative_inventory=1},
 	--inventory_image = 'fm_chair_stone.png',
 	paramtype = 'light',
@@ -453,7 +470,7 @@ minetest.register_node('ma_pops_furniture:toilet_close', {
 	description = 'Toilet',
 	drawtype = 'mesh',
 	mesh = 'FM_toilet_close.obj',
-	tiles = {{name='default_clay.png'},{name='default_wood.png'}},
+	tiles = {{name='default_coral_skeleton.png'},{name='default_wood.png'}},
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
@@ -631,6 +648,23 @@ minetest.register_node("ma_pops_furniture:shower_top", {
     }
 })
 
+minetest.register_node('ma_pops_furniture:br_tile', {
+	description = 'Bathroom Tile',
+	drawtype = 'nodebox',
+	tiles = {
+		"mp_bathroom_tile.png"
+	},
+	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
+	paramtype = 'light',
+	sounds = default.node_sound_stone_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		},
+	}
+})
+
 --Bedroom--
 local night_table = { --name, material, invimg
 {'Wood Nightstand', 'wood'},
@@ -742,7 +776,7 @@ minetest.register_node('ma_pops_furniture:table_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1},
+	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
@@ -752,7 +786,11 @@ minetest.register_node('ma_pops_furniture:table_'..material, {
 			{-0.125, -0.5, -0.125, 0.125, 0.3125, 0.125}, -- NodeBox2
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5}, -- NodeBox3
 		}
-	}
+	},
+
+	after_dig_node = function(pos) ma_pops_furniture.check_table(pos, material, false, true) end,
+	after_place_node = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end,
+	on_punch = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end
 })
 end
 
@@ -774,7 +812,8 @@ minetest.register_node('ma_pops_furniture:table_c_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1},
+	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1, not_in_creative_inventory = 1},
+	drop = 'ma_pops_furniture:table_'..material,
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
@@ -784,39 +823,11 @@ minetest.register_node('ma_pops_furniture:table_c_'..material, {
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5}, -- NodeBox1
 			{-0.375, -0.5, -0.125, -0.125, 0.3125, 0.125}, -- NodeBox3
 		}
-	}
-})
-end
+	},
 
-local table_c2_table = { --name, material, invimg
-{'Stone Corner (right) Table', 'cobble', 'mp_table_stone.png'},
-{'Wood Corner (right) Table', 'wood', 'mp_table_wood.png'},
-{'Acacia Corner(right)  Wood Table', 'acacia_wood', 'mp_table_wood_acacia.png'},
-{'Aspen Corner (right) Wood Table', 'aspen_wood', 'mp_table_wood_aspen.png'},
-{'Pine Corner (right) Wood Table', 'pine_wood', 'mp_table_wood_pine.png'},
-{'Jungle Corner (right) Wood Table', 'junglewood', 'mp_table_wood_jungle.png'}
-}
-
-for i in ipairs (table_c2_table) do
-	local name = table_c2_table[i][1]
-	local material = table_c2_table[i][2]
-	local invimg = table_c2_table[i][3]
-	
-minetest.register_node('ma_pops_furniture:table_c2_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5}, -- NodeBox1
-			{0.125, -0.5, -0.125, 0.375, 0.3125, 0.125}, -- NodeBox3
-		}
-	}
+	after_dig_node = function(pos) ma_pops_furniture.check_table(pos, material, false, true) end,
+	after_place_node = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end,
+	on_punch = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end
 })
 end
 
@@ -838,7 +849,8 @@ minetest.register_node('ma_pops_furniture:table_center_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1},
+	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1, not_in_creative_inventory = 1},
+	drop = 'ma_pops_furniture:table_'..material,
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
@@ -847,7 +859,11 @@ minetest.register_node('ma_pops_furniture:table_center_'..material, {
 		fixed = {
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5},
 		}
-	}
+	},
+
+	after_dig_node = function(pos) ma_pops_furniture.check_table(pos, material, false, true) end,
+	after_place_node = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end,
+	on_punch = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end
 })
 end
 
@@ -971,48 +987,6 @@ minetest.register_node("ma_pops_furniture:toaster", {
    }
 })
 
-minetest.register_node("ma_pops_furniture:sink", {
-	description = "Counter (Sink)",
-	tiles = {
-		"mp_sink_top.png",
-		"mp_enc_bottom.png",
-		"mp_enc_right.png",
-		"mp_enc_left.png",
-		"mp_enc_back.png",
-		"mp_enc_front.png"
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
-	on_construct = function(pos)
-		local meta = minetest.env:get_meta(pos)
-		local inv = meta:get_inventory()
-		inv:set_size('main', 8*4)
-		inv:set_size('storage', 3*3)
-		meta:set_string('formspec',
-			'size [9,10]'..
-			'bgcolor[#080808BB;true]'..
-			'list[current_name;storage;3,1.5;3,3;]'..
-			'list[current_player;main;0.5,6.5;8,4;]')
-	end,
-	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
-		local inv = meta:get_inventory()
-		return inv:is_empty('storage') and inv:is_empty('storage1')
-	end,
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.375, 0.5, -0.4375, 0.5}, -- NodeBox1
-			{-0.5, -0.4375, -0.4375, 0.5, 0.375, 0.5}, -- NodeBox2
-			{0.0625, -0.375, -0.5, 0.4375, 0.3125, -0.4375}, -- NodeBox3
-			{-0.4375, -0.375, -0.5, -0.0625, 0.3125, -0.4375}, -- NodeBox4
-			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox5
-		}
-	}
-})
-
 minetest.register_node("ma_pops_furniture:kitchen_faucet", {
    description = "Kitchen Faucet",
    tiles = {
@@ -1062,15 +1036,38 @@ minetest.register_node("ma_pops_furniture:cutting_board", {
    }
 })
 
-minetest.register_node("ma_pops_furniture:counter", {
-	description = "Counter",
+local counter_table = { --name, color, colorize(hex or color name:intensity(1-255))
+{'Black', 'black', 'black:225'},
+{'Blue', 'blue', 'blue:150'},
+{'Brown', 'brown', 'brown:100'},
+{'Cyan', 'cyan', 'cyan:150'},
+{'Dark Green', 'dark_green', 'green:200'},
+--{'Dark Grey', 'dark_grey', 'black:200'},
+{'Green', 'green', '#32cd32:150'},
+--{'Grey', 'grey', 'black:150'},
+{'Magenta', 'magenta', 'magenta:200'},
+{'Orange', 'orange', 'orange:150'},
+{'Pink', 'pink', 'pink:150'},
+{'Red', 'red', 'red:150'},
+{'Violet', 'violet', 'violet:150'},
+{'White', 'white', 'white:150'},
+{'Yellow', 'yellow', 'yellow:150'},
+}
+
+for i in ipairs (counter_table) do
+	local name = counter_table[i][1]
+	local color = counter_table[i][2]
+	local hex = counter_table[i][3]
+
+minetest.register_node("ma_pops_furniture:counter_"..color, {
+	description = name.. " Counter (Vertical Drawers)",
 	tiles = {
-		"mp_enc_top.png",
+		"default_coral_skeleton.png^[colorize:"..hex,
 		"mp_enc_bottom.png",
-		"mp_enc_right.png",
-		"mp_enc_left.png",
-		"mp_enc_back.png",
-		"mp_enc_front.png"
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_right.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_left.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_front.png"
 	},
 	drawtype = "nodebox",
 	paramtype = "light",
@@ -1080,11 +1077,11 @@ minetest.register_node("ma_pops_furniture:counter", {
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
 		inv:set_size('main', 8*4)
-		inv:set_size('storage', 3*3)
+		inv:set_size('storage', 6*6)
 		meta:set_string('formspec',
 			'size [9,10]'..
 			'bgcolor[#080808BB;true]'..
-			'list[current_name;storage;3,1.5;3,3;]'..
+			'list[current_name;storage;1.5,.2;6,6;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
 	end,
 	can_dig = function(pos,player)
@@ -1095,37 +1092,64 @@ minetest.register_node("ma_pops_furniture:counter", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.375, 0.5, -0.4375, 0.5}, -- NodeBox1
-			{-0.5, -0.4375, -0.4375, 0.5, 0.375, 0.5}, -- NodeBox2
-			{0.0625, -0.375, -0.5, 0.4375, 0.3125, -0.4375}, -- NodeBox3
-			{-0.4375, -0.375, -0.5, -0.0625, 0.3125, -0.4375}, -- NodeBox4
-			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox5
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5},
+			{-0.4375, -0.375, -0.4375, -0.0625, 0.3125, -0.375},
+			{0.0625, -0.375, -0.4375, 0.4375, 0.3125, -0.375},
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5},
+			{-0.1875, -0.0625, -0.5, -0.125, 0, -0.4375},
+			{0.125, -0.0625, -0.5, 0.1875, 0, -0.4375},
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5},
 		}
 	}
 })
 
-minetest.register_node("ma_pops_furniture:counterl", {
-	description = "Counter (Corner)",
+minetest.register_node("ma_pops_furniture:counter2_"..color, {
+	description = name.. " Counter",
 	tiles = {
-		"mp_corn_r_top.png",
-		"mp_corn_r_bottom.png",
-		"mp_corn_r_right.png",
-		"mp_corn_r_left.png",
-		"mp_corn_r_back.png",
-		"mp_corn_r_front.png"
+		"default_coral_skeleton.png^[colorize:"..hex,
+		"mp_enc_bottom.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_right.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_left.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
 	},
 	drawtype = "nodebox",
 	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, 
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5},
+		}
+	}
+})
+
+minetest.register_node("ma_pops_furniture:counter3_"..color, {
+	description = name.. " Counter (Horizontal Drawers)",
+	tiles = {
+		"default_coral_skeleton.png^[colorize:"..hex,
+		"mp_enc_bottom.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_right.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_left.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_front2.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
 		inv:set_size('main', 8*4)
-		inv:set_size('storage', 3*3)
+		inv:set_size('storage', 6*6)
 		meta:set_string('formspec',
 			'size [9,10]'..
 			'bgcolor[#080808BB;true]'..
-			'list[current_name;storage;3,1.5;3,3;]'..
+			'list[current_name;storage;1.5,.2;6,6;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
 	end,
 	can_dig = function(pos,player)
@@ -1133,6 +1157,33 @@ minetest.register_node("ma_pops_furniture:counterl", {
 		local inv = meta:get_inventory()
 		return inv:is_empty('storage') and inv:is_empty('storage1')
 	end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, 
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5}, 
+			{-0.4375, 0, -0.4375, 0.4375, 0.3125, -0.375}, 
+			{-0.4375, -0.375, -0.4375, 0.4375, -0.0625, -0.375},
+			{-0.1875, 0.125, -0.5, 0.1875, 0.1875, -0.4375},
+			{-0.1875, -0.25, -0.5, 0.1875, -0.1875, -0.4375},
+		}
+	}
+})
+
+minetest.register_node("ma_pops_furniture:counterl_" ..color, {
+	description = name.. " Counter (Corner)",
+	tiles = {
+		"default_coral_skeleton.png^[colorize:"..hex,
+		"mp_corn_r_bottom.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -1141,15 +1192,59 @@ minetest.register_node("ma_pops_furniture:counterl", {
 	}
 })
 
-minetest.register_node("ma_pops_furniture:upcabinet", {
-description = "Upper Cabinets",
+minetest.register_node("ma_pops_furniture:sink_" ..color, {
+	description = name.. " Counter (Sink)",
 	tiles = {
-		"mp_up_top.png",
-		"mp_up_bottom.png",
-		"mp_up_right.png",
-		"mp_up_left.png",
-		"default_wood.png",
-		"mp_up_front.png"
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_sink_top.png",
+		"mp_enc_bottom.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_right.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_left.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_back.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_enc_front.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		inv:set_size('main', 8*4)
+		inv:set_size('storage', 6*6)
+		meta:set_string('formspec',
+			'size [9,10]'..
+			'bgcolor[#080808BB;true]'..
+			'list[current_name;storage;1.5,.2;6,6;]'..
+			'list[current_player;main;0.5,6.5;8,4;]')
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('storage') and inv:is_empty('storage1')
+	end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, -- NodeBox1
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5}, -- NodeBox2
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox3
+			{-0.4375, -0.375, -0.4375, 0, 0.3125, -0.375}, -- NodeBox4
+			{0.0625, -0.375, -0.4375, 0.4375, 0.3125, -0.375}, -- NodeBox5
+			{-0.1875, -0.0625, -0.5, -0.125, 0, -0.4375}, -- NodeBox6
+			{0.125, -0.0625, -0.5, 0.1875, 0, 0.5}, -- NodeBox7
+		}
+	}
+})
+
+minetest.register_node("ma_pops_furniture:upcabinet_"..color, {
+description = name.." Upper Cabinets",
+	tiles = {
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_up_top.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_up_bottom.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_up_right.png",
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_up_left.png",
+		"default_coral_skeleton.png^[colorize:"..hex,
+		"default_coral_skeleton.png^[colorize:"..hex.."^mp_up_front.png"
 	},
 	drawtype = "nodebox",
 	paramtype = "light",
@@ -1182,6 +1277,7 @@ description = "Upper Cabinets",
 		}
 	}
 })
+end
 
 minetest.register_node("ma_pops_furniture:upcabinet_corner", {
 description = "Upper Cabinets(corner)",
@@ -1263,6 +1359,23 @@ minetest.register_node("ma_pops_furniture:fridge", {
 			{0.3125, -0.25, -0.4375, 0.375, -0.1875, -0.375}, -- NodeBox7
 			{0.3125, 0.1875, -0.4375, 0.375, 0.25, -0.375}, -- NodeBox8
 		}
+	}
+})
+
+minetest.register_node('ma_pops_furniture:tile', {
+	description = 'Tile',
+	drawtype = 'nodebox',
+	tiles = {
+		"mp_tile.png"
+	},
+	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
+	paramtype = 'light',
+	sounds = default.node_sound_stone_defaults(),
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+		},
 	}
 })
 
@@ -1667,9 +1780,9 @@ minetest.register_node("ma_pops_furniture:curtains_"..color, {
 	paramtype= "light",
 	paramtype2 = "facedir",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
-	on_rightclick = function(pos, node, puncher)
-		minetest.add_node(pos, {name = "ma_pops_furniture:curtains_closed_"..color, param2 = node.param2})
-		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:curtains_"..color, "ma_pops_furniture:curtains_closed_"..color );
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		node.name = "ma_pops_furniture:curtains_closed_"..color 
+		minetest.set_node(pos, node)
 	end,
 	node_box= {
 		type= "fixed",
@@ -1692,9 +1805,9 @@ minetest.register_node("ma_pops_furniture:curtains_closed_"..color, {
    paramtype2 = "facedir",
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, furniture = 1},
    drop = "ma_pops_furniture:curtains_"..color,
-   on_rightclick = function(pos, node, puncher)
-		minetest.add_node(pos, {name = "ma_pops_furniture:curtains_"..color, param2 = node.param2})
-		ma_pops_furniture.window_operate( pos, "ma_pops_furniture:curtains_closed_"..color, "ma_pops_furniture:curtains_"..color );
+   on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+		node.name = "ma_pops_furniture:curtains_"..color 
+		minetest.set_node(pos, node)
 	end,
    node_box = {
        type = "fixed",
@@ -1988,76 +2101,6 @@ minetest.register_node('ma_pops_furniture:tv_off', {
     if string.len(meta:get_string("hwnd")) > 0 then minetest.sound_stop(meta:get_string("hwnd")) end
     end,
 })
-
-minetest.register_node('ma_pops_furniture:modern_tv_cube', {
-	description = 'TV',
-	drawtype = 'mesh',
-	mesh = 'FM_flat_TV.obj',
-	drop = 'ma_pops_furniture:modern_tv_off',
-	tiles = {{name='mp_channel_cube.png', animation={type='vertical_frames', aspect_w=40, aspect_h=40, length=2}},{name='default_coral_skeleton.png'}},
-	groups = {cracky=2, oddly_breakable_by_hand=3, not_in_creative_inventory=1, furniture=1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	light_source = 14,
-	sounds = default.node_sound_wood_defaults(),
-	selection_box = {
-		type = 'fixed',
-		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
-		},
-	collision_box = {
-		type = 'fixed',
-		fixed = {-.45, -.5, -.5, .45, .4, .45},
-		},
-	  on_rightclick = function(pos, node, clicker, itemstack)
-    local meta = minetest.env:get_meta(pos)
-	node.name = "ma_pops_furniture:modern_tv_off"
-		minetest.set_node(pos, node)
-    if string.len(meta:get_string("hwnd")) > 0 then
-        minetest.sound_stop(meta:get_string("hwnd"))
-        meta:set_string("hwnd",nil)
-    end
-    end,
-    on_destruct = function(pos)
-    local meta = minetest.env:get_meta(pos)
-    if string.len(meta:get_string("hwnd")) > 0 then minetest.sound_stop(meta:get_string("hwnd")) end
-    end,
-})
-
-minetest.register_node('ma_pops_furniture:modern_tv_off', {
-	description = 'Modern TV',
-	drawtype = 'mesh',
-	mesh = 'FM_flat_TV.obj',
-	tiles = {{name='wool_black.png^default_glass_detail.png^[colorize:black:225',},{name='default_coral_skeleton.png'}},
-	groups = {cracky=2, oddly_breakable_by_hand=3, furniture=1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	light_source = 1,
-	sounds = default.node_sound_wood_defaults(),
-	selection_box = {
-		type = 'fixed',
-		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
-		},
-	collision_box = {
-		type = 'fixed',
-		fixed = {-.45, -.5, -.5, .45, .4, .45},
-		},
-	on_rightclick = function(pos, node, clicker, itemstack)
-    local meta = minetest.env:get_meta(pos)
-	node.name = "ma_pops_furniture:modern_tv_cube"
-		minetest.set_node(pos, node)
-    if string.len(meta:get_string("hwnd")) > 0 then
-        minetest.sound_stop(meta:get_string("hwnd"))
-        meta:set_string("hwnd",nil)
-    else
-        meta:set_string("hwnd",minetest.sound_play("mp_glass", {gain = 0.5, max_hear_distance = 25}))
-    end
-    end,
-    on_destruct = function(pos)
-    local meta = minetest.env:get_meta(pos)
-    if string.len(meta:get_string("hwnd")) > 0 then minetest.sound_stop(meta:get_string("hwnd")) end
-    end,
-})
-
 
 local c_table = { --name, material, invimg
 {'Stone Coffee Table', 'cobble'},
@@ -2505,4 +2548,3 @@ minetest.register_node('ma_pops_furniture:stone_path_'..i, {
 		},
 })
 end
-
