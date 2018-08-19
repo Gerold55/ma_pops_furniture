@@ -365,23 +365,6 @@ end,
    }
 })
 
-minetest.register_node('ma_pops_furniture:wall_tile', {
-	description = 'Wall Tile',
-	drawtype = 'nodebox',
-	tiles = {
-		"mp_wall_tile.png"
-	},
-	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
-	paramtype = 'light',
-	sounds = default.node_sound_stone_defaults(),
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-		},
-	}
-})
-
 --Bathroom--
 minetest.register_node("ma_pops_furniture:bath_faucet", {
    description = "Bathroom Faucet",
@@ -1359,23 +1342,6 @@ minetest.register_node("ma_pops_furniture:fridge", {
 			{0.3125, -0.25, -0.4375, 0.375, -0.1875, -0.375}, -- NodeBox7
 			{0.3125, 0.1875, -0.4375, 0.375, 0.25, -0.375}, -- NodeBox8
 		}
-	}
-})
-
-minetest.register_node('ma_pops_furniture:tile', {
-	description = 'Tile',
-	drawtype = 'nodebox',
-	tiles = {
-		"mp_tile.png"
-	},
-	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
-	paramtype = 'light',
-	sounds = default.node_sound_stone_defaults(),
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
-		},
 	}
 })
 
