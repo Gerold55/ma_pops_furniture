@@ -2,7 +2,6 @@ ma_pops_furniture = {}
 
 dofile(minetest.get_modpath('ma_pops_furniture')..'/sit.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/functions.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/formspecs.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/crafts.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/nodes.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/tools.lua')
@@ -10,7 +9,7 @@ dofile(minetest.get_modpath('ma_pops_furniture')..'/freezer.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/microwave.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/oven.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/sofa.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/abm.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/fireplace.lua')
 
 
 --GreenDimond's code from waffle mod
