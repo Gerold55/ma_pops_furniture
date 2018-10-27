@@ -1,15 +1,15 @@
 local formspec =
-  "size[8,6]"..
-  default.gui_bg..
-  default.gui_bg_img..
-  default.gui_slots..
-  'background[8,6;0,0;default_brick.png;true]'..
-  "list[context;fuel;1,0.25;1,1;]"..
-  "list[current_player;main;0,1.75;8,1;]"..
-  "list[current_player;main;0,3;8,3;8]"..
-  "listring[context;fuel]"..
-  "listring[current_player;main]"..
-  default.get_hotbar_bg(0, 1.75)
+	"size[8,6]"..
+	default.gui_bg..
+	default.gui_bg_img..
+	default.gui_slots..
+	'background[8,6;0,0;default_brick.png;true]'..
+	"list[context;fuel;1,0.25;1,1;]"..
+	"list[current_player;main;0,1.75;8,1;]"..
+	"list[current_player;main;0,3;8,3;8]"..
+	"listring[context;fuel]"..
+	"listring[current_player;main]"..
+	default.get_hotbar_bg(0, 1.75)
 
 local function swap_node(pos, name)
 	local node = minetest.get_node(pos)
@@ -18,7 +18,7 @@ local function swap_node(pos, name)
 	end
 	node.name = name
 	minetest.swap_node(pos, node)
-  return true
+	return true
 end
 
 ma_pops_furniture.fireplace_on_timer = function(pos, elapsed)
@@ -31,7 +31,7 @@ ma_pops_furniture.fireplace_on_timer = function(pos, elapsed)
 	local fuellist
 	local fuel
 
-  local update = true
+	local update = true
 	while elapsed > 0 and update do
 		fuellist = inv:get_list("fuel")
 
@@ -45,13 +45,13 @@ ma_pops_furniture.fireplace_on_timer = function(pos, elapsed)
 			-- We need to get new fuel
 			local afterfuel
 			fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
-      -- Longer burn time
-      fuel.time = fuel.time * 6
+			-- Longer burn time
+			fuel.time = fuel.time * 6
 
 			if fuel.time == 0 then
 				-- No valid fuel in fuel list
 				fuel_totaltime = 0
-        update = false
+				update = false
 			else
 				-- Take fuel from fuel list
 				inv:set_stack("fuel", 1, afterfuel.items[1])
@@ -74,17 +74,17 @@ ma_pops_furniture.fireplace_on_timer = function(pos, elapsed)
 		meta:set_string('infotext','Fireplace active: ' .. fuel_percent .. '%')
 
 		if swap_node(pos, "ma_pops_furniture:fireplace_on") then
-      local handle = minetest.sound_play('fire_small', {pos = pos, gain = 0.5, loop = true})
-      -- Store the handle so we can stop it later
-      meta:set_int('sound_handle', handle)
-    end
+			local handle = minetest.sound_play('fire_small', {pos = pos, gain = 0.5, loop = true})
+			-- Store the handle so we can stop it later
+			meta:set_int('sound_handle', handle)
+		end
 		-- make sure timer restarts automatically
 		result = true
 	else
 		meta:set_string('infotext','Put more fuel in the fireplace!')
 		if swap_node(pos, "ma_pops_furniture:fireplace") then
-      minetest.sound_stop(meta:get_int('sound_handle'))
-    end
+			minetest.sound_stop(meta:get_int('sound_handle'))
+		end
 		-- stop timer on the inactive furnace
 		minetest.get_node_timer(pos):stop()
 	end
@@ -131,10 +131,10 @@ minetest.register_node('ma_pops_furniture:fireplace_on', {
 	description = 'Fireplace',
 	drawtype = 'mesh',
 	mesh = 'FM_fireplace_on.obj',
-  tiles = {'default_brick.png','xpanes_bar.png','default_tree.png',
-    {name='fire_basic_flame_animated.png', animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=1}}},
-  drop = 'ma_pops_furniture:fireplace',
-  groups = {cracky=2, oddly_breakable_by_hand=3, furniture=1, not_in_creative_inventory=1},
+	tiles = {'default_brick.png','xpanes_bar.png','default_tree.png',
+		{name='fire_basic_flame_animated.png', animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=1}}},
+	drop = 'ma_pops_furniture:fireplace',
+	groups = {cracky=2, oddly_breakable_by_hand=3, furniture=1, not_in_creative_inventory=1},
 	light_source = 14,
 	paramtype = 'light',
 	paramtype2 = 'facedir',
