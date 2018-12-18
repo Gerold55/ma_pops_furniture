@@ -759,7 +759,7 @@ minetest.register_node('ma_pops_furniture:table_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
@@ -770,83 +770,6 @@ minetest.register_node('ma_pops_furniture:table_'..material, {
 			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5}, -- NodeBox3
 		}
 	},
-
-	after_dig_node = function(pos) ma_pops_furniture.check_table(pos, material, false, true) end,
-	after_place_node = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end,
-	on_punch = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end
-})
-end
-
-local table_c_table = { --name, material, invimg
-{'Stone Corner Table', 'cobble', 'mp_table_stone.png'},
-{'Wood Corner Table', 'wood', 'mp_table_wood.png'},
-{'Acacia Corner Wood Table', 'acacia_wood', 'mp_table_wood_acacia.png'},
-{'Aspen Corner Wood Table', 'aspen_wood', 'mp_table_wood_aspen.png'},
-{'Pine Corner Wood Table', 'pine_wood', 'mp_table_wood_pine.png'},
-{'Jungle Corner Wood Table', 'junglewood', 'mp_table_wood_jungle.png'}
-}
-
-for i in ipairs (table_c_table) do
-	local name = table_c_table[i][1]
-	local material = table_c_table[i][2]
-	local invimg = table_c_table[i][3]
-	
-minetest.register_node('ma_pops_furniture:table_c_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1, not_in_creative_inventory = 1},
-	drop = 'ma_pops_furniture:table_'..material,
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5}, -- NodeBox1
-			{-0.375, -0.5, -0.125, -0.125, 0.3125, 0.125}, -- NodeBox3
-		}
-	},
-
-	after_dig_node = function(pos) ma_pops_furniture.check_table(pos, material, false, true) end,
-	after_place_node = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end,
-	on_punch = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end
-})
-end
-
-local table_center_table = { --name, material, invimg
-{'Stone Center Table', 'cobble', 'mp_table_stone.png'},
-{'Wood Center Table', 'wood', 'mp_table_wood.png'},
-{'Acacia Center Wood Table', 'acacia_wood', 'mp_table_wood_acacia.png'},
-{'Aspen Center Wood Table', 'aspen_wood', 'mp_table_wood_aspen.png'},
-{'Pine Center Wood Table', 'pine_wood', 'mp_table_wood_pine.png'},
-{'Jungle Center Wood Table', 'junglewood', 'mp_table_wood_jungle.png'}
-}
-
-for i in ipairs (table_center_table) do
-	local name = table_center_table[i][1]
-	local material = table_center_table[i][2]
-	local invimg = table_center_table[i][3]
-	
-minetest.register_node('ma_pops_furniture:table_center_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {snappy = 2, oddly_breakable_by_hand = 2, furniture = 1, flammable = 1, table = 1, not_in_creative_inventory = 1},
-	drop = 'ma_pops_furniture:table_'..material,
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5},
-		}
-	},
-
-	after_dig_node = function(pos) ma_pops_furniture.check_table(pos, material, false, true) end,
-	after_place_node = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end,
-	on_punch = function(pos) ma_pops_furniture.check_table(pos, material, true, true) end
 })
 end
 
@@ -1651,21 +1574,21 @@ minetest.register_node('ma_pops_furniture:fireplace_on', {
 })
 
 local lamp_table = { --name, color, colorize(hex or color name:intensity(1-255))
-{'Black', 'black', 'black:225'},
-{'Blue', 'blue', 'blue:225'},
-{'Brown', 'brown', 'brown:225'},
-{'Cyan', 'cyan', 'cyan:200'},
-{'Dark Green', 'dark_green', 'green:225'},
-{'Dark Grey', 'dark_grey', 'black:200'},
+{'Black', 'black', 'black:150'},
+{'Blue', 'blue', 'blue:150'},
+{'Brown', 'brown', 'brown:150'},
+{'Cyan', 'cyan', 'cyan:150'},
+{'Dark Green', 'dark_green', 'green:150'},
+{'Dark Grey', 'dark_grey', 'black:150'},
 {'Green', 'green', '#32cd32:150'},
-{'Grey', 'grey', 'black:100'},
-{'Magenta', 'magenta', 'magenta:200'},
-{'Orange', 'orange', 'orange:225'},
-{'Pink', 'pink', 'pink:225'},
-{'Red', 'red', 'red:225'},
-{'Violet', 'violet', 'violet:225'},
-{'White', 'white', 'white:1'},
-{'Yellow', 'yellow', 'yellow:225'},
+{'Grey', 'grey', '#888888:150'},
+{'Magenta', 'magenta', 'magenta:150'},
+{'Orange', 'orange', 'orange:150'},
+{'Pink', 'pink', 'pink:150'},
+{'Red', 'red', 'red:150'},
+{'Violet', 'violet', '#aa00dd:150'},
+{'White', 'white', '#FFFFFF:150'},
+{'Yellow', 'yellow', 'yellow:150'},
 }
 
 for i in ipairs (lamp_table) do
