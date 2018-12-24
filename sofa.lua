@@ -47,9 +47,8 @@ minetest.register_node('ma_pops_furniture:sofa_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	on_rightclick = ma_pops_furniture.sit,
+	after_dig_node = ma_pops_furniture.dig_chair,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -96,9 +95,8 @@ minetest.register_node('ma_pops_furniture:sofa_l_'..color, {
 			{.65, -.15, -.45, .45, .3, .25},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	on_rightclick = ma_pops_furniture.sit,
+	after_dig_node = ma_pops_furniture.dig_chair,
 })
 
 minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
@@ -125,9 +123,8 @@ minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
 			{-.5, 0, .5, .5, .5, .2},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	on_rightclick = ma_pops_furniture.sit,
+	after_dig_node = ma_pops_furniture.dig_chair,
 })
 
 minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
@@ -156,9 +153,8 @@ minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
 			{-.65, -.15, -.45, -.45, .3, .25},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	on_rightclick = ma_pops_furniture.sit,
+	after_dig_node = ma_pops_furniture.dig_chair,
 })
 
 minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
@@ -186,8 +182,7 @@ minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
 			{-.5, 0, .5, .5, .5, .2},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end
+	on_rightclick = ma_pops_furniture.sit,
+	after_dig_node = ma_pops_furniture.dig_chair,
 })
 end
