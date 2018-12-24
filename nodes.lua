@@ -440,8 +440,9 @@ minetest.register_node('ma_pops_furniture:toilet_open', {
 			{-.35, 0, .2, .35, .5, .5},
 			}
 		},
-	on_rightclick = ma_pops_furniture.sit,
-	after_dig_node = ma_pops_furniture.dig_chair,
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	on_punch = function (pos, node, puncher)
 		node.name = "ma_pops_furniture:toilet_close"
 		minetest.set_node(pos, node)
@@ -470,8 +471,9 @@ minetest.register_node('ma_pops_furniture:toilet_close', {
 			{-.35, 0, .2, .35, .5, .5},
 			}
 		},
-	on_rightclick = ma_pops_furniture.sit,
-	after_dig_node = ma_pops_furniture.dig_chair,
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	on_punch = function (pos, node, puncher)
 		node.name = "ma_pops_furniture:toilet_open"
 		minetest.set_node(pos, node)
@@ -722,8 +724,9 @@ minetest.register_node('ma_pops_furniture:chair_'..material, {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
-	on_rightclick = ma_pops_furniture.sit,
-	after_dig_node = ma_pops_furniture.dig_chair,
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -1377,8 +1380,9 @@ minetest.register_node("ma_pops_furniture:chair2_"..color, {
     paramtype2 = "facedir",
     groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1, fall_damage_add_percent=-80, bouncy=80},
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-	on_rightclick = ma_pops_furniture.sit,
-	after_dig_node = ma_pops_furniture.dig_chair,
+    on_rightclick = function(pos, node, clicker)
+        ma_pops_furniture.sit(pos, node, clicker)
+        end,
     node_box = {
         type = "fixed",
         fixed = {
@@ -1410,8 +1414,9 @@ minetest.register_node("ma_pops_furniture:chair2_rainbow", {
     paramtype2 = "facedir",
     groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1, fall_damage_add_percent=-80, bouncy=80},
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-	on_rightclick = ma_pops_furniture.sit,
-	after_dig_node = ma_pops_furniture.dig_chair,
+    on_rightclick = function(pos, node, clicker)
+        ma_pops_furniture.sit(pos, node, clicker)
+        end,
     node_box = {
         type = "fixed",
         fixed = {
@@ -1602,6 +1607,48 @@ minetest.register_node("ma_pops_furniture:entertainment_unit_"..material, {
 	}
 })
 end
+
+minetest.register_node('ma_pops_furniture:fireplace', {
+	description = 'Fireplace',
+	drawtype = 'mesh',
+	mesh = 'FM_fireplace_off.obj',
+	tiles = {{name='default_brick.png'},{name='xpanes_bar.png'}},
+	groups = {cracky=2, oddly_breakable_by_hand=6, furniture=1},
+	paramtype = 'light',
+	paramtype2 = 'facedir',
+	sounds = default.node_sound_stone_defaults(),
+	on_construct = function(pos)
+			local meta = minetest.env:get_meta(pos)
+			local inv = meta:get_inventory()
+			inv:set_size('fuel', 1)
+			inv:set_size('main', 8*4)
+			meta:set_string('formspec', ma_pops_furniture.fireplace_formspec)
+			meta:set_string('infotext', 'Fireplace')
+		end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('fuel')
+	end,
+})
+
+minetest.register_node('ma_pops_furniture:fireplace_on', {
+	description = 'Fireplace',
+	drawtype = 'mesh',
+	mesh = 'FM_fireplace_on.obj',
+	tiles = {{name='default_brick.png'},{name='xpanes_bar.png'},{name='default_tree.png'},{name='fire_basic_flame_animated.png', animation={type='vertical_frames', aspect_w=16, aspect_h=16, length=1}}},
+	groups = {cracky=2, oddly_breakable_by_hand=3, furniture=1, not_in_creative_inventory=1},
+	light_source = 14,
+	paramtype = 'light',
+	paramtype2 = 'facedir',
+	drops = 'ma_pops_furniture:fireplace',
+	sounds = default.node_sound_stone_defaults(),
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('fuel')
+	end,
+})
 
 local lamp_table = { --name, color, colorize(hex or color name:intensity(1-255))
 {'Black', 'black', 'black:225'},
