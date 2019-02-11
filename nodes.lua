@@ -1,3 +1,23 @@
+local moditems = {}  -- switcher
+
+if core.get_modpath("mcl_core") and mcl_core then -- means MineClone 2 is loaded, this is its core mod
+	moditems.IRON_ITEM = "mcl_core:iron_block"   -- MCL version of iron block
+	moditems.COAL_ITEM = "mcl_core:coalblock" -- MCL version of coal block
+	moditems.GREEN_DYE = "mcl_dye:green" -- MCL version of green dye
+	moditems.METAL_SOUNDS = mcl_sounds.node_sound_metal_defaults()
+	moditems.INFOBOX_CAN = {}
+	moditems.BOXART = "bgcolor[#d0d0d0;false]listcolors[#9d9d9d;#9d9d9d;#5c5c5c;#000000;#ffffff]" -- trying to imitate MCL boxart
+
+else         -- fallback, assume default (MineTest Game) is loaded, otherwise it will error anyway here.
+	moditems.IRON_ITEM = "default:steel_block"    -- MTG iron block
+	moditems.COAL_ITEM = "default:coalblock"      -- MTG coal block
+	moditems.GREEN_DYE = "dye:dark_green" -- MCL version of green dye
+	moditems.METAL_SOUNDS = default.node_sound_metal_defaults()
+	moditems.INFOBOX_CAN = "Trash Can"
+	moditems.BOXART = ""
+end
+
+
 --Overall--
 minetest.register_node("ma_pops_furniture:smoke_detector", {
 	description = "Smoke Detector",
