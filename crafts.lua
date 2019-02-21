@@ -209,7 +209,7 @@ minetest.register_craft({
 	recipe = {
 	{'','','',},
 	{'','','',},
-	{'default:wood','default:wood','default:wood',},
+	{'default:wood','default:wood','',},
 	}
 })
 --added craft
