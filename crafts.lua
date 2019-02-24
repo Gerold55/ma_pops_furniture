@@ -941,7 +941,6 @@ minetest.register_craft({
 })
 --added craft
 minetest.register_craft({
-	type= "shapeless",
 	output = 'ma_pops_furniture:stone_path_1 5',
 	recipe = {
 	{'default:stone','default:stone',},
