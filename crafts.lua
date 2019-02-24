@@ -10,7 +10,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'ma_pops_furniture:ceiling_lamp',
 	recipe = {
-	{'default:stone', 'default:stone', 'default:stone'},
+	{'', 'default:stone', ''},
 	{'default:stone', 'default:meselamp', 'default:stone'},
 	{'default:stone', 'default:meselamp', 'default:stone'}
 	}
@@ -176,24 +176,34 @@ minetest.register_craft({
 	{'','default:glass','',},
 	}
 })
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:coffee_cup',
+	recipe = {
+	{'default:glass','','default:glass',},
+	{'default:glass','','default:glass',},
+	{'default:glass','default:glass','default:glass',},
+	}
+})
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:toaster',
 	recipe = {
 	{'','','',},
-	{'default:steel_ingot','default:mese_crystal','default:steel_ingot',},
+	{'default:steel_ingot','default:furnace','default:steel_ingot',},
 	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
 	}
 })
---added craft
+
 minetest.register_craft({
-	output = 'ma_pops_furniture:sink',
+	output = 'ma_pops_furniture:trash_can',
 	recipe = {
-	{'default:steel_ingot','bucket:bucket_water','default:steel_ingot',},
-	{'','default:steel_ingot','',},
-	{'','default:steel_ingot','',},
+	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
+	{'default:steel_ingot','bucket:bucket_lava','default:steel_ingot',},
+	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
 	}
 })
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:kitchen_faucet',
@@ -212,42 +222,85 @@ minetest.register_craft({
 	{'default:wood','default:wood','',},
 	}
 })
---added craft
+local counter_table = { --name, color, colorize(hex or color name:intensity(1-255))
+{'Black', 'black', 'black:225'},
+{'Blue', 'blue', 'blue:150'},
+{'Brown', 'brown', 'brown:100'},
+{'Cyan', 'cyan', 'cyan:150'},
+{'Dark Green', 'dark_green', 'green:200'},
+--{'Dark Grey', 'dark_grey', 'black:200'},
+{'Green', 'green', '#32cd32:150'},
+--{'Grey', 'grey', 'black:150'},
+{'Magenta', 'magenta', 'magenta:200'},
+{'Orange', 'orange', 'orange:150'},
+{'Pink', 'pink', 'pink:150'},
+{'Red', 'red', 'red:150'},
+{'Violet', 'violet', 'violet:150'},
+{'White', 'white', 'white:150'},
+{'Yellow', 'yellow', 'yellow:150'},
+}
+
+for i in ipairs (counter_table) do
+	local name = counter_table[i][1]
+	local color = counter_table[i][2]
+	local hex = counter_table[i][3]
+
 minetest.register_craft({
-	output = 'ma_pops_furniture:counter',
+	output = 'ma_pops_furniture:counter_'..color,
 	recipe = {
 	{'group:wood','group:wood','group:wood',},
-	{'group:wood','','group:wood',},
+	{'group:wood','dye:'..color,'group:wood',},
 	{'group:wood','group:wood','group:wood',},
 	}
 })
---added craft
+
 minetest.register_craft({
-	output = 'ma_pops_furniture:counter1',
-	recipe = {
-	{'group:wood','group:wood','group:wood',},
-	{'group:wood','group:wood','group:wood',},
-	{'group:wood','group:wood','group:wood',},
-	}
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter1_'..color,
+	recipe =
+	{'ma_pops_furniture:counter'}
 })
---added craft
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter2_'..color,
+	recipe =
+	{'ma_pops_furniture:counter1_'..color}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter3_'..color,
+	recipe =
+	{'ma_pops_furniture:counter2_'..color}
+})
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:upcabinet',
 	recipe = {
-	{'group:wood','group:wood','group:wood',},
+	{'group:wood','dye:'..color,'group:wood',},
 	{'group:wood','default:chest','group:wood',},
-	{'default:stone','group:wood','default:stone',},
+	{'group:wood','group:wood','group:wood',},
 	}
 })
---added craft
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:upcabinet_corner',
 	recipe = {
 	{'group:wood','group:wood','group:wood',},
 	{'group:wood','group:wood','default:chest',},
-	{'group:wood','default:stone','default:stone',},
+	{'group:wood','dye:'..color,'',},
 	}
 })
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:sink_'..color,
+	recipe = {
+	{'ma_pops_furniture:br_sink','ma_pops_furniture:counter_'..color,},
+	}
+})
+end
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:fridge',
@@ -449,6 +502,27 @@ minetest.register_craft({
 	{'wool:'..color, 'wool:'..color, 'wool:'..color, },
 	}
 })
+end
+
+local sofa_table = { --color
+{'black'},
+{'blue'},
+{'brown'},
+{'cyan'},
+{'dark_green'},
+{'dark_grey'},
+{'green'},
+{'grey'},
+{'magenta'},
+{'orange'},
+{'pink'},
+{'red'},
+{'violet'},
+{'yellow'},
+}
+
+for i in ipairs (sofa_table) do
+	local color = sofa_table[i][1]
 
 minetest.register_craft({
 	output = 'ma_pops_furniture:sofa_'..color,
@@ -643,30 +717,78 @@ minetest.register_craft({
 	}
 })
 
+local lamp_table = { --name, color, colorize(hex or color name:intensity(1-255))
+{'Black', 'black', 'black:225'},
+{'Blue', 'blue', 'blue:225'},
+{'Brown', 'brown', 'brown:225'},
+{'Cyan', 'cyan', 'cyan:200'},
+{'Dark Green', 'dark_green', 'green:225'},
+{'Dark Grey', 'dark_grey', 'black:200'},
+{'Green', 'green', '#32cd32:150'},
+{'Grey', 'grey', 'black:100'},
+{'Magenta', 'magenta', 'magenta:200'},
+{'Orange', 'orange', 'orange:225'},
+{'Pink', 'pink', 'pink:225'},
+{'Red', 'red', 'red:225'},
+{'Violet', 'violet', 'violet:225'},
+{'White', 'white', 'white:1'},
+{'Yellow', 'yellow', 'yellow:225'},
+}
+
+for i in ipairs (lamp_table) do
+	local name = lamp_table[i][1]
+	local color = lamp_table[i][2]
+	local hex = lamp_table[i][3]
+	
 minetest.register_craft({
-	output = 'ma_pops_furniture:lamp_off',
+	output = 'ma_pops_furniture:lamp_off_'..color,
 	recipe = {
 	{'wool:white','wool:white', 'wool:white'},
 	{'wool:white', 'default:torch', 'wool:white'},
-	{'wool:red', 'wool:red', 'wool:red'}
+	{'wool:'..color, 'wool:'..color, 'wool:'..color}
 	}
 })
+end
 
+local curtain_table = { --name, color, colorize(hex or color name:intensity(1-255))
+{'Black', 'black', 'black:225'},
+{'Blue', 'blue', 'blue:225'},
+{'Brown', 'brown', 'brown:225'},
+{'Cyan', 'cyan', 'cyan:200'},
+{'Dark Green', 'dark_green', 'green:225'},
+{'Dark Grey', 'dark_grey', 'black:200'},
+{'Green', 'green', '#32cd32:150'},
+{'Grey', 'grey', 'black:100'},
+{'Magenta', 'magenta', 'magenta:200'},
+{'Orange', 'orange', 'orange:225'},
+{'Pink', 'pink', 'pink:225'},
+{'Red', 'red', 'red:225'},
+{'Violet', 'violet', 'violet:225'},
+{'White', 'white', 'white:1'},
+{'Yellow', 'yellow', 'yellow:225'},
+}
+
+for i in ipairs (curtain_table) do
+	local name = curtain_table[i][1]
+	local color = curtain_table[i][2]
+	local hex = curtain_table[i][3]
+	
 minetest.register_craft({
-	output = 'ma_pops_furniture:curtains',
+	output = 'ma_pops_furniture:curtains_'..color,
 	recipe = {
 	{'default:acacia_tree','default:acacia_tree', 'default:acacia_tree'},
-	{'wool:red', '', 'wool:red'},
-	{'wool:red', '', 'wool:red'}
+	{'wool:'..color, '', 'wool:'..color},
+	{'wool:'..color, '', 'wool:'..color}
 	}
 })
 
 minetest.register_craft({
 	type = "shapeless",
-	output = 'ma_pops_furniture:curtains_2_tall',
+	output = 'ma_pops_furniture:curtains_2_tall_'..color,
 	recipe =
-	{'ma_pops_furniture:curtains', 'ma_pops_furniture:curtains'}
+	{'ma_pops_furniture:curtains_'..color, 'ma_pops_furniture:curtains_'..color}
 })
+end 
 
 minetest.register_craft({
 	output = 'ma_pops_furniture:blinds',
@@ -743,7 +865,7 @@ minetest.register_craft({
 	output = 'ma_pops_furniture:computer',
 	recipe = {
 	{'default:stone','default:stone','default:stone',},
-	{'default:stone','default:mese_crystal','default:stone',},
+	{'default:glass','default:mese_crystal','default:stone',},
 	{'default:stone','default:copper_lump','default:stone',},
 	}
 })
@@ -794,9 +916,9 @@ end
 minetest.register_craft({
 	output = 'ma_pops_furniture:birdbath',
 	recipe = {
-	{'','','',},
 	{'default:steel_ingot','bucket:bucket_water','default:steel_ingot',},
 	{'','default:steel_ingot','',},
+	{'default:stone','default:stone','default:stone',},
 	}
 })
 --added craft
@@ -819,11 +941,10 @@ minetest.register_craft({
 })
 --added craft
 minetest.register_craft({
+	type= "shapeless",
 	output = 'ma_pops_furniture:stone_path_1 5',
 	recipe = {
-	{'default:stone','','default:stone',},
-	{'','','',},
-	{'default:stone','','default:stone',},
+	{'default:stone','default:stone',},
 	}
 })
 

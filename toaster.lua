@@ -175,21 +175,12 @@ minetest.register_node("ma_pops_furniture:toaster_with_toast", {
 		end
 	end
 })
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:toaster',
-	recipe = {
-	{'','','',},
-	{'default:steel_ingot','default:mese_crystal','default:steel_ingot',},
-	{'default:steel_ingot','bucket:bucket_lava','default:steel_ingot',},
-	}
-})
 	
 --Slice of Bread (only if not farming one used)
 if not minetest.registered_items["farming:bread_slice"] then
 	minetest.register_craft({
 		output = 'ma_pops_furniture:breadslice 2',
 		type = "shapeless",
-		recipe = {"farming:bread"}
+		recipe = {"farming:bread", "ma_pops_furniture:knife"},
 	})
 end

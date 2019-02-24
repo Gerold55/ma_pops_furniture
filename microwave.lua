@@ -146,15 +146,6 @@ minetest.register_node("ma_pops_furniture:microwave", {
     end
 })
 
-minetest.register_craft({
-	output = "ma_pops_furniture:microwave",
-	recipe = {
-		{"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"},
-		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"}
-	}
-})
-
 -- Recipe Registration
 microwave.register_recipe("default:ice", "default:water_source")
 -- No milk bucket as this doesn't support substitutes for now
