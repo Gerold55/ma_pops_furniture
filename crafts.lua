@@ -246,7 +246,7 @@ for i in ipairs (counter_table) do
 	local hex = counter_table[i][3]
 
 minetest.register_craft({
-	output = 'ma_pops_furniture:counter_'..color,
+	output = 'ma_pops_furniture:counter2_'..color,
 	recipe = {
 	{'group:wood','group:wood','group:wood',},
 	{'group:wood','dye:'..color,'group:wood',},
@@ -258,21 +258,21 @@ minetest.register_craft({
 	type = "shapeless",
 	output = 'ma_pops_furniture:counter1_'..color,
 	recipe =
-	{'ma_pops_furniture:counter'}
-})
-
-minetest.register_craft({
-	type = "shapeless",
-	output = 'ma_pops_furniture:counter2_'..color,
-	recipe =
-	{'ma_pops_furniture:counter1_'..color}
+	{'ma_pops_furniture:counter2_'..color}
 })
 
 minetest.register_craft({
 	type = "shapeless",
 	output = 'ma_pops_furniture:counter3_'..color,
 	recipe =
-	{'ma_pops_furniture:counter2_'..color}
+	{'ma_pops_furniture:counter2_'..color, "default:chest"}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter_'..color,
+	recipe =
+	{'ma_pops_furniture:counter3_'..color}
 })
 
 minetest.register_craft({
@@ -930,6 +930,53 @@ minetest.register_craft({
 	{'','','',},
 	}
 })
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:ac',
+	recipe = {
+	{'default:coral_skeleton','default:coral_skeleton','default:coral_skeleton',},
+	{'default:coral_skeleton','ma_pops_furniture:fan_blade','default:coral_skeleton',},
+	{'default:coral_skeleton','default:mese_crystal','default:coral_skeleton',},
+	}
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:fan_off',
+	recipe = {
+	{'default:coral_skeleton','default:coral_skeleton','default:coral_skeleton',},
+	{'default:coral_skeleton','ma_pops_furniture:fan_blade','default:coral_skeleton',},
+	{'default:coral_skeleton','default:coral_skeleton','default:coral_skeleton',},
+	}
+})
+
+minetest.register_craftitem("ma_pops_furniture:fan_blade", {
+	description = 'Fan Blade',
+	inventory_image = "mp_blade.png",
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:fan_blade',
+	recipe = {
+	{'default:coral_skeleton','','default:coral_skeleton',},
+	{'','default:coral_skeleton','',},
+	{'default:coral_skeleton','','default:coral_skeleton',},
+	}
+})
+
+minetest.register_craftitem("ma_pops_furniture:knife", {
+	description = 'Knife',
+	inventory_image = "mp_knife.png",
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:knife',
+	recipe = {
+	{'default:steel_ingot','','',},
+	{'','default:steel_ingot','',},
+	{'','','default:stick',},
+	}
+})
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:grill',
