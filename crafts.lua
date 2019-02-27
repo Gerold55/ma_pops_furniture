@@ -180,8 +180,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'ma_pops_furniture:coffee_cup',
 	recipe = {
-	{'default:glass','','default:glass',},
-	{'default:glass','','default:glass',},
+	{'default:glass','dye:blue','default:glass',},
+	{'default:glass','dye:blue','default:glass',},
 	{'default:glass','default:glass','default:glass',},
 	}
 })
@@ -916,8 +916,8 @@ end
 minetest.register_craft({
 	output = 'ma_pops_furniture:birdbath',
 	recipe = {
-	{'default:steel_ingot','bucket:bucket_water','default:steel_ingot',},
-	{'','default:steel_ingot','',},
+	{'default:stone','bucket:bucket_water','default:stone',},
+	{'','default:stone','',},
 	{'default:stone','default:stone','default:stone',},
 	}
 })
