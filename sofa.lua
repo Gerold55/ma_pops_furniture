@@ -47,9 +47,12 @@ minetest.register_node('ma_pops_furniture:sofa_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -160,9 +163,12 @@ minetest.register_node('ma_pops_furniture:sofa_l_'..color, {
     drop = 'ma_pops_furniture:sofa_'..color,
     paramtype = "light",
     paramtype2 = "facedir",
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
     sounds = {
         wood = {name="furn_bouncy", gain=0.8}
     },
@@ -274,9 +280,12 @@ minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
 	drop = 'ma_pops_furniture:sofa_'..color,
 	paramtype = "light",
 	paramtype2 = "facedir",
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
 	selection_box = {
 		type = 'fixed',
@@ -383,9 +392,12 @@ minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -493,9 +505,12 @@ minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
 	selection_box = {
 		type = 'fixed',
 		fixed = {

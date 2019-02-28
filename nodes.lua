@@ -744,9 +744,12 @@ minetest.register_node('ma_pops_furniture:chair_'..material, {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = default.node_sound_wood_defaults(),
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -1899,9 +1902,12 @@ minetest.register_node("ma_pops_furniture:chair2_"..color, {
     paramtype2 = "facedir",
     groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1, fall_damage_add_percent=-80, bouncy=80},
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
-    on_rightclick = function(pos, node, clicker)
-        ma_pops_furniture.sit(pos, node, clicker)
-        end,
+    can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
     node_box = {
         type = "fixed",
         fixed = {
@@ -3646,9 +3652,12 @@ minetest.register_node("ma_pops_furniture:stool_"..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
-	on_rightclick = function(pos, node, clicker)
-		ma_pops_furniture.sit(pos, node, clicker)
-		end,
+	can_dig = ma_pops_furniture.sit_dig,
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		pos.y = pos.y + 0  -- Sitting position
+		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
+		return itemstack
+	end,
 	node_box = {
 		type = "fixed",
 		fixed = {
