@@ -32,6 +32,22 @@ local sofa_table = { --name, color, colorize(hex or color name:intensity(1-255))
 {'Yellow', 'yellow', 'yellow:225'},
 }
 
+local function sofa_punch(sofa_type, pos, node, clicker)
+        local item = clicker:get_wielded_item():get_name()
+	
+	-- Extract mod name and color
+	split = string.split(item, ":")
+	mod, color = split[0], split[2]
+	
+	-- If dye, recolor sofa
+	if mod == 'dye' then
+		node.name = sofa_type..color
+		minetest.set_node(pos, node)
+	end
+
+        ma_pops_furniture.sit(pos, node, clicker)
+end
+
 for i in ipairs (sofa_table) do
 	local name = sofa_table[i][1]
 	local color = sofa_table[i][2]
@@ -56,7 +72,8 @@ minetest.register_node('ma_pops_furniture:sofa_'..color, {
 	selection_box = {
 		type = 'fixed',
 		fixed = {
-			{-.5, -.5, -.5, .5, 0, .5}, --Right, Bottom, Back, Left, Top, Front
+
+					{-.5, -.5, -.5, .5, 0, .5}, --Right, Bottom, Back, Left, Top, Front
 			{-.5, 0, .5, .5, .5, .2},
 			{-.65, -.15, -.45, -.45, .3, .25}, --left
 			{.65, -.15, -.45, .45, .3, .25}, --right
@@ -71,87 +88,9 @@ minetest.register_node('ma_pops_furniture:sofa_'..color, {
 			{.65, -.15, -.45, .45, .3, .25}, --right
 			},
 		},
-		on_punch = function(pos, node, clicker)
-	for _, obj in ipairs (minetest.get_connected_players())  do
-        local item = obj:get_wielded_item():get_name()
-        if item == 'dye:black' then
-            node.name = "ma_pops_furniture:sofa_black"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:white' then
-            node.name = "ma_pops_furniture:sofa_white"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:grey' then
-            node.name = "ma_pops_furniture:sofa_grey"
-               minetest.set_node(pos, node)
-        else
-        if item == 'dye:dark_grey' then
-            node.name = "ma_pops_furniture:sofa_dark_grey"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:violet' then
-            node.name = "ma_pops_furniture:sofa_violet"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:blue' then
-            node.name = "ma_pops_furniture:sofa_blue"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:cyan' then
-            node.name = "ma_pops_furniture:sofa_cyan"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:dark_green' then
-            node.name = "ma_pops_furniture:sofa_dark_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:green' then
-            node.name = "ma_pops_furniture:sofa_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:yellow' then
-            node.name = "ma_pops_furniture:sofa_yellow"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:orange' then
-            node.name = "ma_pops_furniture:sofa_orange"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:red' then
-            node.name = "ma_pops_furniture:sofa_red"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:magenta' then
-            node.name = "ma_pops_furniture:sofa_magenta"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:pink' then
-            node.name = "ma_pops_furniture:sofa_pink"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:brown' then
-            node.name = "ma_pops_furniture:sofa_brown"
-               minetest.set_node(pos, node)
-        else
-         ma_pops_furniture.sit(pos, node, clicker)
-                      end
-                     end
-                    end
-                   end
-                  end
-                 end
-                end
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-		 end
+	on_punch = function(pos, node, clicker)
+		sofa_punch("ma_pops_furniture:sofa_", pos, node, clicker)
+	end
 })
 
 minetest.register_node('ma_pops_furniture:sofa_l_'..color, {
@@ -189,86 +128,8 @@ minetest.register_node('ma_pops_furniture:sofa_l_'..color, {
         }
     },
     on_punch = function(pos, node, clicker)
-	for _, obj in ipairs (minetest.get_connected_players())  do
-        local item = obj:get_wielded_item():get_name()
-        if item == 'dye:black' then
-            node.name = "ma_pops_furniture:sofa_l_black"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:white' then
-            node.name = "ma_pops_furniture:sofa_l_white"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:grey' then
-            node.name = "ma_pops_furniture:sofa_l_grey"
-               minetest.set_node(pos, node)
-        else
-        if item == 'dye:dark_grey' then
-            node.name = "ma_pops_furniture:sofa_l_dark_grey"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:violet' then
-            node.name = "ma_pops_furniture:sofa_l_violet"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:blue' then
-            node.name = "ma_pops_furniture:sofa_l_blue"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:cyan' then
-            node.name = "ma_pops_furniture:sofa_l_cyan"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:dark_green' then
-            node.name = "ma_pops_furniture:sofa_l_dark_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:green' then
-            node.name = "ma_pops_furniture:sofa_l_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:yellow' then
-            node.name = "ma_pops_furniture:sofa_l_yellow"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:orange' then
-            node.name = "ma_pops_furniture:sofa_l_orange"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:red' then
-            node.name = "ma_pops_furniture:sofa_l_red"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:magenta' then
-            node.name = "ma_pops_furniture:sofa_l_magenta"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:pink' then
-            node.name = "ma_pops_furniture:sofa_l_pink"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:brown' then
-            node.name = "ma_pops_furniture:sofa_l_brown"
-               minetest.set_node(pos, node)
-        else
-         ma_pops_furniture.sit(pos, node, clicker)
-                      end
-                     end
-                    end
-                   end
-                  end
-                 end
-                end
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-		 end
+        sofa_punch("ma_pops_furniture:sofa_l_", pos, node, clicker)
+    end
 })
 
 minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
@@ -302,84 +163,8 @@ minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
 			}
 		},
 	on_punch = function(pos, node, clicker)
-	for _, obj in ipairs (minetest.get_connected_players())  do
-        local item = obj:get_wielded_item():get_name()
-        if item == 'dye:black' then
-            node.name = "ma_pops_furniture:sofa_m_black"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:white' then
-            node.name = "ma_pops_furniture:sofa_m_white"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:grey' then
-            node.name = "ma_pops_furniture:sofa_m_grey"
-               minetest.set_node(pos, node)
-        else
-        if item == 'dye:dark_grey' then
-            node.name = "ma_pops_furniture:sofa_m_dark_grey"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:violet' then
-            node.name = "ma_pops_furniture:sofa_m_violet"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:blue' then
-            node.name = "ma_pops_furniture:sofa_m_blue"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:cyan' then
-            node.name = "ma_pops_furniture:sofa_m_cyan"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:dark_green' then
-            node.name = "ma_pops_furniture:sofa_m_dark_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:green' then
-            node.name = "ma_pops_furniture:sofa_m_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:yellow' then
-            node.name = "ma_pops_furniture:sofa_m_yellow"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:orange' then
-            node.name = "ma_pops_furniture:sofa_m_orange"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:red' then
-            node.name = "ma_pops_furniture:sofa_m_red"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:magenta' then
-            node.name = "ma_pops_furniture:sofa_m_magenta"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:pink' then
-            node.name = "ma_pops_furniture:sofa_m_pink"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:brown' then
-            node.name = "ma_pops_furniture:sofa_m_brown"
-               minetest.set_node(pos, node)
-                      end
-                     end
-                    end
-                   end
-                  end
-                 end
-                end
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-		 end
+		sofa_punch("ma_pops_furniture:sofa_m_", pos, node, clicker)
+	end
 })
 
 minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
@@ -415,84 +200,8 @@ minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
 			}
 		},
 	on_punch = function(pos, node, clicker)
-	for _, obj in ipairs (minetest.get_connected_players())  do
-        local item = obj:get_wielded_item():get_name()
-        if item == 'dye:black' then
-            node.name = "ma_pops_furniture:sofa_r_black"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:white' then
-            node.name = "ma_pops_furniture:sofa_r_white"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:grey' then
-            node.name = "ma_pops_furniture:sofa_r_grey"
-               minetest.set_node(pos, node)
-        else
-        if item == 'dye:dark_grey' then
-            node.name = "ma_pops_furniture:sofa_r_dark_grey"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:violet' then
-            node.name = "ma_pops_furniture:sofa_r_violet"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:blue' then
-            node.name = "ma_pops_furniture:sofa_r_blue"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:cyan' then
-            node.name = "ma_pops_furniture:sofa_r_cyan"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:dark_green' then
-            node.name = "ma_pops_furniture:sofa_r_dark_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:green' then
-            node.name = "ma_pops_furniture:sofa_r_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:yellow' then
-            node.name = "ma_pops_furniture:sofa_r_yellow"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:orange' then
-            node.name = "ma_pops_furniture:sofa_r_orange"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:red' then
-            node.name = "ma_pops_furniture:sofa_r_red"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:magenta' then
-            node.name = "ma_pops_furniture:sofa_r_magenta"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:pink' then
-            node.name = "ma_pops_furniture:sofa_r_pink"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:brown' then
-            node.name = "ma_pops_furniture:sofa_r_brown"
-               minetest.set_node(pos, node)
-                      end
-                     end
-                    end
-                   end
-                  end
-                 end
-                end
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-		 end
+		sofa_punch("ma_pops_furniture:sofa_r_", pos, node, clicker)
+	end
 })
 
 minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
@@ -527,83 +236,7 @@ minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
 			}
 		},
 	on_punch = function(pos, node, clicker)
-	for _, obj in ipairs (minetest.get_connected_players())  do
-        local item = obj:get_wielded_item():get_name()
-        if item == 'dye:black' then
-            node.name = "ma_pops_furniture:sofa_c_black"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:white' then
-            node.name = "ma_pops_furniture:sofa_c_white"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:grey' then
-            node.name = "ma_pops_furniture:sofa_c_grey"
-               minetest.set_node(pos, node)
-        else
-        if item == 'dye:dark_grey' then
-            node.name = "ma_pops_furniture:sofa_c_dark_grey"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:violet' then
-            node.name = "ma_pops_furniture:sofa_c_violet"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:blue' then
-            node.name = "ma_pops_furniture:sofa_c_blue"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:cyan' then
-            node.name = "ma_pops_furniture:sofa_c_cyan"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:dark_green' then
-            node.name = "ma_pops_furniture:sofa_c_dark_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:green' then
-            node.name = "ma_pops_furniture:sofa_c_green"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:yellow' then
-            node.name = "ma_pops_furniture:sofa_c_yellow"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:orange' then
-            node.name = "ma_pops_furniture:sofa_c_orange"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:red' then
-            node.name = "ma_pops_furniture:sofa_c_red"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:magenta' then
-            node.name = "ma_pops_furniture:sofa_c_magenta"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:pink' then
-            node.name = "ma_pops_furniture:sofa_c_pink"
-               minetest.set_node(pos, node)
-        else
-                if item == 'dye:brown' then
-            node.name = "ma_pops_furniture:sofa_c_brown"
-               minetest.set_node(pos, node)
-                      end
-                     end
-                    end
-                   end
-                  end
-                 end
-                end
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-		 end
+		sofa_punch("ma_pops_furniture:sofa_c_", pos, node, clicker)
+	end
 })
 end
