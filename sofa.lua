@@ -47,6 +47,9 @@ minetest.register_node('ma_pops_furniture:sofa_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -65,7 +68,7 @@ minetest.register_node('ma_pops_furniture:sofa_'..color, {
 			{.65, -.15, -.45, .45, .3, .25}, --right
 			},
 		},
-		on_rightclick = function(pos, node, clicker)
+		on_punch = function(pos, node, clicker)
 	for _, obj in ipairs (minetest.get_connected_players())  do
         local item = obj:get_wielded_item():get_name()
         if item == 'dye:black' then
@@ -157,6 +160,9 @@ minetest.register_node('ma_pops_furniture:sofa_l_'..color, {
     drop = 'ma_pops_furniture:sofa_'..color,
     paramtype = "light",
     paramtype2 = "facedir",
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
     sounds = {
         wood = {name="furn_bouncy", gain=0.8}
     },
@@ -176,7 +182,7 @@ minetest.register_node('ma_pops_furniture:sofa_l_'..color, {
             {.65, -.15, -.45, .45, .3, .25},
         }
     },
-    on_rightclick = function(pos, node, clicker)
+    on_punch = function(pos, node, clicker)
 	for _, obj in ipairs (minetest.get_connected_players())  do
         local item = obj:get_wielded_item():get_name()
         if item == 'dye:black' then
@@ -268,6 +274,9 @@ minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
 	drop = 'ma_pops_furniture:sofa_'..color,
 	paramtype = "light",
 	paramtype2 = "facedir",
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
 	selection_box = {
 		type = 'fixed',
@@ -283,7 +292,7 @@ minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
 			{-.5, 0, .5, .5, .5, .2},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
+	on_punch = function(pos, node, clicker)
 	for _, obj in ipairs (minetest.get_connected_players())  do
         local item = obj:get_wielded_item():get_name()
         if item == 'dye:black' then
@@ -345,8 +354,6 @@ minetest.register_node('ma_pops_furniture:sofa_m_'..color, {
                 if item == 'dye:brown' then
             node.name = "ma_pops_furniture:sofa_m_brown"
                minetest.set_node(pos, node)
-        else
-         ma_pops_furniture.sit(pos, node, clicker)
                       end
                      end
                     end
@@ -376,6 +383,9 @@ minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -392,7 +402,7 @@ minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
 			{-.65, -.15, -.45, -.45, .3, .25},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
+	on_punch = function(pos, node, clicker)
 	for _, obj in ipairs (minetest.get_connected_players())  do
         local item = obj:get_wielded_item():get_name()
         if item == 'dye:black' then
@@ -454,8 +464,6 @@ minetest.register_node('ma_pops_furniture:sofa_r_'..color, {
                 if item == 'dye:brown' then
             node.name = "ma_pops_furniture:sofa_r_brown"
                minetest.set_node(pos, node)
-        else
-         ma_pops_furniture.sit(pos, node, clicker)
                       end
                      end
                     end
@@ -485,6 +493,9 @@ minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	sounds = {wood = {name="furn_bouncy", gain=0.8}},
+	on_rightclick = function(pos, node, clicker)
+		ma_pops_furniture.sit(pos, node, clicker)
+		end,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -500,7 +511,7 @@ minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
 			{-.5, 0, .5, .5, .5, .2},
 			}
 		},
-	on_rightclick = function(pos, node, clicker)
+	on_punch = function(pos, node, clicker)
 	for _, obj in ipairs (minetest.get_connected_players())  do
         local item = obj:get_wielded_item():get_name()
         if item == 'dye:black' then
@@ -562,8 +573,6 @@ minetest.register_node('ma_pops_furniture:sofa_c_'..color, {
                 if item == 'dye:brown' then
             node.name = "ma_pops_furniture:sofa_c_brown"
                minetest.set_node(pos, node)
-        else
-         ma_pops_furniture.sit(pos, node, clicker)
                       end
                      end
                     end
