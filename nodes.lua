@@ -1075,7 +1075,7 @@ local counter_table = { --name, color, colorize(hex or color name:intensity(1-25
 --{'Grey', 'grey', 'black:150'},
 {'Magenta', 'magenta', 'magenta:200'},
 {'Orange', 'orange', 'orange:150'},
-{'Pink', 'pink', 'pink:150'},
+{'Pink', 'pink', 'pink:200'},
 {'Red', 'red', 'red:150'},
 {'Violet', 'violet', 'violet:150'},
 {'White', 'white', 'white:150'},
