@@ -37,7 +37,7 @@ local function sofa_punch(sofa_type, pos, node, clicker)
 	
 	-- Extract mod name and color
 	split = string.split(item, ":")
-	mod, color = split[0], split[2]
+	mod, color = split[1], split[2]
 	
 	-- If dye, recolor sofa
 	if mod == 'dye' then
