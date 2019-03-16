@@ -1,219 +1,243 @@
-minetest.register_node("ma_pops_furniture:grill2", {
+local minetest = minetest
+
+local grill_nodebox = {
+  type = "fixed",
+  fixed = {
+    {-0.450, -0.5, -0.450, -0.350, -0.3, -0.350},
+    {0.450, -0.5, -0.450, 0.350, -0.3, -0.350},
+    {-0.450, -0.5, 0.450, -0.350, -0.3, 0.350},
+    {0.450, -0.5, 0.450, 0.350, -0.3, 0.350},
+
+    {-0.4, -0.3, -0.4, -0.3, 0.0, -0.3},
+    {0.4, -0.3, -0.4, 0.3, 0.0, -0.3},
+    {-0.4, -0.3, 0.4, -0.3, 0.0, 0.3},
+    {0.4, -0.3, 0.4, 0.3, 0.0, 0.3},
+
+    {-0.4, -0.0, -0.4, 0.4, 0.2, 0.4},
+    {-0.5, 0.190, -0.5, 0.5, 0.4, 0.5},
+
+    {-0.4375, 0.4, 0.5, -0.5, 0.5, -0.5},
+    {0.4375, 0.4, 0.5, 0.5, 0.5, -0.5},
+    {-0.5, 0.4, 0.4375, 0.5, 0.5, 0.5},
+    {-0.5, 0.4, -0.4375, 0.5, 0.5, -0.5},
+  }
+}
+
+local top_closed_nodebox = {
+  type = "fixed",
+  fixed = {
+    {-0.4375, -0.375, -0.4375, 0.4375, -0.3125, 0.4375},
+    {-0.5, -0.5, -0.4375, -0.4375, -0.375, 0.5},
+    {0.4375, -0.5, -0.5, 0.5, -0.375, 0.4375},
+    {-0.5, -0.5, -0.5, 0.4375, -0.375, -0.4375},
+    {-0.4375, -0.5, 0.4375, 0.5, -0.375, 0.5},
+  }
+}
+
+local top_open_nodebox = {
+  type = "fixed",
+  fixed = {
+    {-0.5, -0.4375, 0.3125, -0.4375, 0.5, 0.4375},
+    {0.4375, -0.5, 0.3125, 0.5, 0.4375, 0.4375},
+    {-0.4375, 0.4375, 0.3125, 0.5, 0.5, 0.4375},
+    {-0.5, -0.5, 0.3125, 0.4375, -0.4375, 0.4375},
+    {-0.4375, -0.4375, 0.4375, 0.4375, 0.4375, 0.5},
+  }
+}
+
+
+local grill_texture = 'default_stone.png'
+local grill_name = 'ma_pops_furniture:grill'
+local grill_on_name = 'ma_pops_furniture:grill_on'
+local grill2_off_name = 'ma_pops_furniture:grill2'
+local grill2_on_name = 'ma_pops_furniture:grill2_on'
+local grill2_on_no_light_name = 'ma_pops_furniture:grill2_on_nolight'
+local grill_top_name = 'ma_pops_furniture:grill2_top'
+local grill_top_open_name = 'ma_pops_furniture:grill2_top_open'
+
+local function above(pos)
+    return {x=pos.x, y=pos.y+1, z=pos.z}
+end
+
+local function below(pos)
+    return {x=pos.x, y=pos.y-1, z=pos.z}
+end
+
+local function after_dig(pos, oldnode, oldmetadata, digger)
+  local node_above = minetest.get_node(above(pos))
+  
+  if node_above.name == grill_top_open_name or
+    node_above.name == grill_top_name then 
+    minetest.dig_node(above(pos)) 
+  end
+end
+
+
+minetest.register_node(grill_name, {
    description = "Grill",
    tiles = {
-		"default_stone.png^mp_grillt.png",
-		"default_stone.png",
-		"default_stone.png^mp_grill_s.png",
-		"default_stone.png^mp_grill_s.png",
-		"default_stone.png^mp_grill_s.png",
-		"default_stone.png^mp_grill_s.png",
+		"default_coal_block.png^mp_grillt.png",
+		grill_texture,
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png"
 },
    drawtype = "nodebox",
-   drop = 'ma_pops_furniture:grill2',
+   drop = grill_name,
    paramtype = "light",
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name == "ma_pops_furniture:grill2_top_off" then 
- minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "ma_pops_furniture:grill2_on"}) 
- end
-if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name == "ma_pops_furniture:grill_top" then 
- minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "ma_pops_furniture:grill2_on_nolight"}) 
- end
-end,
-on_dig = function(pos, node, player)
-minetest.set_node({x = pos.x , y = pos.y + 1, z = pos.z}, {name = "air"}) 
-minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
-end,
-   groups = {choppy = 2, oddly_breakable_by_hand = 2},
-   on_construct = function(pos)
-    if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "air" then 
-return false end minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "ma_pops_furniture:grill2_top"}) 
-	if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "air" then 
-	if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "ma_pops_furniture:grill2_top" then 
- minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
- end
- end
- end,
-   node_box = {
-       type = "fixed",
-       fixed = {
-          --body
-          {0.5, 0.4, 0.5, -0.5, -0.0, -0.5},
-          {0.5, 0.3, -0.45, -0.5, 0.5, -0.5},
-          {0.5, 0.3, 0.45, -0.5, 0.5, 0.5},
-          {-0.5, 0.3, 0.5, -0.45, 0.5, -0.5},
-          {0.5, 0.3, 0.5, 0.45, 0.5, -0.5},
-          --leg1
-           {0.45, 0.0, 0.45, 0.35, -0.35, 0.35},
-            {0.5, -0.35, 0.5, 0.4, -0.5, 0.4},
-            --leg2
-           {0.45, 0.0, -0.45, 0.35, -0.35, -0.35},
-            {0.5, -0.35, -0.5, 0.4, -0.5, -0.4},
-            --leg3
-            {-0.45, 0.0, -0.45, -0.35, -0.35, -0.35},
-             {-0.5, -0.35, -0.5, -0.4, -0.5, -0.4},
-            --leg4
-             {-0.45, 0.0, 0.45, -0.35, -0.35, 0.35},
-            {-0.5, -0.35, 0.5, -0.4, -0.5, 0.4},
-       },  
-   }
+      minetest.swap_node(pos, {name = grill_on_name})
+   end,
+   groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+   node_box = grill_nodebox
 })
 
-minetest.register_node("ma_pops_furniture:grill2_on", {
-   description = "grill",
-   tiles = {
-		"default_stone.png^mp_grillton.png",
-		"default_stone.png",
-		"default_stone.png^mp_grill_s.png",
-		"default_stone.png^mp_grill_s.png",
-		"default_stone.png^mp_grill_s.png",
-		"default_stone.png^mp_grill_s.png",
-},
-   drawtype = "nodebox",
-   drop = 'ma_pops_furniture:grill2',
-   paramtype = "light",
-   light_source = 10,
-   paramtype2 = "facedir",
-   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:grill2"
-minetest.set_node(pos, node)
-end,
-on_dig = function(pos, node, player)
-minetest.set_node({x = pos.x , y = pos.y + 1, z = pos.z}, {name = "air"}) 
-minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
-end,
-   groups = {choppy = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
-   node_box = {
-       type = "fixed",
-       fixed = {
-          --body
-          {0.5, 0.4, 0.5, -0.5, -0.0, -0.5},
-          {0.5, 0.3, -0.45, -0.5, 0.5, -0.5},
-          {0.5, 0.3, 0.45, -0.5, 0.5, 0.5},
-          {-0.5, 0.3, 0.5, -0.45, 0.5, -0.5},
-          {0.5, 0.3, 0.5, 0.45, 0.5, -0.5},
-          --leg1
-           {0.45, 0.0, 0.45, 0.35, -0.35, 0.35},
-            {0.5, -0.35, 0.5, 0.4, -0.5, 0.4},
-            --leg2
-           {0.45, 0.0, -0.45, 0.35, -0.35, -0.35},
-            {0.5, -0.35, -0.5, 0.4, -0.5, -0.4},
-            --leg3
-            {-0.45, 0.0, -0.45, -0.35, -0.35, -0.35},
-             {-0.5, -0.35, -0.5, -0.4, -0.5, -0.4},
-            --leg4
-             {-0.45, 0.0, 0.45, -0.35, -0.35, 0.35},
-            {-0.5, -0.35, 0.5, -0.4, -0.5, 0.4},
-       },  
-   }
+minetest.register_node("ma_pops_furniture:grill_on", {
+  description = "Grill (on)",
+  tiles = {
+    "default_coal_block.png^mp_grillton.png",
+    grill_texture,
+    grill_texture .. "^mp_grills.png",
+    grill_texture .. "^mp_grills.png",
+    grill_texture .. "^mp_grills.png",
+    grill_texture .. "^mp_grills.png"
+  },
+  drawtype = "nodebox",
+  drop = grill_name,
+  paramtype = "light",
+  light_source = 10,
+  on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+    minetest.swap_node(pos, {name = grill_name})
+  end,
+  groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
+  node_box = grill_nodebox
 })
 
-minetest.register_node("ma_pops_furniture:grill2_on_nolight", {
-   description = "grill",
-   tiles = {
-		"default_stone.png^mp_grillton.png",
-		"default_stone.png",
-		"default_stone.png^mp_grillton.png",
-		"default_stone.png^mp_grillton.png",
-		"default_stone.png^mp_grillton.png",
-},
-   drawtype = "nodebox",
-   drop = 'ma_pops_furniture:grill2',
-   paramtype = "light",
-   paramtype2 = "facedir",
-   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:grill2"
-minetest.set_node(pos, node)
-end,
-on_dig = function(pos, node, player)
-minetest.set_node({x = pos.x , y = pos.y + 1, z = pos.z}, {name = "air"}) 
-minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
-end,
-   groups = {choppy = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory = 1},
-   node_box = {
-       type = "fixed",
-       fixed = {
-          --body
-          {0.5, 0.4, 0.5, -0.5, -0.0, -0.5},
-          {0.5, 0.3, -0.45, -0.5, 0.5, -0.5},
-          {0.5, 0.3, 0.45, -0.5, 0.5, 0.5},
-          {-0.5, 0.3, 0.5, -0.45, 0.5, -0.5},
-          {0.5, 0.3, 0.5, 0.45, 0.5, -0.5},
-          --leg1
-           {0.45, 0.0, 0.45, 0.35, -0.35, 0.35},
-            {0.5, -0.35, 0.5, 0.4, -0.5, 0.4},
-            --leg2
-           {0.45, 0.0, -0.45, 0.35, -0.35, -0.35},
-            {0.5, -0.35, -0.5, 0.4, -0.5, -0.4},
-            --leg3
-            {-0.45, 0.0, -0.45, -0.35, -0.35, -0.35},
-             {-0.5, -0.35, -0.5, -0.4, -0.5, -0.4},
-            --leg4
-             {-0.45, 0.0, 0.45, -0.35, -0.35, 0.35},
-            {-0.5, -0.35, 0.5, -0.4, -0.5, 0.4},
-       },  
-   }
+minetest.register_node(grill2_off_name, {
+	description = "Lidded Grill",
+	tiles = {
+		grill_texture .. "^mp_grillt.png",
+		grill_texture,
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+	},
+	drawtype = "nodebox",
+	drop = grill2_off_name,
+	paramtype = "light",
+  
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+    local node_above = minetest.get_node(above(pos))
+    
+		if node_above.name == grill_top_open_name then 
+			minetest.swap_node(pos, {name = grill2_on_name}) 
+		end
+    
+		if node_above.name == grill_top_name then 
+			minetest.swap_node(pos, {name = grill2_on_no_light_name}) 
+		end
+	end,
+  
+	after_dig_node = after_dig,
+  
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+	on_construct = function(pos)
+		local pos_above = above(pos)
+		local node_above = minetest.get_node(pos_above)
+		
+    minetest.place_node(pos_above, {name = grill_top_name}) 
+		if node_above.name == "air" then 
+		  --
+		end
+	end,
+	node_box = grill_nodebox
 })
 
-minetest.register_node("ma_pops_furniture:grill2_top", {
-   description = "grill top",
-   tiles = {
-		"mp_grill_t2.png",
-		"mp_grill_t2.png",
-		"mp_grill_t2.png",
-		"mp_grill_t2.png",
-		"mp_grill_t2.png",
-		"mp_grill_t2.png",
-},
-   drawtype = "nodebox",
-   drop = 'ma_pops_furniture:grill2_top_off',
-   paramtype = "light",
-   paramtype2 = "facedir",
-   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-   if minetest.get_node(vector.add(pos, vector.new(0, - 1, 0))).name == "ma_pops_furniture:grill2_on_nolight" then 
- minetest.set_node({x = pos.x, y = pos.y - 1,z = pos.z}, {name = "ma_pops_furniture:grill2_on"}) 
- end
-node.name = "ma_pops_furniture:grill2_top_off"
-minetest.set_node(pos, node)
-end,
-   groups = {not_in_creative_inventory = 1},
-   node_box = {
-       type = "fixed",
-       fixed = {
-          --body
-          {0.5, -0.5, 0.5, -0.5, -0.4, -0.5},
-          {0.4, -0.4, 0.4, -0.4, -0.3, -0.4},
-       },  
-   }
+minetest.register_node(grill2_on_name, {
+	description = "Lidded Grill (on)",
+	tiles = {
+		grill_texture .. "^mp_grillton.png",
+		grill_texture,
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+	},
+	drawtype = "nodebox",
+	drop = grill2_off_name,
+	paramtype = "light",
+	light_source = 10,
+	paramtype2 = "facedir",
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+		minetest.swap_node(pos, {name = grill2_off_name})
+	end,
+	after_dig_node = after_dig,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
+	node_box = grill_nodebox
 })
 
-minetest.register_node("ma_pops_furniture:grill2_top_off", {
-   description = "grill top",
+minetest.register_node(grill2_on_no_light_name, {
+	description = "Lidded Grill (on)",
+	tiles = {
+		grill_texture .. "^mp_grillton.png",
+		grill_texture,
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+		grill_texture .. "^mp_grills.png",
+	},
+	drawtype = "nodebox",
+	drop = grill2_off_name,
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+		minetest.swap_node(pos, {name=grill2_off_name})
+	end,
+	after_dig_node = after_dig,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
+	node_box = grill_nodebox
+})
+
+minetest.register_node(grill_top_name, {
+   description = "Grill lid",
    tiles = {
-		"mp_grill_t3.png",
-		"mp_grill_t3.png",
-		"mp_grill_t3.png",
-		"mp_grill_t3.png",
-		"mp_grill_t3.png",
-		"mp_grill_t3.png",
-},
-   drawtype = "nodebox",
-   drop = 'ma_pops_furniture:grill2_top_off',
-   paramtype = "light",
-   paramtype2 = "facedir",
-   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-   if minetest.get_node(vector.add(pos, vector.new(0, - 1, 0))).name == "ma_pops_furniture:grill2_on" then 
- minetest.set_node({x = pos.x, y = pos.y - 1,z = pos.z}, {name = "ma_pops_furniture:grill2_on_nolight"}) 
- end
-node.name = "ma_pops_furniture:grill2_top"
-minetest.set_node(pos, node)
-end,
-   groups = {not_in_creative_inventory = 1},
-   node_box = {
-       type = "fixed",
-       fixed = {
-          --body
-          {0.5, -0.5, 0.5, -0.5, -0.4, -0.5},
-          {0.4, -0.4, 0.4, -0.4, -0.3, -0.4},
-       },  
-   }
+		grill_texture
+	},
+	drawtype = "nodebox",
+	drop = '',
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+    -- open lid
+		if minetest.get_node(below(pos)).name == grill2_on_no_light_name then 
+			minetest.swap_node(below(pos), {name = grill2_on_name}) 
+		end
+    
+    minetest.swap_node(pos, {name = grill_top_open_name})
+	end,
+	groups = {not_in_creative_inventory = 1},
+	node_box = top_closed_nodebox
+})
+
+minetest.register_node(grill_top_open_name, {
+	description = "Grill lid",
+	tiles = {
+		grill_texture
+	},
+	drawtype = "nodebox",
+	drop = '',
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+    -- close lid
+		if minetest.get_node(below(pos)).name == grill2_on_name then 
+			minetest.swap_node(below(pos), {name = grill2_on_no_light_name}) 
+		end
+    
+    minetest.swap_node(pos, {name = grill_top_name})
+	end,
+	groups = {not_in_creative_inventory = 1},
+	node_box = top_open_nodebox
 })
