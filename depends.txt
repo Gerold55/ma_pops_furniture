@@ -1,6 +1,0 @@
-default
-fire
-wool
-dye
-mobs_mc?
-farming

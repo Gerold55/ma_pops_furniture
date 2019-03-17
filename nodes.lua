@@ -975,8 +975,8 @@ minetest.register_node("ma_pops_furniture:coffee_cup", {
 	tiles = {
 		"mp_cof_top.png",
 		"mp_cof_top.png",
-		"mp_cofc_right.png",
-		"mp_cofc_left.png",
+		"mp_cof_right.png",
+		"mp_cof_left.png",
 		"mp_cof_back.png",
 		"mp_cof_front.png"
 	},
@@ -3485,88 +3485,6 @@ minetest.register_node('ma_pops_furniture:doorbell_ring', {
 	}
 })
 
-minetest.register_node("ma_pops_furniture:grill", {
-   description = "Grill",
-   tiles = {
-		"default_coal_block.png^mp_grillt.png",
-		"default_stone.png",
-		"default_stone.png^mp_grills.png",
-		"default_stone.png^mp_grills.png",
-		"default_stone.png^mp_grills.png",
-		"default_stone.png^mp_grills.png"
-},
-   drawtype = "nodebox",
-   paramtype = "light",
-   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:grill_on"
-minetest.set_node(pos, node)
-end,
-   groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-   node_box = {
-       type = "fixed",
-       fixed = {
-           {-0.450, -0.5, -0.450, -0.350, -0.3, -0.350},
-           {0.450, -0.5, -0.450, 0.350, -0.3, -0.350},
-           {-0.450, -0.5, 0.450, -0.350, -0.3, 0.350},
-           {0.450, -0.5, 0.450, 0.350, -0.3, 0.350},
-  
-           {-0.4, -0.3, -0.4, -0.3, 0.0, -0.3},
-           {0.4, -0.3, -0.4, 0.3, 0.0, -0.3},
-           {-0.4, -0.3, 0.4, -0.3, 0.0, 0.3},
-           {0.4, -0.3, 0.4, 0.3, 0.0, 0.3},
-
-           {-0.4, -0.0, -0.4, 0.4, 0.2, 0.4},
-           {-0.5, 0.190, -0.5, 0.5, 0.4, 0.5},
-
-          {-0.4375, 0.4, 0.5, -0.5, 0.5, -0.5},
-          {0.4375, 0.4, 0.5, 0.5, 0.5, -0.5},
-          {-0.5, 0.4, 0.4375, 0.5, 0.5, 0.5},
-          {-0.5, 0.4, -0.4375, 0.5, 0.5, -0.5},
-       },  
-   }
-})
-
-minetest.register_node("ma_pops_furniture:grill_on", {
-   description = "grill on",
-   tiles = {
-		"default_coal_block.png^mp_grillton.png",
-		"default_stone.png",
-		"default_stone.png^mp_grills.png",
-		"default_stone.png^mp_grills.png",
-		"default_stone.png^mp_grills.png",
-		"default_stone.png^mp_grills.png"
-},
-   drawtype = "nodebox",
-   paramtype = "light",
-   light_source = 14,
-   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:grill"
-minetest.set_node(pos, node)
-end,
-   groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
-   node_box = {
-       type = "fixed",
-       fixed = {
-           {-0.450, -0.5, -0.450, -0.350, -0.3, -0.350},
-           {0.450, -0.5, -0.450, 0.350, -0.3, -0.350},
-           {-0.450, -0.5, 0.450, -0.350, -0.3, 0.350},
-           {0.450, -0.5, 0.450, 0.350, -0.3, 0.350},
-  
-           {-0.4, -0.3, -0.4, -0.3, 0.0, -0.3},
-           {0.4, -0.3, -0.4, 0.3, 0.0, -0.3},
-           {-0.4, -0.3, 0.4, -0.3, 0.0, 0.3},
-           {0.4, -0.3, 0.4, 0.3, 0.0, 0.3},
-
-           {-0.4, -0.0, -0.4, 0.4, 0.2, 0.4},
-           {-0.5, 0.190, -0.5, 0.5, 0.4, 0.5},
-
-          {-0.4375, 0.4, 0.5, -0.5, 0.5, -0.5},
-          {0.4375, 0.4, 0.5, 0.5, 0.5, -0.5},
-          {-0.5, 0.4, 0.4375, 0.5, 0.5, 0.5},
-          {-0.5, 0.4, -0.4375, 0.5, 0.5, -0.5},
-       },  
-   }
-})
 
 minetest.register_node('ma_pops_furniture:stone_path_1', {
 	description = 'Stone Path',
