@@ -1784,6 +1784,62 @@ description = name.." Upper Cabinets",
 })
 end
 
+local counter_table = { --name, material
+{'Wooden', 'wood'},
+{'Acacia', 'acacia_wood'},
+{'Jungle', 'junglewood' },
+{'Pine', 'pine_wood'},
+}
+
+for i in ipairs (counter_table) do
+	local name = counter_table[i][1]
+	local material = counter_table[i][2]
+	local hex = counter_table[i][3]
+
+minetest.register_node("ma_pops_furniture:counter_"..material, {
+	description = name.. " Counter (Vertical Drawers)",
+	tiles = {
+		"default_"..material..".png",
+		"mp_enc_bottom.png",
+		"default_"..material..".png^mp_enc_right.png",
+		"default_"..material..".png^mp_enc_left.png",
+		"default_"..material..".png^mp_enc_back.png",
+		"default_"..material..".png^mp_enc_front.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		inv:set_size('main', 8*4)
+		inv:set_size('storage', 6*6)
+		meta:set_string('formspec',
+			'size [9,10]'..
+			'bgcolor[#080808BB;true]'..
+			'list[current_name;storage;1.5,.2;6,6;]'..
+			'list[current_player;main;0.5,6.5;8,4;]')
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('storage') and inv:is_empty('storage1')
+	end,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5},
+			{-0.4375, -0.375, -0.4375, -0.0625, 0.3125, -0.375},
+			{0.0625, -0.375, -0.4375, 0.4375, 0.3125, -0.375},
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5},
+			{-0.1875, -0.0625, -0.5, -0.125, 0, -0.4375},
+			{0.125, -0.0625, -0.5, 0.1875, 0, -0.4375},
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5},
+		}
+	},
+})
+
 minetest.register_node("ma_pops_furniture:upcabinet_corner", {
 description = "Upper Cabinets(corner)",
 	tiles = {
