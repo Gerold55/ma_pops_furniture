@@ -446,6 +446,7 @@ minetest.register_node('ma_pops_furniture:toilet_open', {
 	--inventory_image = 'fm_chair_stone.png',
 	paramtype = 'light',
 	paramtype2 = 'facedir',
+	drop = 'ma_pops_furniture:toilet_close',
 	sounds = default.node_sound_wood_defaults(),
 	selection_box = {
 		type = 'fixed',
@@ -1068,21 +1069,21 @@ minetest.register_node("ma_pops_furniture:cutting_board", {
 })
 
 local counter_table = { --name, color, colorize(hex or color name:intensity(1-255))
-{'Black', 'black', 'black:225'},
-{'Blue', 'blue', 'blue:150'},
-{'Brown', 'brown', 'brown:100'},
-{'Cyan', 'cyan', 'cyan:150'},
-{'Dark Green', 'dark_green', 'green:200'},
+{'Black', 'black', 'black:200'},
+{'Blue', 'blue', 'blue:125'},
+{'Brown', 'brown', 'brown:75'},
+{'Cyan', 'cyan', 'cyan:125'},
+{'Dark Green', 'dark_green', 'green:190'},
 --{'Dark Grey', 'dark_grey', 'black:200'},
-{'Green', 'green', '#32cd32:150'},
+{'Green', 'green', '#32cd32:125'},
 --{'Grey', 'grey', 'black:150'},
-{'Magenta', 'magenta', 'magenta:200'},
-{'Orange', 'orange', 'orange:150'},
-{'Pink', 'pink', 'pink:200'},
-{'Red', 'red', 'red:150'},
-{'Violet', 'violet', 'violet:150'},
-{'White', 'white', 'white:150'},
-{'Yellow', 'yellow', 'yellow:150'},
+{'Magenta', 'magenta', 'magenta:190'},
+{'Orange', 'orange', 'orange:125'},
+{'Pink', 'pink', 'pink:190'},
+{'Red', 'red', 'red:125'},
+{'Violet', 'violet', 'violet:125'},
+{'White', 'white', 'white:125'},
+{'Yellow', 'yellow', 'yellow:125'},
 }
 
 for i in ipairs (counter_table) do
@@ -1109,7 +1110,7 @@ minetest.register_node("ma_pops_furniture:counter_"..color, {
 		inv:set_size('main', 8*4)
 		inv:set_size('storage', 6*6)
 		meta:set_string('formspec',
-			'size [9,10]'..
+			'size [9,10.5]'..
 			'bgcolor[#080808BB;true]'..
 			'list[current_name;storage;1.5,.2;6,6;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
@@ -1335,7 +1336,7 @@ minetest.register_node("ma_pops_furniture:counter3_"..color, {
 		inv:set_size('main', 8*4)
 		inv:set_size('storage', 6*6)
 		meta:set_string('formspec',
-			'size [9,10]'..
+			'size [9,10.5]'..
 			'bgcolor[#080808BB;true]'..
 			'list[current_name;storage;1.5,.2;6,6;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
@@ -1558,7 +1559,7 @@ minetest.register_node("ma_pops_furniture:sink_" ..color, {
 		inv:set_size('main', 8*4)
 		inv:set_size('storage', 6*6)
 		meta:set_string('formspec',
-			'size [9,10]'..
+			'size [9,10.5]'..
 			'bgcolor[#080808BB;true]'..
 			'list[current_name;storage;1.5,.2;6,6;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
@@ -1681,7 +1682,7 @@ description = name.." Upper Cabinets",
 		inv:set_size('main', 8*4)
 		inv:set_size('storage', 3*3)
 		meta:set_string('formspec',
-			'size [9,10]'..
+			'size [9,10.5]'..
 			'bgcolor[#080808BB;true]'..
 			'list[current_name;storage;3,1.5;3,3;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
@@ -1815,7 +1816,7 @@ minetest.register_node("ma_pops_furniture:counter_"..material, {
 		inv:set_size('main', 8*4)
 		inv:set_size('storage', 6*6)
 		meta:set_string('formspec',
-			'size [9,10]'..
+			'size [9,10.5]'..
 			'bgcolor[#080808BB;true]'..
 			'list[current_name;storage;1.5,.2;6,6;]'..
 			'list[current_player;main;0.5,6.5;8,4;]')
@@ -1839,6 +1840,90 @@ minetest.register_node("ma_pops_furniture:counter_"..material, {
 		}
 	},
 })
+
+minetest.register_node("ma_pops_furniture:upcabinet_"..material, {
+description = name.." Upper Cabinets",
+	tiles = {
+		"default_"..material..".png^mp_up_top.png",
+		"default_"..material..".png^mp_up_bottom.png",
+		"default_"..material..".png^mp_up_right.png",
+		"default_"..material..".png^mp_up_left.png",
+		"default_"..material..".png",
+		"default_"..material..".png^mp_up_front.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		inv:set_size('main', 8*4)
+		inv:set_size('storage', 3*3)
+		meta:set_string('formspec',
+			'size [9,10]'..
+			'bgcolor[#080808BB;true]'..
+			'list[current_name;storage;3,1.5;3,3;]'..
+			'list[current_player;main;0.5,6.5;8,4;]')
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('storage') and inv:is_empty('storage1')
+	end,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.3125, -0.375, 0.5, 0.5, 0.5}, -- NodeBox1
+			{-0.4375, -0.25, -0.4375, -0.0625, 0.4375, -0.375}, -- NodeBox2
+			{0.0625, -0.25, -0.4375, 0.4375, 0.4375, -0.375}, -- NodeBox3
+			{-0.1875, -0.1875, -0.5, -0.125, 0, -0.4375}, -- NodeBox4
+			{0.125, -0.1875, -0.5, 0.1875, 0, -0.4375}, -- NodeBox5
+		}
+	},
+})
+
+minetest.register_node("ma_pops_furniture:sink_" ..material, {
+	description = name.. " Counter (Sink)",
+	tiles = {
+		"default_"..material..".png^mp_sink_top.png",
+		"mp_enc_bottom_wood.png",
+		"default_"..material..".png^mp_enc_right_wood.png",
+		"default_"..material..".png^mp_enc_left_wood.png",
+		"default_"..material..".png^mp_enc_back_wood.png",
+		"default_"..material..".png^mp_enc_front_wood.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		inv:set_size('main', 8*4)
+		inv:set_size('storage', 6*6)
+		meta:set_string('formspec',
+			'size [9,10]'..
+			'bgcolor[#080808BB;true]'..
+			'list[current_name;storage;1.5,.2;6,6;]'..
+			'list[current_player;main;0.5,6.5;8,4;]')
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('storage') and inv:is_empty('storage1')
+	end,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.375, 0.5, 0.375, 0.5}, -- NodeBox1
+			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox2
+			{-0.4375, -0.375, -0.4375, -0.0625, 0.3125, -0.375}, -- NodeBox3
+			{0.0625, -0.375, -0.4375, 0.4375, 0.3125, -0.375}, -- NodeBox4
+		}
+	},
+})
+end
 
 minetest.register_node("ma_pops_furniture:upcabinet_corner", {
 description = "Upper Cabinets(corner)",
@@ -3326,6 +3411,59 @@ minetest.register_node("ma_pops_furniture:computer", {
 })
 
 --Outside--
+local night_table = { --name, material, invimg
+{'Wood Mailbox', 'wood'},
+{'Acacia Wood Mailbox', 'acacia_wood'},
+{'Aspen Wood Mailbox', 'aspen_wood'},
+{'Pine Wood Mailbox', 'pine_wood'},
+{'Jungle Wood Mailbox', 'junglewood'}
+}
+
+for i in ipairs (night_table) do
+	local name = night_table[i][1]
+	local material = night_table[i][2]
+	local invimg = night_table[i][3]
+
+minetest.register_node('ma_pops_furniture:mailbox_'..material, {
+	description = name,
+	drawtype = 'nodebox',
+	tiles = {'default_'..material..'.png'},
+	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
+	paramtype = 'light',
+	paramtype2 = 'facedir',
+	sounds = default.node_sound_wood_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.env:get_meta(pos)
+		local inv = meta:get_inventory()
+		inv:set_size('main', 8*4)
+		inv:set_size('storage', 3*3)
+		meta:set_string('formspec',
+			'size [9,10]'..
+			'bgcolor[#080808BB;true]'..
+			'list[current_name;storage;3,1.5;3,3;]'..
+			'list[current_player;main;0.5,6.5;8,4;]')
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty('storage') and inv:is_empty('storage1')
+	end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.125, -0.5, -0.125, 0.125, 0.75, 0.125}, -- NodeBox7
+			{-0.25, 0.75, -0.3125, 0.25, 1.25, 0.3125}, -- NodeBox8
+			{-0.25, 0.75, -0.5, 0.25, 0.8125, -0.25}, -- NodeBox9
+			{-0.25, 1.1875, -0.5, 0.25, 1.25, -0.3125}, -- NodeBox10
+			{-0.25, 0.8125, -0.5, -0.1875, 1.1875, -0.3125}, -- NodeBox11
+			{0.1875, 0.75, -0.5, 0.25, 1.25, -0.3125}, -- NodeBox12
+			{-0.1875, 1.125, -0.5, 0.1875, 1.1875, -0.3125}, -- NodeBox13
+			{-0.1875, 0.8125, -0.5, 0.1875, 1, -0.4375}, -- NodeBox14
+		}
+	}
+})
+end
+
 function ma_pops_furniture.register_hedge(name, def)
 
 	-- register nodes
