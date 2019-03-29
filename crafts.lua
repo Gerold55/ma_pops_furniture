@@ -276,7 +276,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'ma_pops_furniture:upcabinet',
+	output = 'ma_pops_furniture:upcabinet_'..color,
 	recipe = {
 	{'group:wood','dye:'..color,'group:wood',},
 	{'group:wood','default:chest','group:wood',},
@@ -299,6 +299,68 @@ minetest.register_craft({
 	{'ma_pops_furniture:br_sink','ma_pops_furniture:counter_'..color,},
 	}
 })
+end
+
+local counter_table = { --name, material
+{'Wooden', 'wood'},
+{'Acacia', 'acacia_wood'},
+{'Jungle', 'junglewood' },
+{'Pine', 'pine_wood'},
+}
+
+for i in ipairs (counter_table) do
+	local name = counter_table[i][1]
+	local material = counter_table[i][2]
+	local hex = counter_table[i][3]
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:counter2_'..material,
+	recipe = {
+	{'default:'..material,'default:'..material,'default:'..material,},
+	{'default:'..material, 'ma_pops_furniture:counter2_white','default:'..material,},
+	{'default:'..material,'default:'..material,'default:'..material,},
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter3_'..material,
+	recipe =
+	{'ma_pops_furniture:counter2_'..material, "default:chest"}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter_'..material,
+	recipe =
+	{'ma_pops_furniture:counter3_'..material}
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:upcabinet_'..material,
+	recipe = {
+	{'default:'..material,'','default:'..material,},
+	{'default:'..material,'default:chest','default:'..material,},
+	{'default:'..material,'default:'..material,'default:'..material,},
+	}
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:upcabinet_corner',
+	recipe = {
+	{'default:'..material,'default:'..material,'default:'..material,},
+	{'default:'..material,'default:'..material,'default:chest',},
+	{'default:'..material,'','',},
+	}
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:sink_'..material,
+	recipe = {
+	{'ma_pops_furniture:br_sink','ma_pops_furniture:counter_'..material,},
+	}
+})
+
 end
 
 --added craft
