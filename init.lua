@@ -1,32 +1,13 @@
 ma_pops_furniture = {}
 
-dofile(minetest.get_modpath('ma_pops_furniture')..'/functions.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/formspecs.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/crafts.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/nodes.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/tools.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/freezer.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/microwave.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/oven.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/bathroom.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/bedroom.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/kitchen.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/living_room.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/dining_room.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/outside.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/misc.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/joyb.lua')
+dofile(minetest.get_modpath('ma_pops_furniture')..'/stereo.lua')
 dofile(minetest.get_modpath('ma_pops_furniture')..'/sofa.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/abm.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/fireplace.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/grill2.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/cooling.lua')
-
-
---GreenDimond's code from waffle mod
-local MP = minetest.get_modpath(minetest.get_current_modname())
-local S, NS = dofile(MP.."/intllib.lua")
-
-ma_pops_furniture.intllib = S
-dofile(minetest.get_modpath('ma_pops_furniture')..'/toaster.lua')
-dofile(minetest.get_modpath('ma_pops_furniture')..'/intllib.lua')
-
-minetest.register_alias("furniture_mod:toilet_closed", "ma_pops_furniture:toilet_closed")
-minetest.register_alias("furniture_mod:toilet_open", "ma_pops_furniture:toilet_open")
-minetest.register_alias("furniture_mod:tv", "ma_pops_furniture:tv")
-minetest.register_alias("furniture_mod:lamp", "ma_pops_furniture:lamp")
-minetest.register_alias("furniture_mod:lamp_off", "ma_pops_furniture:lamp_off")
-minetest.register_alias("furniture_mod:ceiling_light", "ma_pops_furniture:ceiling_lamp")
-minetest.register_alias("furniture_mod:ceiling_light_off", "ma_pops_furniture:ceiling_lamp_off")
+dofile(minetest.get_modpath('ma_pops_furniture')..'/tv.lua')

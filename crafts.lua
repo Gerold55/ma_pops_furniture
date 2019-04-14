@@ -131,6 +131,16 @@ minetest.register_craft({
 	}
 })
 end
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:barrel',
+	recipe = {
+	{'default:wood','default:wood','default:wood',},
+	{'default:wood','default:steel_ingot','default:wood',},
+	{'default:wood','default:wood','default:wood',},
+	}
+})
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:dw',
@@ -317,7 +327,7 @@ minetest.register_craft({
 	output = 'ma_pops_furniture:counter2_'..material,
 	recipe = {
 	{'default:'..material,'default:'..material,'default:'..material,},
-	{'default:'..material, 'ma_pops_furniture:counter2_white','default:'..material,},
+	{'default:'..material, 'ma_pops_furniture:barrel','default:'..material,},
 	{'default:'..material,'default:'..material,'default:'..material,},
 	}
 })
@@ -326,7 +336,7 @@ minetest.register_craft({
 	type = "shapeless",
 	output = 'ma_pops_furniture:counter3_'..material,
 	recipe =
-	{'ma_pops_furniture:counter2_'..material, "default:chest"}
+	{'ma_pops_furniture:counter2_'..material, "ma_pops_furniture:barrel"}
 })
 
 minetest.register_craft({
