@@ -1175,8 +1175,8 @@ minetest.register_node("ma_pops_furniture:toaster", {
    }
 })
 
-minetest.register_node("ma_pops_furniture:ma_pops_furniture_faucet", {
-   description = "ma_pops_furniture Faucet",
+minetest.register_node("ma_pops_furniture:br_faucet", {
+   description = "Bathroom Faucet",
    tiles = {
 		"mp_grif_top.png",
 		"mp_grif_sides.png",
