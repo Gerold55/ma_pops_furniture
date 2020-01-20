@@ -18,7 +18,7 @@ minetest.register_node('ma_pops_furniture:nightstand_'..material, {
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
@@ -28,7 +28,7 @@ minetest.register_node('ma_pops_furniture:nightstand_'..material, {
 			'size [9,10]'..
 			'bgcolor[#080808BB;true]'..
 			'list[current_name;storage;3,1.5;3,3;]'..
-			'list[current_player;main;0.5,6.5;8,4;]')
+			'list[current_player;main;0.5,6.2;8,4;]')
 	end,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);

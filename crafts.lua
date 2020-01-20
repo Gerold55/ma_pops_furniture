@@ -8,6 +8,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = 'ma_pops_furniture:br_tile',
+	recipe = {
+	{'dye:black','dye:white','dye:black',},
+	{'','default:stone_block','',},
+	{'dye:black','','dye:black',},
+	}
+})
+
+minetest.register_craft({
 	output = 'ma_pops_furniture:ceiling_lamp',
 	recipe = {
 	{'', 'default:stone', ''},
@@ -38,7 +47,7 @@ minetest.register_craft({
 	output = 'ma_pops_furniture:toilet_paper_roll_dispenser',
 	recipe = {
 	{'default:stone','default:stone','default:stone',},
-	{'default:paper','default:water','default:paper',},
+	{'default:paper','bucket:water','default:paper',},
 	{'','default:paper','',},
 	}
 })
@@ -314,6 +323,7 @@ end
 local counter_table = { --name, material
 {'Wooden', 'wood'},
 {'Acacia', 'acacia_wood'},
+{'Aspen', 'aspen_wood'},
 {'Jungle', 'junglewood' },
 {'Pine', 'pine_wood'},
 }
@@ -344,6 +354,13 @@ minetest.register_craft({
 	output = 'ma_pops_furniture:counter_'..material,
 	recipe =
 	{'ma_pops_furniture:counter3_'..material}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:counter1_'..material,
+	recipe =
+	{'ma_pops_furniture:counter2_'..material}
 })
 
 minetest.register_craft({
@@ -771,12 +788,35 @@ minetest.register_craft({
 	}
 })
 
+local unit_table = { --name, material
+{'Wood Entertainment Unit', 'wood'},
+{'Acacia Wood Entertainment Unit', 'acacia_wood'},
+{'Aspen Wood Entertainment Unit', 'aspen_wood'},
+{'Pine Wood Entertainment Unit', 'pine_wood'},
+{'Jungle Wood Entertainment Unit', 'junglewood'}
+}
+
+for i in ipairs (unit_table) do
+	local name = unit_table[i][1]
+	local material = unit_table[i][2]
+	local invimg = unit_table[i][3]
+	
 minetest.register_craft({
-	output = 'ma_pops_furniture:entertainment_unit',
+	output = 'ma_pops_furniture:e_u_'..material,
 	recipe = {
-	{'default:wood','default:wood','default:wood',},
-	{'default:wood','default:chest','default:wood',},
-	{'default:wood','default:wood','default:wood',},
+	{'default:'..material,'default:'..material,'default:'..material,},
+	{'default:'..material,'default:chest','default:'..material,},
+	{'default:'..material,'','default:'..material,},
+	}
+})
+end
+
+minetest.register_craft({
+	output = "ma_pops_furniture:trampoline",
+	recipe = {
+		{"farming:string", "farming:string", "farming:string"},
+		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "", "default:steel_ingot"}
 	}
 })
 
@@ -911,28 +951,6 @@ minetest.register_craft({
 })
 end
 
-local end_table = { --name, material, invimg
-{'wood'},
-{'aspen_wood'},
-{'junglewood'},
-{'acacia_wood'},
-{'pine_wood'},
-{'cobble'}
-}
-
-for i in ipairs (end_table) do
-	local material = end_table[i][1]
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:end_table_'..material,
-	recipe = {
-	{'default:'..material, 'default:'..material, 'default:'..material},
-	{'default:'..material, '', 'default:'..material},
-	{'default:'..material, '', 'default:'..material}
-	}
-})
-end
-
 minetest.register_craft({
 	output = 'ma_pops_furniture:computer',
 	recipe = {
@@ -957,9 +975,18 @@ for i in ipairs (table) do
 minetest.register_craft({
 	output = 'ma_pops_furniture:table_'..material,
 	recipe = {
-	{'default:'..material, 'default:'..material, 'default:'..material},
-	{'', 'default:'..material, ''},
-	{'', 'default:'..material, ''}
+	{'stairs:slab_'..material..'wood', 'stairs:slab_'..material..'wood', 'stairs:slab_'..material..'wood'},
+	{'', 'default:stick', ''},
+	{'', 'default:stick', ''}
+	}
+})
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:table_'..material,
+	recipe = {
+	{'stairs:slab_wood', 'stairs:slab_wood', 'stairs:slab_wood'},
+	{'', 'default:stick', ''},
+	{'', 'default:stick', ''}
 	}
 })
 end
@@ -984,6 +1011,7 @@ minetest.register_craft({
 		}
 })
 end
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:birdbath',
@@ -993,6 +1021,25 @@ minetest.register_craft({
 	{'default:stone','default:stone','default:stone',},
 	}
 })
+
+--added craft
+minetest.register_craft({
+	output = 'ma_pops_furniture:tile_kitchen',
+	recipe = {
+	{'default:stone_block','dye:white','default:stone_block',},
+	{'dye:black','default:stone_block','dye:black',},
+	{'default:stone_block','dye:white','default:stone_block',},
+	}
+})
+
+--added craft
+minetest.register_craft({
+	output = 'ma_pops_furniture:tile_floor_kitchen',
+	recipe = {
+	{'default:stone_block','ma_pops_furniture:hammer',},
+	}
+})
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:doorbell 4',
@@ -1058,6 +1105,40 @@ minetest.register_craft({
 	{'default:steel_ingot','','default:steel_ingot',},
 	}
 })
+
+minetest.register_craft({
+	output = 'ma_pops_furniture:fridge_white',
+	recipe = {
+	{'default:steelblock','default:steelblock','default:steelblock',},
+	{'default:steelblock','default:chest','default:steelblock',},
+	{'default:steelblock','default:furnace','default:steelblock',}
+	}
+})
+
+--added craft
+local fridges_list = {
+	{"black", "Darkened Fridge", color1}, 
+	{"blue", "Blue Fridge", color2},
+	{"green", "Green Fridge", color3}, 
+	{"orange", "Orange Fridge", color5}, 
+	{"red", "Red Fridge", color6}, 
+	{"yellow", "Yellow Fridge", color7}, 
+	{"pink", "Pink Fridge", color8}
+}
+
+for i, fridge in ipairs(fridges_list) do
+    local colour = fridge[1]
+    local fridgedesc = fridge[2]
+    local colour2 = fridge[3]
+	
+minetest.register_craft({
+	type = "shapeless",
+	output = 'ma_pops_furniture:fridge_'..colour,
+	recipe =
+	{'ma_pops_furniture:fridge_white', 'dye:'..colour}
+})
+end
+
 --added craft
 minetest.register_craft({
 	output = 'ma_pops_furniture:stone_path_1 5',

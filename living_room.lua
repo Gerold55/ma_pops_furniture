@@ -6,7 +6,7 @@ minetest.register_node('ma_pops_furniture:fireplace', {
 	groups = {cracky=2, oddly_breakable_by_hand=6, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	on_construct = function(pos)
 			local meta = minetest.env:get_meta(pos)
 			local inv = meta:get_inventory()
@@ -32,7 +32,7 @@ minetest.register_node('ma_pops_furniture:fireplace_on', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	drops = 'ma_pops_furniture:fireplace',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
@@ -61,7 +61,17 @@ minetest.register_node('ma_pops_furniture:c_'..material, {
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+     for _, obj in ipairs (minetest.get_connected_players())  do
+        local item = obj:get_wielded_item():get_name()
+        if item == 'ma_pops_furniture:c_'..material then
+            node.name = 'ma_pops_furniture:end_table_'..material
+               minetest.set_node(pos, node)
+        else
+        end
+    end
+end,
+	sounds = moditems.WOOD_SOUNDS,
 	node_box = {
        type = "fixed",
        fixed = {
@@ -97,7 +107,7 @@ minetest.register_node('ma_pops_furniture:end_table_'..material, {
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	node_box = {
        type = "fixed",
        fixed = {
@@ -131,6 +141,7 @@ minetest.register_node("ma_pops_furniture:e_u_"..material, {
 	drawtype= "nodebox",
 	paramtype= "light",
 	paramtype2 = "facedir",
+	sounds = moditems.WOOD_SOUNDS,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
@@ -175,6 +186,7 @@ minetest.register_node('ma_pops_furniture:vcr_on', {
 	paramtype= "light",
 	paramtype2 = "facedir",
 	drop = 'ma_pops_furniture:vcr_off',
+	sounds = moditems.WOOD_SOUNDS,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, not_in_creative_inventory=1, furniture = 1},
 	node_box= {
 		type= "fixed",
@@ -203,6 +215,7 @@ minetest.register_node('ma_pops_furniture:vcr_off', {
 	paramtype= "light",
 	paramtype2 = "facedir",
 	drop = 'ma_pops_furniture:vcr_off',
+	sounds = moditems.WOOD_SOUNDS,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
 	node_box= {
 		type= "fixed",
@@ -383,6 +396,7 @@ minetest.register_node("ma_pops_furniture:fs_"..color, {
 	tiles = {"wool_"..color..".png","wool_"..color..".png^mp_cb.png","wool_"..color..".png^mp_cf.png","wool_"..color..".png^mp_cf.png","wool_"..color..".png^mp_cf.png","wool_"..color..".png^mp_cf.png",},
     drawtype = "nodebox",
     paramtype = "light",
+	sounds = moditems.WOOD_SOUNDS,
     groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, furniture = 1},
     node_box = {
         type = "fixed",

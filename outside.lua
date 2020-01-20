@@ -1,56 +1,3 @@
-local night_table = { --name, material, invimg
-{'Wood Mailbox', 'wood'},
-{'Acacia Wood Mailbox', 'acacia_wood'},
-{'Aspen Wood Mailbox', 'aspen_wood'},
-{'Pine Wood Mailbox', 'pine_wood'},
-{'Jungle Wood Mailbox', 'junglewood'}
-}
-
-for i in ipairs (night_table) do
-	local name = night_table[i][1]
-	local material = night_table[i][2]
-	local invimg = night_table[i][3]
-
-minetest.register_node('ma_pops_furniture:mailbox_'..material, {
-	description = name,
-	drawtype = 'nodebox',
-	tiles = {'default_'..material..'.png'},
-	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
-	paramtype = 'light',
-	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
-	on_construct = function(pos)
-		local meta = minetest.env:get_meta(pos)
-		local inv = meta:get_inventory()
-		inv:set_size('main', 8*4)
-		inv:set_size('storage', 3*3)
-		meta:set_string('formspec',
-			'size [9,10]'..
-			'bgcolor[#080808BB;true]'..
-			'list[current_name;storage;3,1.5;3,3;]'..
-			'list[current_player;main;0.5,6.5;8,4;]')
-	end,
-	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
-		local inv = meta:get_inventory()
-		return inv:is_empty('storage') and inv:is_empty('storage1')
-	end,
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.125, -0.5, -0.125, 0.125, 0.75, 0.125}, -- NodeBox7
-			{-0.25, 0.75, -0.3125, 0.25, 1.25, 0.3125}, -- NodeBox8
-			{-0.25, 0.75, -0.5, 0.25, 0.8125, -0.25}, -- NodeBox9
-			{-0.25, 1.1875, -0.5, 0.25, 1.25, -0.3125}, -- NodeBox10
-			{-0.25, 0.8125, -0.5, -0.1875, 1.1875, -0.3125}, -- NodeBox11
-			{0.1875, 0.75, -0.5, 0.25, 1.25, -0.3125}, -- NodeBox12
-			{-0.1875, 1.125, -0.5, 0.1875, 1.1875, -0.3125}, -- NodeBox13
-			{-0.1875, 0.8125, -0.5, 0.1875, 1, -0.4375}, -- NodeBox14
-		}
-	}
-})
-end
-
 function ma_pops_furniture.register_hedge(name, def)
 
 	-- register nodes
@@ -203,7 +150,7 @@ minetest.register_node('ma_pops_furniture:birdbath', {
 	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 })
 
 minetest.register_node('ma_pops_furniture:doorbell', {
@@ -220,13 +167,14 @@ minetest.register_node('ma_pops_furniture:doorbell', {
 	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
+	sounds = moditems.STONE_SOUNDS,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		node.name = "ma_pops_furniture:doorbell_ring"
 		minetest.swap_node(pos, node)
 		-- one second ring.
 		minetest.get_node_timer(pos):start(1.0)
 	end,
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -256,7 +204,7 @@ minetest.register_node('ma_pops_furniture:doorbell_ring', {
 	end,
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -275,7 +223,7 @@ minetest.register_node('ma_pops_furniture:stone_path_1', {
 	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-.5, -.5, -.5, .5, -.4, .5},
@@ -301,7 +249,7 @@ minetest.register_node('ma_pops_furniture:stone_path_'..i, {
 	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1, not_in_creative_inventory=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	drop = 'ma_pops_furniture:stone_path_1',
 	selection_box = {
 		type = 'fixed',
@@ -327,6 +275,7 @@ minetest.register_node("ma_pops_furniture:outdoor_lamp", {
    drawtype = "nodebox",
    paramtype = "light",
    paramtype2 = "facedir",
+   sounds = moditems.STONE_SOUNDS,
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
    node.name = "ma_pops_furniture:outdoor_lamp_on"
    minetest.set_node(pos, node)
@@ -355,6 +304,7 @@ minetest.register_node("ma_pops_furniture:outdoor_lamp_on", {
    paramtype2 = "facedir",
    light_source =  14,
    drop = 'ma_pops_furniture:outdoor_lamp',
+   sounds = moditems.STONE_SOUNDS,
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
    node.name = "ma_pops_furniture:outdoor_lamp"
 minetest.set_node(pos, node)
@@ -366,4 +316,24 @@ end,
            {-0.125, 0.25, -0.125, 0.125, 0.5, 0.125},
        },
    }
+})
+
+minetest.register_node("ma_pops_furniture:trampoline", {
+	description = "Trampoline",
+	tiles = {"mp_trampoline_top.png", "default_coal_block.png", "mp_trampoline_side.png"},
+	drawtype="nodebox",
+	paramtype2="facedir",
+	paramtype="light",
+	groups = {cracky=3, oddly_breakable_by_hand=1, fall_damage_add_percent=-80, bouncy=90},
+	sounds = {wood = {name="xdecor_bouncy", gain=0.8}},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.3125, -0.5, 0.5, 0, 0.5}, -- NodeBox1
+			{0.1875, -0.5, 0.1875, 0.5, -0.3125, 0.5}, -- NodeBox2
+			{-0.5, -0.5, 0.1875, -0.1875, -0.3125, 0.5}, -- NodeBox3
+			{-0.5, -0.5, -0.5, -0.1875, -0.3125, -0.1875}, -- NodeBox4
+			{0.1875, -0.5, -0.5, 0.5, -0.3125, -0.1875}, -- NodeBox5
+		},
+	}
 })

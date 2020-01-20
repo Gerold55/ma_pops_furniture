@@ -87,7 +87,7 @@ minetest.register_node("ma_pops_furniture:oven", {
 	groups = {cracky = 2, tubedevice = 1, tubedevice_receiver = 1},
 	legacy_facedir_simple = true,
 	is_ground_content = false,
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",

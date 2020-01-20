@@ -34,6 +34,7 @@ minetest.register_node("ma_pops_furniture:counter_"..color, {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
+	sounds = moditems.WOOD_SOUNDS,
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
@@ -158,6 +159,7 @@ minetest.register_node("ma_pops_furniture:counter2_"..color, {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
+	sounds = moditems.WOOD_SOUNDS,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -260,6 +262,7 @@ minetest.register_node("ma_pops_furniture:counter3_"..color, {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
+	sounds = moditems.WOOD_SOUNDS,
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
@@ -382,6 +385,7 @@ minetest.register_node("ma_pops_furniture:counter1_" ..color, {
 	},
 	drawtype = "nodebox",
 	paramtype = "light",
+	sounds = moditems.WOOD_SOUNDS,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
 	node_box = {
 		type = "fixed",
@@ -483,6 +487,7 @@ minetest.register_node("ma_pops_furniture:sink_" ..color, {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
+	sounds = moditems.WOOD_SOUNDS,
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
@@ -503,13 +508,13 @@ minetest.register_node("ma_pops_furniture:sink_" ..color, {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, -- NodeBox1
-			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5}, -- NodeBox2
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5}, -- NodeBox1
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, -- NodeBox2
 			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox3
-			{-0.4375, -0.375, -0.4375, 0, 0.3125, -0.375}, -- NodeBox4
+			{-0.4375, -0.375, -0.4375, -0.0625, 0.3125, -0.375}, -- NodeBox4
 			{0.0625, -0.375, -0.4375, 0.4375, 0.3125, -0.375}, -- NodeBox5
 			{-0.1875, -0.0625, -0.5, -0.125, 0, -0.4375}, -- NodeBox6
-			{0.125, -0.0625, -0.5, 0.1875, 0, 0.5}, -- NodeBox7
+			{0.125, -0.0625, -0.5, 0.1875, 0, -0.4375}, -- NodeBox7
 		}
 	},
 	on_punch = function(pos, node, clicker)
@@ -893,13 +898,13 @@ minetest.register_node("ma_pops_furniture:sink_" ..material, {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, -- NodeBox1
-			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5}, -- NodeBox2
+			{-0.5, -0.5, -0.3125, 0.5, -0.4375, 0.5}, -- NodeBox1
+			{-0.5, -0.4375, -0.375, 0.5, 0.375, 0.5}, -- NodeBox2
 			{-0.5, 0.375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox3
-			{-0.4375, -0.375, -0.4375, 0, 0.3125, -0.375}, -- NodeBox4
+			{-0.4375, -0.375, -0.4375, -0.0625, 0.3125, -0.375}, -- NodeBox4
 			{0.0625, -0.375, -0.4375, 0.4375, 0.3125, -0.375}, -- NodeBox5
 			{-0.1875, -0.0625, -0.5, -0.125, 0, -0.4375}, -- NodeBox6
-			{0.125, -0.0625, -0.5, 0.1875, 0, 0.5}, -- NodeBox7
+			{0.125, -0.0625, -0.5, 0.1875, 0, -0.4375}, -- NodeBox7
 		}
 	},
 })
@@ -981,51 +986,6 @@ description = "Upper Cabinets(corner)",
 		type = "fixed",
 		fixed = {
 			{-0.5, -0.3125, -0.5, 0.5, 0.5, 0.5},
-		}
-	}
-})
-
-minetest.register_node("ma_pops_furniture:fridge", {
-	description= "Fridge",
-	tiles = {
-		"mp_fridge_top.png",
-		"mp_fridge_bottom.png",
-		"mp_fridge_right.png",
-		"mp_fridge_left.png",
-		"mp_fridge_back.png",
-		"mp_fridge_front.png"
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	paramtype2 = "facedir",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
-		on_construct = function(pos)
-		local meta = minetest.env:get_meta(pos)
-		local inv = meta:get_inventory()
-		inv:set_size('main', 8*4)
-		inv:set_size('storage', 6*4)
-		meta:set_string('formspec',
-			'size [9,10]'..
-			default.gui_bg..
-			default.gui_bg_img..
-			default.gui_slots..
-			'bgcolor[#080808BB;true]'..
-			'list[current_name;storage;1.5,1;6,4;]'..
-			'list[current_player;main;0.5,6;8,4;]')
-	end,
-	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
-		local inv = meta:get_inventory()
-		return inv:is_empty('storage') and inv:is_empty('storage1')
-	end,
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.3125, 0.5, 0.5, 0.5}, -- NodeBox1
-			{-0.5, -0.4375, -0.375, 0.4375, 0.5, -0.3125}, -- NodeBox2
-			{0.3125, -0.25, -0.5, 0.375, 0.25, -0.4375}, -- NodeBox6
-			{0.3125, -0.25, -0.4375, 0.375, -0.1875, -0.375}, -- NodeBox7
-			{0.3125, 0.1875, -0.4375, 0.375, 0.25, -0.375}, -- NodeBox8
 		}
 	}
 })
@@ -1175,8 +1135,8 @@ minetest.register_node("ma_pops_furniture:toaster", {
    }
 })
 
-minetest.register_node("ma_pops_furniture:br_faucet", {
-   description = "Bathroom Faucet",
+minetest.register_node("ma_pops_furniture:faucet_kitchen", {
+   description = "Kitchen Faucet",
    tiles = {
 		"mp_grif_top.png",
 		"mp_grif_sides.png",
@@ -1224,6 +1184,36 @@ minetest.register_node("ma_pops_furniture:cutting_board", {
    }
 })
 
+minetest.register_node("ma_pops_furniture:tile_kitchen", {
+   description = "White Kitchen Tile",
+   tiles = {
+		"mp_kitchen_tile.png",
+		"mp_kitchen_tile.png",
+		"mp_kitchen_tile.png",
+		"mp_kitchen_tile.png",
+		"mp_kitchen_tile.png",
+		"mp_kitchen_tile.png"
+	},
+   paramtype = "light",
+   paramtype2 = "facedir",
+   groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+})
+
+minetest.register_node("ma_pops_furniture:tile_floor_kitchen", {
+   description = "Checker Kitchen Floor Tile",
+   tiles = {
+		"mp_kitchen_floor_tile.png",
+		"mp_kitchen_floor_tile.png",
+		"mp_kitchen_floor_tile.png",
+		"mp_kitchen_floor_tile.png",
+		"mp_kitchen_floor_tile.png",
+		"mp_kitchen_floor_tile.png"
+	},
+   paramtype = "light",
+   paramtype2 = "facedir",
+   groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
+})
+
 minetest.register_node('ma_pops_furniture:trash_can', {
 	description = 'Trash Can',
 	drawtype = 'nodebox',
@@ -1240,7 +1230,7 @@ minetest.register_node('ma_pops_furniture:trash_can', {
 			{-0.125, 0.4375, -0.3125, 0.125, 0.5, 0.3125}, -- NodeBox3
 		}
 	},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 		on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec",

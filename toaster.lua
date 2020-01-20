@@ -26,10 +26,6 @@ minetest.register_node("ma_pops_furniture:toaster", {
    },
 })
 
-minetest.override_item("farming:bread", {
-	description = S("Bread"),
-})
-
 local function breadslice_on_use(itemstack, user, pointed_thing)
 	local node, pos
 	if pointed_thing.under then
@@ -182,5 +178,6 @@ if not minetest.registered_items["farming:bread_slice"] then
 		output = 'ma_pops_furniture:breadslice 2',
 		type = "shapeless",
 		recipe = {"farming:bread", "ma_pops_furniture:knife"},
+		replacements = {{"ma_pops_furniture:knife", "ma_pops_furniture:knife"}},
 	})
 end

@@ -86,6 +86,7 @@ minetest.register_node(grill_name, {
    drawtype = "nodebox",
    drop = grill_name,
    paramtype = "light",
+   sounds = moditems.WOOD_SOUNDS,
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
       minetest.swap_node(pos, {name = grill_on_name})
    end,
@@ -107,6 +108,7 @@ minetest.register_node("ma_pops_furniture:grill_on", {
   drop = grill_name,
   paramtype = "light",
   light_source = 10,
+  sounds = moditems.WOOD_SOUNDS,
   on_rightclick = function (pos, node, player, itemstack, pointed_thing)
     minetest.swap_node(pos, {name = grill_name})
   end,
@@ -127,6 +129,7 @@ minetest.register_node(grill2_off_name, {
 	drawtype = "nodebox",
 	drop = grill2_off_name,
 	paramtype = "light",
+	sounds = moditems.WOOD_SOUNDS,
   
 	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
     local node_above = minetest.get_node(above(pos))

@@ -1,5 +1,5 @@
 minetest.register_node("ma_pops_furniture:bath_faucet", {
-   description = "ma_pops_furniture Faucet",
+   description = "Bathroom Faucet",
    tiles = {
 		"mp_knob_top.png",
 		"mp_knob_bottom.png",
@@ -59,7 +59,7 @@ minetest.register_node('ma_pops_furniture:toilet_open', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	drop = 'ma_pops_furniture:toilet_close',
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -90,7 +90,7 @@ minetest.register_node('ma_pops_furniture:toilet_close', {
 	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {
@@ -114,7 +114,7 @@ minetest.register_node('ma_pops_furniture:toilet_close', {
 })
 
 minetest.register_node("ma_pops_furniture:br_sink", {
-   description = "Sink (ma_pops_furniture)",
+   description = "Sink (Bathroom)",
    tiles = {
 		"mp_hw_top.png",
 		"mp_hw_bottom.png",
@@ -265,14 +265,14 @@ minetest.register_node("ma_pops_furniture:shower_top", {
 })
 
 minetest.register_node('ma_pops_furniture:br_tile', {
-	description = 'ma_pops_furniture Tile',
+	description = 'Bathroom Tile',
 	drawtype = 'nodebox',
 	tiles = {
-		"mp_ma_pops_furniture_tile.png"
+		"mp_bathroom_tile.png"
 	},
 	groups = {cracky=2, oddly_breakable_by_hand=5, furniture=1},
 	paramtype = 'light',
-	sounds = default.node_sound_stone_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	node_box = {
 		type = "fixed",
 		fixed = {

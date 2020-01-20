@@ -110,7 +110,7 @@ minetest.register_node("ma_pops_furniture:smoke_detector_on", {
 	end,
 	drawtype = "nodebox",
 	paramtype = "light",
-	light_source = default.LIGHT_MAX - 1,
+	light_source = light,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -138,12 +138,12 @@ minetest.register_node("ma_pops_furniture:barrel", {
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {
-		"ws_barrel.png", --top
-		"ws_barrel.png", --bottom
-		"ws_barrel.png^[transformR90", --right
-		"ws_barrel.png^[transformR90", --left
-		"ws_barrel_top.png", --back
-		"ws_barrel_top.png" --front
+		"mp_barrel.png", --top
+		"mp_barrel.png", --bottom
+		"mp_barrel.png^[transformR90", --right
+		"mp_barrel.png^[transformR90", --left
+		"mp_barrel_top.png", --back
+		"mp_barrel_top.png" --front
 	},
 	is_ground_content = false,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wood = 1},
@@ -310,7 +310,7 @@ end,
 })
 
 minetest.register_node("ma_pops_furniture:fan_on", {
-   description = "fan (on)",
+   description = "Fan (on)",
    tiles = {
 		"default_coral_skeleton.png",
 		"default_coral_skeleton.png",
@@ -342,7 +342,7 @@ end,
    }
 })
 minetest.register_node("ma_pops_furniture:fan_off", {
-   description = "fan",
+   description = "Fan",
    tiles = {
 		"default_coral_skeleton.png",
 		"default_coral_skeleton.png",
@@ -354,7 +354,6 @@ minetest.register_node("ma_pops_furniture:fan_off", {
    drawtype = "nodebox",
    drop = 'ma_pops_furniture:fan_off',
    paramtype2 = "facedir",
-   light_source = 14,
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
 node.name = "ma_pops_furniture:fan_on"
 minetest.set_node(pos, node)
@@ -1063,7 +1062,7 @@ minetest.register_node("ma_pops_furniture:computer", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {snappy=2, oddly_breakable_by_hand=2, furniture=1, flammable=1},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -1218,3 +1217,135 @@ minetest.register_node("ma_pops_furniture:stool_"..color, {
 		 end
 })
 end
+
+minetest.register_node("ma_pops_furniture:stairs", {
+	description= "Stairs",
+	tiles = {
+		"default_coral_skeleton.png",
+		"default_coral_skeleton.png",
+		"default_coral_skeleton.png^mp_stairs_side.png",
+		"default_coral_skeleton.png^mp_stairs_side.png^[transformFX",
+		"default_coral_skeleton.png^mp_stairs_back.png",
+		"default_coral_skeleton.png^mp_stairs_front.png"
+	},
+	drawtype = "mesh",
+	mesh= "stairs.obj",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky = 3, oddly_breakable_by_hand = 3},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, 0.375, 0, 0.5, 0.5, 0.5}, -- NodeBox18
+			{-0.5, -0.125, -0.5, 0.5, 0, 0}, -- NodeBox19
+			{-0.0625, -0.375, -0.3125, 0.0625, -0.125, -0.1875}, -- NodeBox20
+			{-0.0625, -0.25, 0.1875, 0.0625, 0.375, 0.3125}, -- NodeBox21
+			{-0.0625, -0.375, -0.1875, 0.0625, -0.25, 0.3125}, -- NodeBox23
+			{-0.0625, -0.25, 0.0625, 0.0625, -0.125, 0.1875}, -- NodeBox24
+		}
+	}
+})
+
+minetest.register_node("ma_pops_furniture:lamp_1", {
+        description = "lamp",
+        	tiles = {
+		"default_stone.png",
+		"default_stone.png",
+		"default_stone.png",
+		"default_stone.png",
+		"default_stone.png",
+		"default_stone.png"
+	},
+	groups = {cracky=2, oddly_breakable_by_hand=3},
+	on_construct = function(pos)
+    if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name == "air" then 
+    minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "ma_pops_furniture:lamp_2_off"}) 
+    end 
+    
+	 if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "air" then 
+	 if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "ma_pops_furniture:lamp_2_off" then 
+	 minetest.set_node({x = pos.x, y = pos.y, z = pos.z},{name = "air"}) 
+	 end
+	 end
+	 
+	end,
+	
+	on_dig = function(pos, node, player)
+   minetest.set_node({x = pos.x , y = pos.y + 1, z = pos.z}, {name = "air"}) 
+   minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
+   end,
+	
+	drawtype = "nodebox",
+	paramtype = "light",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.25, -0.5, -0.25, 0.25, -0.375, 0.25}, -- NodeBox16
+			{-0.0625, -0.375, -0.0625, 0.0625, 0.5, 0.0625}, -- NodeBox17
+		}
+	}
+})
+
+minetest.register_node("ma_pops_furniture:lamp_2_on", {
+        description = "lamp2",
+        	tiles = {
+		"mp_lt.png",
+		"mp_lt.png",
+		"default_stone.png^mp_ls_top.png",
+		"default_stone.png^mp_ls_top.png",
+		"default_stone.png^mp_ls_top.png",
+		"default_stone.png^mp_ls_top.png"
+	},
+	groups = {cracky=2, oddly_breakable_by_hand=3, not_in_creative_inventory = 1},
+	drop = "test:node_1",
+		on_dig = function(pos, node, player)
+   minetest.set_node({x = pos.x , y = pos.y - 1, z = pos.z}, {name = "air"}) 
+   minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
+   end,
+	drawtype = "nodebox",
+	paramtype = "light",
+	light_source =  14,
+    drop = 'ma_pops_furniture:lamp_2_off',
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+   node.name = "ma_pops_furniture:lamp_2_off"
+   minetest.set_node(pos, node)
+   end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.0625, -0.375, 0.375, 0.5, 0.375}, -- NodeBox16
+			{-0.0625, -0.5, -0.0625, 0.0625, 0.1875, 0.0625}, -- NodeBox17
+		}
+	}
+})
+
+minetest.register_node("ma_pops_furniture:lamp_2_off", {
+        description = "lamp2",
+        	tiles = {
+		"mp_lt.png",
+		"mp_lt.png",
+		"default_stone.png^mp_ls_top.png",
+		"default_stone.png^mp_ls_top.png",
+		"default_stone.png^mp_ls_top.png",
+		"default_stone.png^mp_ls_top.png"
+	},
+	groups = {cracky=2, oddly_breakable_by_hand=3, not_in_creative_inventory = 1},
+	drop = "test:node_1",
+		on_dig = function(pos, node, player)
+   minetest.set_node({x = pos.x , y = pos.y - 1, z = pos.z}, {name = "air"}) 
+   minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
+   end,
+	drawtype = "nodebox",
+	paramtype = "light",
+	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
+   node.name = "ma_pops_furniture:lamp_2_on"
+   minetest.set_node(pos, node)
+   end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.375, -0.0625, -0.375, 0.375, 0.5, 0.375}, -- NodeBox16
+			{-0.0625, -0.5, -0.0625, 0.0625, 0.1875, 0.0625}, -- NodeBox17
+		}
+		}
+})

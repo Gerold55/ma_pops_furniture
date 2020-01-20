@@ -8,7 +8,7 @@ minetest.register_node('ma_pops_furniture:tv_rainbow', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 14,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
@@ -44,7 +44,7 @@ minetest.register_node('ma_pops_furniture:tv_blast', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 14,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
@@ -80,7 +80,7 @@ minetest.register_node('ma_pops_furniture:tv_static', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 14,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
@@ -116,7 +116,7 @@ minetest.register_node('ma_pops_furniture:tv_cube', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 14,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
@@ -149,7 +149,7 @@ minetest.register_node('ma_pops_furniture:tv_off', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 1,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.WOOD_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-.45, -.5, -.5, .45, .4, .45},  -- Right, Bottom, Back, Left, Top, Front
@@ -184,7 +184,7 @@ minetest.register_node('ma_pops_furniture:lcd_tv_off', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 1,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-0.98, -.5, -.10, 0.98, .8, .10},  -- Right, Bottom, Back, Left, Top, Front
@@ -219,7 +219,7 @@ minetest.register_node('ma_pops_furniture:lcd_tv_rainbow', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 1,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	drop = "ma_pops_furniture:lcd_tv_off",
 	selection_box = {
 		type = 'fixed',
@@ -256,7 +256,7 @@ minetest.register_node('ma_pops_furniture:lcd_tv_blast', {
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	light_source = 14,
-	sounds = default.node_sound_wood_defaults(),
+	sounds = moditems.STONE_SOUNDS,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-0.98, -.5, -.10, 0.98, .8, .10},  -- Right, Bottom, Back, Left, Top, Front
