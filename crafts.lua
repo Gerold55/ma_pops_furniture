@@ -975,16 +975,7 @@ for i in ipairs (table) do
 minetest.register_craft({
 	output = 'ma_pops_furniture:table_'..material,
 	recipe = {
-	{'stairs:slab_'..material..'wood', 'stairs:slab_'..material..'wood', 'stairs:slab_'..material..'wood'},
-	{'', 'default:stick', ''},
-	{'', 'default:stick', ''}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:table_'..material,
-	recipe = {
-	{'stairs:slab_wood', 'stairs:slab_wood', 'stairs:slab_wood'},
+	{'stairs:slab_'..material, 'stairs:slab_'..material, 'stairs:slab_'..material},
 	{'', 'default:stick', ''},
 	{'', 'default:stick', ''}
 	}
