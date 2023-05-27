@@ -16,16 +16,11 @@ minetest.register_node('ma_pops_furniture:chair_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
+	groups = {choppy=2, oddly_breakable_by_hand=1, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = moditems.WOOD_SOUNDS,
 	can_dig = ma_pops_furniture.sit_dig,
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		pos.y = pos.y + 0  -- Sitting position
-		ma_pops_furniture.sit(pos, node, clicker, pointed_thing)
-		return itemstack
-	end,
 	node_box = {
 		type = "fixed",
 		fixed = {
