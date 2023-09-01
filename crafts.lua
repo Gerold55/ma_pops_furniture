@@ -929,6 +929,15 @@ minetest.register_craft({
 		}
 })
 
+minetest.register_craft({
+	output = 'ma_pops_furniture:lcd_tv_off',
+	recipe = {
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
+		{'default:steel_ingot', 'wool:black', 'default:steel_ingot'},
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'}
+		}
+})
+
 local c_table = { --name, material, invimg
 {'wood'},
 {'aspen_wood'},
