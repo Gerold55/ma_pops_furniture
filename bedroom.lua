@@ -15,7 +15,7 @@ minetest.register_node('ma_pops_furniture:nightstand_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {choppy=2, oddly_breakable_by_hand=2, furniture=1, flammable=1},
+	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = moditems.WOOD_SOUNDS,

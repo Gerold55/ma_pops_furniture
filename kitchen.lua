@@ -1100,7 +1100,7 @@ minetest.register_node("ma_pops_furniture:coffee_cup", {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {choppy=2, oddly_breakable_by_hand=2, furniture=1},
+	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -1218,7 +1218,7 @@ minetest.register_node('ma_pops_furniture:trash_can', {
 	description = 'Trash Can',
 	drawtype = 'nodebox',
 	tiles = {'default_steel_block.png'},
-	groups = {cracky=2, oddly_breakable_by_hand=2, furniture=1},
+	groups = {cracky=2, oddly_breakably_by_hand=2, furniture=1},
 	--inventory_image = 'fm_chair_stone.png',
 	paramtype = 'light',
 	paramtype2 = 'facedir',

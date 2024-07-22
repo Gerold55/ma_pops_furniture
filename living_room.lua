@@ -3,7 +3,7 @@ minetest.register_node('ma_pops_furniture:fireplace', {
 	drawtype = 'mesh',
 	mesh = 'FM_fireplace_off.obj',
 	tiles = {{name='default_brick.png'},{name='xpanes_bar.png'}},
-	groups = {cracky=2, oddly_breakable_by_hand=1, furniture=1},
+	groups = {cracky=2, oddly_breakable_by_hand=6, furniture=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = moditems.STONE_SOUNDS,
@@ -31,7 +31,7 @@ minetest.register_node('ma_pops_furniture:fireplace_on', {
 	light_source = 14,
 	paramtype = 'light',
 	paramtype2 = 'facedir',
-	drop = 'ma_pops_furniture:fireplace',
+	drops = 'ma_pops_furniture:fireplace',
 	sounds = moditems.STONE_SOUNDS,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
@@ -58,7 +58,7 @@ minetest.register_node('ma_pops_furniture:c_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {choppy=2, oddly_breakable_by_hand=2, furniture=1, flammable=1},
+	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	on_rightclick = function (pos, node, player, itemstack, pointed_thing)
@@ -104,7 +104,7 @@ minetest.register_node('ma_pops_furniture:end_table_'..material, {
 	description = name,
 	drawtype = 'nodebox',
 	tiles = {'default_'..material..'.png'},
-	groups = {choppy=2, oddly_breakable_by_hand=2, furniture=1, flammable=1},
+	groups = {choppy=2, oddly_breakably_by_hand=2, furniture=1, flammable=1},
 	paramtype = 'light',
 	paramtype2 = 'facedir',
 	sounds = moditems.WOOD_SOUNDS,

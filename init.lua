@@ -38,7 +38,7 @@ _doc_items_longdesc = moditems.STRING_ITEM
 
 local sounds
 
-if minetest.get_modpath("mcl_sounds") then
+if mcl_sounds then
    sounds = mcl_sounds.node_sound_metal_defaults()
 else
    if default.node_sound_metal_defaults then

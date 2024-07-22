@@ -390,25 +390,6 @@ minetest.register_craft({
 
 end
 
---added craft
-minetest.register_craft({
-	output = 'ma_pops_furniture:fridge',
-	recipe = {
-	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
-	{'default:steel_ingot','default:snow','default:steel_ingot',},
-	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
-	}
-})
---added craft
-minetest.register_craft({
-	output = 'ma_pops_furniture:freezer',
-	recipe = {
-	{'default:steel_ingot','default:mese_crystal','default:steel_ingot',},
-	{'default:steel_ingot','default:ice','default:steel_ingot',},
-	{'default:steel_ingot','default:mese_crystal','default:steel_ingot',},
-	}
-})
-
 local chair2_table = { --color
 {'black'},
 {'blue'},
@@ -621,154 +602,41 @@ minetest.register_craft({
 })
 end
 
-local fs_table = { --color
-{'black'},
-{'blue'},
-{'brown'},
-{'cyan'},
-{'dark_green'},
-{'dark_grey'},
-{'green'},
-{'grey'},
-{'magenta'},
-{'orange'},
-{'pink'},
-{'red'},
-{'violet'},
-{'yellow'},
+local fs_table = { -- colors
+    'black', 'blue', 'brown', 'cyan', 'dark_green', 'dark_grey', 'green',
+    'grey', 'magenta', 'orange', 'pink', 'red', 'violet', 'yellow'
 }
 
-for i in ipairs (fs_table) do
-	local color = fs_table[i][1]
-	
+-- Register crafting recipes for creating the initial white curtains
 minetest.register_craft({
-	output = 'ma_pops_furniture:fs_'..color,
-	recipe = {
-	{'wool:'..color, 'wool:'..color, 'wool:'..color, },
-	{'group:wood', '', 'group:wood', },
-	}
+    output = 'ma_pops_furniture:fs_white',
+    recipe = {
+        {'wool:white', 'wool:white', 'wool:white'},
+        {'group:wood', '', 'group:wood'},
+    }
 })
 
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_'..color,
-	recipe = {
-	{'ma_pops_furniture:fs_white', 'dye:'..color}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_white',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:white'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:'..color}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_black',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:black'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_blue',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:blue'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_brown',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:brown'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_cyan',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:cyan'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_dark_grey',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:dark_grey'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_grey',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:grey'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_green',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:green'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_magenta',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:magenta'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_orange',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:orange'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_pink',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:pink'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_red',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:red'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_violet',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:violet'}
-	}
-})
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_yellow',
-	recipe = {
-	{'ma_pops_furniture:fs_'..color, 'dye:yellow'}
-	}
-})
+-- Register crafting recipes for creating colored curtains
+for _, color in ipairs(fs_table) do
+    minetest.register_craft({
+        output = 'ma_pops_furniture:fs_' .. color,
+        recipe = {
+            {'wool:' .. color, 'wool:' .. color, 'wool:' .. color},
+            {'group:wood', '', 'group:wood'},
+        }
+    })
 end
 
-minetest.register_craft({
-	output = 'ma_pops_furniture:fs_white',
-	recipe = {
-	{'wool:white', 'wool:white', 'wool:white', },
-	{'group:wood', '', 'group:wood', },
-	}
-})
+-- Register crafting recipes for dyeing curtains
+for _, color in ipairs(fs_table) do
+    minetest.register_craft({
+        output = 'ma_pops_furniture:fs_' .. color,
+        recipe = {
+            {'ma_pops_furniture:fs_white', 'dye:' .. color}
+        }
+    })
+end
+
 
 minetest.register_craft({
 	output = 'ma_pops_furniture:fs_rainbow',
@@ -929,15 +797,6 @@ minetest.register_craft({
 		}
 })
 
-minetest.register_craft({
-	output = 'ma_pops_furniture:lcd_tv_off',
-	recipe = {
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'default:steel_ingot', 'wool:black', 'default:steel_ingot'},
-		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'}
-		}
-})
-
 local c_table = { --name, material, invimg
 {'wood'},
 {'aspen_wood'},
@@ -969,27 +828,37 @@ minetest.register_craft({
 	}
 })
 
-local table = { --name, material, invimg
-{'wood'},
-{'aspen_wood'},
-{'junglewood'},
-{'acacia_wood'},
-{'pine_wood'},
-{'cobble'}
+local materials = { -- name
+    'wood',
+    'aspen_wood',
+    'junglewood',
+    'acacia_wood',
+    'pine_wood',
+    'cobble'
 }
 
-for i in ipairs (table) do
-	local material = table[i][1]
-
-minetest.register_craft({
-	output = 'ma_pops_furniture:table_'..material,
-	recipe = {
-	{'stairs:slab_'..material, 'stairs:slab_'..material, 'stairs:slab_'..material},
-	{'', 'default:stick', ''},
-	{'', 'default:stick', ''}
-	}
-})
+for _, material in ipairs(materials) do
+    -- Recipe using specific material slabs
+    minetest.register_craft({
+        output = 'ma_pops_furniture:table_' .. material,
+        recipe = {
+            {'stairs:slab_' .. material, 'stairs:slab_' .. material, 'stairs:slab_' .. material},
+            {'', 'default:stick', ''},
+            {'', 'default:stick', ''}
+        }
+    })
 end
+
+-- Optional: A generic recipe for 'wood' material (if needed)
+minetest.register_craft({
+    output = 'ma_pops_furniture:table_wood',
+    recipe = {
+        {'stairs:slab_wood', 'stairs:slab_wood', 'stairs:slab_wood'},
+        {'', 'default:stick', ''},
+        {'', 'default:stick', ''}
+    }
+})
+
 
 local hedge_table = { --name, material, invimg
 {'leaves'},
@@ -1109,9 +978,9 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'ma_pops_furniture:fridge_white',
 	recipe = {
-	{'default:steelblock','default:steelblock','default:steelblock',},
-	{'default:steelblock','default:chest','default:steelblock',},
-	{'default:steelblock','default:furnace','default:steelblock',}
+	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
+	{'default:steel_ingot','default:snow','default:steel_ingot',},
+	{'default:steel_ingot','default:steel_ingot','default:steel_ingot',},
 	}
 })
 
