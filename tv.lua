@@ -10,6 +10,7 @@ local function handle_rightclick(pos, node, sound_name, new_node_name)
 
     meta:set_string("hwnd", minetest.sound_play(sound_name, {
         gain = 0.5,
+        pos = pos,
         max_hear_distance = 25,
         loop = true
     }))
