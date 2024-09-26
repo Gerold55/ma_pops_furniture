@@ -20,7 +20,7 @@ minetest.register_abm({  -- Controls the contained fires.
 			meta:set_float('fuel_time', meta:get_float('fuel_time') + 0.25)
 			end
 		if meta:get_float('fuel_time') < meta:get_float('fuel_totaltime') then
-			minetest.sound_play({name='fire_small'},{gain=0.07},
+			minetest.sound_play({name='fire_small'},{gain=0.07, pos = pos},
 			{loop=true})
 			local percent = math.floor(meta:get_float('fuel_time') /
 			meta:get_float('fuel_totaltime') * 100)
