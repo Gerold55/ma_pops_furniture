@@ -1214,6 +1214,14 @@ minetest.register_node("ma_pops_furniture:tile_floor_kitchen", {
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 })
 
+local trash_spec =
+    "size[8,9]" ..
+    "button[0,0;2,1;empty;Empty Trash]" ..
+    "list[context;trashlist;3,1;2,3;]" ..
+    "list[current_player;main;0,5;8,4;]"..
+    "listring[]"
+
+
 minetest.register_node('ma_pops_furniture:trash_can', {
 	description = 'Trash Can',
 	drawtype = 'nodebox',
@@ -1233,12 +1241,7 @@ minetest.register_node('ma_pops_furniture:trash_can', {
 	sounds = moditems.WOOD_SOUNDS,
 		on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec",
-			"size[8,9]" ..
-			"button[0,0;2,1;empty;Empty Trash]" ..
-			"list[context;trashlist;3,1;2,3;]" ..
-			"list[current_player;main;0,5;8,4;]"
-		)
+		meta:set_string("formspec", trash_spec)
 		meta:set_string("infotext", "Trash Can")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
@@ -1268,7 +1271,8 @@ minetest.register_node('ma_pops_furniture:trash_can', {
 			inv:set_list("trashlist", {})
 			minetest.sound_play("trash", {to_player=sender:get_player_name(), gain = 1.0})
 			minetest.log("action", sender:get_player_name() ..
-				" empties trash can at " .. minetest.pos_to_string(pos))
+                                     " empties trash can at " .. minetest.pos_to_string(pos))
+                        meta:set_string("formspec", trash_spec)
 		end
 	end
 })
