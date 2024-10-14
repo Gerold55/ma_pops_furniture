@@ -191,7 +191,7 @@ minetest.register_node("ma_pops_furniture:blinds", {
    }
 })
 
-minetest.register_node("ma_pops_furniture:light", {	
+minetest.register_node("ma_pops_furniture:light", {
 	description = "Ceiling Light",
 	tiles = {
 		"default_coral_skeleton.png",
@@ -219,7 +219,7 @@ minetest.register_node("ma_pops_furniture:light", {
 	}
 })
 
-minetest.register_node("ma_pops_furniture:light_on", {	
+minetest.register_node("ma_pops_furniture:light_on", {
 	description = "Ceiling Light",
 	tiles = {
 		"default_coral_skeleton.png",
@@ -325,20 +325,21 @@ minetest.register_node("ma_pops_furniture:fan_on", {
 				length = 0.3
 			},
 		},
-},
+   },
+   use_texture_alpha = "clip",
    drawtype = "nodebox",
    drop = 'ma_pops_furniture:fan_off',
    paramtype2 = "facedir",
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:fan_off"
-minetest.set_node(pos, node)
-end,
+       node.name = "ma_pops_furniture:fan_off"
+       minetest.set_node(pos, node)
+   end,
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1},
    node_box = {
        type = "fixed",
        fixed = {
           {-0.5, 0.5, 0.2, 0.5, -0.5, -0.2},
-       },  
+       },
    }
 })
 minetest.register_node("ma_pops_furniture:fan_off", {
@@ -350,20 +351,21 @@ minetest.register_node("ma_pops_furniture:fan_off", {
 		"default_coral_skeleton.png",
 	    "mp_fan_off.png",
 		"mp_fan_off.png",
-},
+   },
+   use_texture_alpha = "clip",
    drawtype = "nodebox",
    drop = 'ma_pops_furniture:fan_off',
    paramtype2 = "facedir",
    on_rightclick = function (pos, node, player, itemstack, pointed_thing)
-node.name = "ma_pops_furniture:fan_on"
-minetest.set_node(pos, node)
-end,
+       node.name = "ma_pops_furniture:fan_on"
+       minetest.set_node(pos, node)
+   end,
    groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
    node_box = {
        type = "fixed",
        fixed = {
           {-0.5, 0.5, 0.2, 0.5, -0.5, -0.2},
-       },  
+       },
    }
 })
 
@@ -387,7 +389,7 @@ minetest.register_node("ma_pops_furniture:ac", {
        fixed = {
           {0.5, 0.5, 0.5, -0.5, -0.5, -0.4},
           {0.5, 0.2, -0.5, -0.5, -0.5, -0.4},
-       },  
+       },
    }
 })
 
@@ -740,8 +742,8 @@ minetest.register_node("ma_pops_furniture:computer", {
 			{-0.5, -0.5, -0.1875, 0.5, -0.25, 0.5},
 			{-0.5, -0.5, -0.5, 0.1875, -0.375, -0.25},
 			{0.25, -0.5, -0.5, 0.4375, -0.375, -0.25},
-			{-0.125, -0.25, 0.0625, 0.125, -0.0625, 0.25}, 
-			{-0.3125, -0.125, -0.25, 0.3125, 0.5, 0.3125}, 
+			{-0.125, -0.25, 0.0625, 0.125, -0.0625, 0.25},
+			{-0.3125, -0.125, -0.25, 0.3125, 0.5, 0.3125},
 			{-0.25, 0, 0.3125, 0.25, 0.375, 0.5},
 		}
 	}
@@ -879,18 +881,18 @@ minetest.register_node("ma_pops_furniture:lamp_1", {
     },
     groups = {cracky=2, oddly_breakable_by_hand=3},
     on_construct = function(pos)
-        if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name == "air" then 
-            minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "ma_pops_furniture:lamp_2_off"}) 
-        end 
-        
+        if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name == "air" then
+            minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "ma_pops_furniture:lamp_2_off"})
+        end
+
         if minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "air" and
-           minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "ma_pops_furniture:lamp_2_off" then 
-            minetest.set_node({x = pos.x, y = pos.y, z = pos.z},{name = "air"}) 
+           minetest.get_node(vector.add(pos, vector.new(0, 1, 0))).name ~= "ma_pops_furniture:lamp_2_off" then
+            minetest.set_node({x = pos.x, y = pos.y, z = pos.z},{name = "air"})
         end
     end,
     on_dig = function(pos, node, player)
-        minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "air"}) 
-        minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
+        minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z}, {name = "air"})
+        minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"})
     end,
     drawtype = "nodebox",
     paramtype = "light",
@@ -917,8 +919,8 @@ minetest.register_node("ma_pops_furniture:lamp_2_on", {
     groups = {cracky=2, oddly_breakable_by_hand=3, not_in_creative_inventory = 1},
     drop = "test:node_1",
     on_dig = function(pos, node, player)
-        minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, {name = "air"}) 
-        minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
+        minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, {name = "air"})
+        minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"})
     end,
     drawtype = "nodebox",
     paramtype = "light",
@@ -951,8 +953,8 @@ minetest.register_node("ma_pops_furniture:lamp_2_off", {
     groups = {cracky=2, oddly_breakable_by_hand=3, not_in_creative_inventory = 1},
     drop = "test:node_1",
     on_dig = function(pos, node, player)
-        minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, {name = "air"}) 
-        minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"}) 
+        minetest.set_node({x = pos.x, y = pos.y - 1, z = pos.z}, {name = "air"})
+        minetest.set_node({x = pos.x, y = pos.y, z = pos.z}, {name = "air"})
     end,
     drawtype = "nodebox",
     paramtype = "light",
