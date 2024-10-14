@@ -6,13 +6,13 @@
 
 -- enable extra popsicle types provided there are both vessels and fruits/veggies available
 -- fruit + glass -> juice; juice @ freezer -> popsicle + empty glass
- 
+
 --
 -- Formspecs
 --
 
 local function active_formspec(fuel_percent, item_percent)
-	local formspec = 
+	local formspec =
 		"size[8,8.5]"..
 		default.gui_bg..
 		default.gui_bg_img..
@@ -57,7 +57,7 @@ local function can_dig(pos, player)
 	return inv:is_empty("dst") and inv:is_empty("src")
 end
 
-	      
+
 local function allow_metadata_inventory_put(pos, listname, index, stack, player)
 	if minetest.is_protected(pos, player:get_player_name()) then
 		return 0
@@ -71,7 +71,7 @@ local function allow_metadata_inventory_put(pos, listname, index, stack, player)
 	end
 end
 
-	      
+
 local function allow_metadata_inventory_move(pos, from_list, from_index, to_list, to_index, count, player)
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
@@ -79,7 +79,7 @@ local function allow_metadata_inventory_move(pos, from_list, from_index, to_list
 	return allow_metadata_inventory_put(pos, to_list, to_index, stack, player)
 end
 
-	      
+
 local function allow_metadata_inventory_take(pos, listname, index, stack, player)
 	if minetest.is_protected(pos, player:get_player_name()) then
 		return 0
@@ -87,7 +87,7 @@ local function allow_metadata_inventory_take(pos, listname, index, stack, player
 	return stack:get_count()
 end
 
-	      
+
 local function swap_node(pos, name)
 	local node = minetest.get_node(pos)
 	if node.name == name then
@@ -97,7 +97,7 @@ local function swap_node(pos, name)
 	minetest.swap_node(pos, node)
 end
 
-	      
+
 local function freezer_node_timer(pos, elapsed)
 	--
 	-- Inizialize metadata
@@ -117,7 +117,7 @@ local function freezer_node_timer(pos, elapsed)
 	--
 
 	-- takes both regular and river water
-	if inv:contains_item("src", "bucket:bucket_water") or 
+	if inv:contains_item("src", "bucket:bucket_water") or
 	      inv:contains_item("src", "bucket:bucket_river_water") then
 		if inv:room_for_item("dst", "default:ice") then
 			inv:remove_item("src", "bucket:bucket_water")
@@ -126,32 +126,39 @@ local function freezer_node_timer(pos, elapsed)
 			inv:add_item("dst", "bucket:bucket_empty")
 	      end
 	end
-	      
+
 	-- Check if we have cookable content
 	return
 end
 
-	      
+
 --
 -- Node definitions
 --
-color1 = minetest.setting_get("color1") or "292421"
-color2 = minetest.setting_get("color2") or "0000FF"
-color3 = minetest.setting_get("color3") or "00FF00"
-color4 = minetest.setting_get("color4") or "F5F5F5"
-color5 = minetest.setting_get("color5") or "FF6103"
-color6 = minetest.setting_get("color6") or "FF0000"
-color7 = minetest.setting_get("color7") or "FFFF00"
-color8 = minetest.setting_get("color8") or "FF69B4"
+local Settings = minetest.settings
+local function get_color(number)
+    local col = Settings:get("ma_pops_fridge_color"..number)
+    if col == "" then return nil end
+    return col
+end
+
+local color1 = get_color("1") or "292421"
+local color2 = get_color("2") or "0000FF"
+local color3 = get_color("3") or "00FF00"
+local color4 = get_color("4") or "F5F5F5"
+local color5 = get_color("5") or "FF6103"
+local color6 = get_color("6") or "FF0000"
+local color7 = get_color("7") or "FFFF00"
+local color8 = get_color("8") or "FF69B4"
 
 local fridges_list = {
-	{"black", "Darkened Fridge", color1}, 
+	{"black", "Darkened Fridge", color1},
 	{"blue", "Blue Fridge", color2},
-	{"green", "Green Fridge", color3}, 
-	{"white", "White Fridge", color4}, 
-	{"orange", "Orange Fridge", color5}, 
-	{"red", "Red Fridge", color6}, 
-	{"yellow", "Yellow Fridge", color7}, 
+	{"green", "Green Fridge", color3},
+	{"white", "White Fridge", color4},
+	{"orange", "Orange Fridge", color5},
+	{"red", "Red Fridge", color6},
+	{"yellow", "Yellow Fridge", color7},
 	{"pink", "Pink Fridge", color8}
 }
 
@@ -199,7 +206,7 @@ for i, fridge in ipairs(fridges_list) do
 				return true
 			end
 		end,
-		
+
 		on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
 		local inv = meta:get_inventory()
@@ -211,19 +218,19 @@ for i, fridge in ipairs(fridges_list) do
 			'list[current_name;storage;2,1.5;6,4;]'..
 			'list[current_player;main;0.5,6.2;8,4;]')
 	end,
-			
+
 		on_destruct = function(pos)
 			local node = minetest.env:get_node(pos)
 			local param2 = node.param2
 			local abovepos = {x=pos.x, y=pos.y+1, z=pos.z}
 			local abovenode = minetest.env:get_node(abovepos)
 			  if abovenode.name == "ma_pops_furniture:fridge_top_"..colour and
-				  abovenode.param2 == param2 then 
+				  abovenode.param2 == param2 then
 						minetest.env:remove_node(abovepos)
-				end	
+				end
 		end,
-		
-		
+
+
 	})
 
 minetest.register_node("ma_pops_furniture:fridge_top_"..colour, {
@@ -252,7 +259,7 @@ minetest.register_node("ma_pops_furniture:fridge_top_"..colour, {
 				{0.375, -0.25, -0.4375, 0.4375, 0.125, -0.375}, -- NodeBox6
 			}
 		},
-	                                     
+
 	can_dig = can_dig,
 
 	on_timer = freezer_node_timer,
@@ -288,9 +295,9 @@ minetest.register_node("ma_pops_furniture:fridge_top_"..colour, {
 	allow_metadata_inventory_take = allow_metadata_inventory_take,
 })
 minetest.register_alias("fridges:fridge_"..colour, "fridges:fridge_bottom_"..colour)
-	
+
 end
-	      
+
 minetest.register_craft({
       output = "default:snowblock 3",
       type = "shapeless",

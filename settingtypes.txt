@@ -1,0 +1,9 @@
+ma_pops_fridge_color1 (Darkened Fridge color) string 292421
+ma_pops_fridge_color2 (Blue Fridge color) string 0000FF
+ma_pops_fridge_color3 (Green Fridge color) string 00FF00
+ma_pops_fridge_color4 (White Fridge color) string F5F5F5
+ma_pops_fridge_color5 (Orange Fridge color) string FF6103
+ma_pops_fridge_color6 (Red Fridge color) string FF0000
+ma_pops_fridge_color7 (Yellow Fridge color) string FFFF00
+ma_pops_fridge_color8 (Pink Fridge color) string FF69B4
+
