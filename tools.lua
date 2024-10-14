@@ -1,5 +1,15 @@
 local USES = 200 --how many times you can use the tool before it breaks.
 
+local function in_creative(user)
+    local creative =
+        minetest.settings:get_bool("creative_mode") -- Global setting
+    if minetest.is_player(user) then -- Check user setting, too
+        creative = creative
+            or minetest.is_creative_enabled(user:get_player_name())
+    end
+    return creative
+end
+
 minetest.register_tool('ma_pops_furniture:hammer', {
 	description = 'Hammer',
 	inventory_image = 'mp_hammer.png',
@@ -26,10 +36,10 @@ minetest.register_tool('ma_pops_furniture:hammer', {
 		{'white'},
 		{'yellow'},
 		}
-	
+
 		for i in ipairs (sofa_table) do
 		local color = sofa_table[i][1]
-	
+
 			if node.name == 'ma_pops_furniture:sofa_'..color then
 				minetest.set_node(pos,{name = 'ma_pops_furniture:sofa_r_'..color, param2=node.param2})
 			end
@@ -46,12 +56,12 @@ minetest.register_tool('ma_pops_furniture:hammer', {
 				minetest.set_node(pos,{name = 'ma_pops_furniture:sofa_'..color, param2=node.param2})
 			end
 		end
-		if not minetest.setting_getbool("creative_mode") then
+		if not in_creative(user) then
 			itemstack:add_wear(65535 / (USES - 1))
 		end
 		return itemstack
 	end,
-	
+
 	on_place = function(itemstack, user, pointed_thing)
 		if pointed_thing.type ~= 'node' then
 			return
@@ -65,7 +75,7 @@ minetest.register_tool('ma_pops_furniture:hammer', {
 			end
 		minetest.set_node(pos,{name = ""..node, param2 = newpara})
 
-		if not minetest.setting_getbool("creative_mode") then
+		if not in_creative(user) then
 			itemstack:add_wear(65535 / (USES - 1))
 		end
 		return itemstack
@@ -88,10 +98,10 @@ minetest.register_tool('ma_pops_furniture:shears', {
 		{'aspen_leaves'},
 		{'acacia_leaves'}
 		}
-	
+
 		for i in ipairs (hedge_table) do
 		local mat = hedge_table[i][1]
-	
+
 			if node.name == 'ma_pops_furniture:hedge_'..mat then
 				minetest.set_node(pos,{name = 'ma_pops_furniture:hedge_t_'..mat, param2=node.param2})
 			end
@@ -102,12 +112,12 @@ minetest.register_tool('ma_pops_furniture:shears', {
 				minetest.set_node(pos,{name = 'ma_pops_furniture:hedge_'..mat, param2=node.param2})
 			end
 		end
-		if not minetest.setting_getbool("creative_mode") then
+		if not in_creative(user) then
 			itemstack:add_wear(65535 / (USES - 1))
 		end
 		return itemstack
 	end,
-	
+
 	on_place = function(itemstack, user, pointed_thing)
 		if pointed_thing.type ~= 'node' then
 			return
@@ -121,7 +131,7 @@ minetest.register_tool('ma_pops_furniture:shears', {
 			end
 		minetest.set_node(pos,{name = ""..node, param2 = newpara})
 
-		if not minetest.setting_getbool("creative_mode") then
+		if not in_creative(user) then
 			itemstack:add_wear(65535 / (USES - 1))
 		end
 		return itemstack
