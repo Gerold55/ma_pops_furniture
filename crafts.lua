@@ -1,3 +1,5 @@
+local fc = ma_pops_furniture.fridge_color
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:smoke_detector',
 	recipe = {
@@ -409,7 +411,7 @@ local chair2_table = { --color
 
 for i in ipairs (chair2_table) do
 	local color = chair2_table[i][1]
-	
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:chair2_'..color,
 	recipe = {
@@ -563,7 +565,7 @@ local sofa_table = { --color
 
 for i in ipairs (sofa_table) do
 	local color = sofa_table[i][1]
-	
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:sofa_'..color,
 	recipe = {
@@ -668,7 +670,7 @@ for i in ipairs (unit_table) do
 	local name = unit_table[i][1]
 	local material = unit_table[i][2]
 	local invimg = unit_table[i][3]
-	
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:e_u_'..material,
 	recipe = {
@@ -719,7 +721,7 @@ for i in ipairs (lamp_table) do
 	local name = lamp_table[i][1]
 	local color = lamp_table[i][2]
 	local hex = lamp_table[i][3]
-	
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:lamp_off_'..color,
 	recipe = {
@@ -752,7 +754,7 @@ for i in ipairs (curtain_table) do
 	local name = curtain_table[i][1]
 	local color = curtain_table[i][2]
 	local hex = curtain_table[i][3]
-	
+
 minetest.register_craft({
 	output = 'ma_pops_furniture:curtains_'..color,
 	recipe = {
@@ -768,7 +770,7 @@ minetest.register_craft({
 	recipe =
 	{'ma_pops_furniture:curtains_'..color, 'ma_pops_furniture:curtains_'..color}
 })
-end 
+end
 
 minetest.register_craft({
 	output = 'ma_pops_furniture:blinds',
@@ -986,20 +988,20 @@ minetest.register_craft({
 
 --added craft
 local fridges_list = {
-	{"black", "Darkened Fridge", color1}, 
-	{"blue", "Blue Fridge", color2},
-	{"green", "Green Fridge", color3}, 
-	{"orange", "Orange Fridge", color5}, 
-	{"red", "Red Fridge", color6}, 
-	{"yellow", "Yellow Fridge", color7}, 
-	{"pink", "Pink Fridge", color8}
+    {"black", "Darkened Fridge", fc[1]},
+    {"blue", "Blue Fridge", fc[2]},
+    {"green", "Green Fridge", fc[3]},
+    {"orange", "Orange Fridge", fc[5]},
+    {"red", "Red Fridge", fc[6]},
+    {"yellow", "Yellow Fridge", fc[7]},
+    {"pink", "Pink Fridge", fc[8]}
 }
 
 for i, fridge in ipairs(fridges_list) do
     local colour = fridge[1]
     local fridgedesc = fridge[2]
     local colour2 = fridge[3]
-	
+
 minetest.register_craft({
 	type = "shapeless",
 	output = 'ma_pops_furniture:fridge_'..colour,

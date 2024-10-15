@@ -135,6 +135,8 @@ end
 --
 -- Node definitions
 --
+ma_pops_furniture.fridge_color = {}
+
 local Settings = minetest.settings
 local function get_color(number)
     local col = Settings:get("ma_pops_fridge_color"..number)
@@ -142,24 +144,24 @@ local function get_color(number)
     return col
 end
 
-local color1 = get_color("1") or "292421"
-local color2 = get_color("2") or "0000FF"
-local color3 = get_color("3") or "00FF00"
-local color4 = get_color("4") or "F5F5F5"
-local color5 = get_color("5") or "FF6103"
-local color6 = get_color("6") or "FF0000"
-local color7 = get_color("7") or "FFFF00"
-local color8 = get_color("8") or "FF69B4"
+ma_pops_furniture.fridge_color[1] = get_color("1") or "292421"
+ma_pops_furniture.fridge_color[2] = get_color("2") or "0000FF"
+ma_pops_furniture.fridge_color[3] = get_color("3") or "00FF00"
+ma_pops_furniture.fridge_color[4] = get_color("4") or "F5F5F5"
+ma_pops_furniture.fridge_color[5] = get_color("5") or "FF6103"
+ma_pops_furniture.fridge_color[6] = get_color("6") or "FF0000"
+ma_pops_furniture.fridge_color[7] = get_color("7") or "FFFF00"
+ma_pops_furniture.fridge_color[8] = get_color("8") or "FF69B4"
 
 local fridges_list = {
-	{"black", "Darkened Fridge", color1},
-	{"blue", "Blue Fridge", color2},
-	{"green", "Green Fridge", color3},
-	{"white", "White Fridge", color4},
-	{"orange", "Orange Fridge", color5},
-	{"red", "Red Fridge", color6},
-	{"yellow", "Yellow Fridge", color7},
-	{"pink", "Pink Fridge", color8}
+	{"black", "Darkened Fridge", ma_pops_furniture.fridge_color[1]},
+	{"blue", "Blue Fridge", ma_pops_furniture.fridge_color[2]},
+	{"green", "Green Fridge", ma_pops_furniture.fridge_color[3]},
+	{"white", "White Fridge", ma_pops_furniture.fridge_color[3]},
+	{"orange", "Orange Fridge", ma_pops_furniture.fridge_color[5]},
+	{"red", "Red Fridge", ma_pops_furniture.fridge_color[6]},
+	{"yellow", "Yellow Fridge", ma_pops_furniture.fridge_color[7]},
+	{"pink", "Pink Fridge", ma_pops_furniture.fridge_color[8]}
 }
 
 for i, fridge in ipairs(fridges_list) do
